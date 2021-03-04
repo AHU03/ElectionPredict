@@ -104,8 +104,21 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <None Include="Resources\colorgradient.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon32.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon64.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\USA.svg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

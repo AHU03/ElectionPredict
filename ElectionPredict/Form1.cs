@@ -61,10 +61,10 @@ namespace ElectionPredict
             }
         }
         //Extracts Colors from Gradient Image
-        private List<Color> ColorsExtract(string src)
+        private List<Color> ColorsExtract(Image src)
         {
             List<Color> Colors = new List<Color>();
-            Bitmap gradient = new Bitmap(Bitmap.FromFile(src));
+            Bitmap gradient = new Bitmap(src);
             for(int x = 0; x < gradient.Width; x++)
             {
                 Colors.Add(gradient.GetPixel(x, 0));
@@ -100,7 +100,7 @@ namespace ElectionPredict
             Dictionary<string, string[]> dict = CreateDictionary(src);
             List<int> Votes = new List<int>();
             string[] Parties = ColorCategories(src);
-            List<Color> Colors = ColorsExtract("colorgradient.png");
+            List<Color> Colors = ColorsExtract(Properties.Resources.colorgradient);
             for (int i = 0; i < Parties.Length; i++)
             {
                 Votes.Add(0);
@@ -146,9 +146,9 @@ namespace ElectionPredict
         }
         private void DrawMap(string src)
         {
-            var map = SvgDocument.Open(MetaExtract(src)[4]);
+            var map = SvgDocument.Open(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/"+MetaExtract(src)[4]);
             Dictionary<string, string[]> dict = CreateDictionary(src);
-            List<Color> Colors = ColorsExtract("colorgradient.png");
+            List<Color> Colors = ColorsExtract(Properties.Resources.colorgradient);
             string[] Parties = ColorCategories(src);
             List<List<string>> AssignedStates = new List<List<string>>();
             for(int i = 0; i < Parties.Length; i++)
@@ -205,7 +205,7 @@ namespace ElectionPredict
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string source = ("DataFiles/"+Convert.ToString(listPublications.SelectedItem) + "/" + Convert.ToString(listYears.SelectedItem)+".csv");
+            string source = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/DataFiles/" +Convert.ToString(listPublications.SelectedItem) + "/" + Convert.ToString(listYears.SelectedItem)+".csv");
             try
             {
                 DrawMap(source);
