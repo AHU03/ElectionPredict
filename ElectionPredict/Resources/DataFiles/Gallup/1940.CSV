@@ -1,5 +1,5 @@
 MapVis
-Willkie;Roosevelt;1940;Actual Results;usa.svg;colorgradientus.png;Election Results not considering faithless Electors
+Willkie;Roosevelt;1940;Gallup Final Poll;usa.svg;colorgradientus.png;Polling Averages on November 4, 52% for Roosevelt, 48% for Willkie, Source: The Gallup Poll: Public Opinion 1935 - 1971
 Republican;Leaning Republican;Tie;Leaning Democrat;Democrat
 AL;Democrat;11
 AK;NULL;0
@@ -7,14 +7,14 @@ AZ;Democrat;3
 AR;Democrat;9
 CA;Democrat;22
 CO;Republican;6
-CT;Democrat;8
+CT;Leaning Democrat;8
 DE;Democrat;3
 DC;NULL;0
 FL;Democrat;7
 GA;Democrat;12
 HI;NULL;0
-ID;Democrat;4
-IL;Democrat;29
+ID;Leaning Republican;4
+IL;Leaning Republican;29
 IN;Republican;14
 IA;Republican;11
 KS;Republican;9
@@ -22,24 +22,24 @@ KY;Democrat;11
 LA;Democrat;10
 ME;Republican;5
 MD;Democrat;8
-MA;Democrat;17
-MI;Republican;19
-MN;Democrat;11
-MS;Democrat;9
-MO;Democrat;15
+MA;Leaning Democrat;17
+MI;Leaning Republican;19
+MN;Leaning Democrat;11
+MS;Leaning Republican;9
+MO;Leaning Republican;15
 MT;Democrat;4
 NE;Republican;7
 NV;Democrat;3
-NH;Democrat;4
-NJ;Democrat;16
-NM;Democrat;3
-NY;Democrat;47
+NH;Leaning Republican;4
+NJ;Leaning Democrat;16
+NM;Leaning Democrat;3
+NY;Leaning Republican;47
 NC;Democrat;13
 ND;Republican;4
-OH;Democrat;26
+OH;Leaning Republican;26
 OK;Democrat;11
 OR;Democrat;5
-PA;Democrat;36
+PA;Leaning Republican;36
 RI;Democrat;4
 SC;Democrat;8
 SD;Republican;4
@@ -50,5 +50,5 @@ VT;Republican;3
 VA;Democrat;11
 WA;Democrat;8
 WV;Democrat;8
-WI;Democrat;12
-WY;Democrat;3
+WI;Leaning Republican;12
+WY;Leaning Democrat;3

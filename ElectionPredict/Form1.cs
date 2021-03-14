@@ -36,11 +36,20 @@ namespace ElectionPredict
             base.WndProc(ref m);
         }
         //Extracts Metadata
+        public string SourceFormatType(string src)
+        {
+            using (var reader = new StreamReader(src))
+            {
+                var data = reader.ReadLine();
+                return data;
+            }
+        }
         public string[] MetaExtract(string src)
         {
             using (var reader = new StreamReader(src))
             {
-                var data = reader.ReadLine().Split(',');
+                reader.ReadLine();
+                var data = reader.ReadLine().Split(';');
                 return data;
             }
         }
@@ -49,14 +58,15 @@ namespace ElectionPredict
         {
             TitleLabel.Text = (MetaExtract(src)[3] + ", " + MetaExtract(src)[2]);
             CandidatesLabel.Text = (MetaExtract(src)[0] + " v. " + MetaExtract(src)[1]);
-            RemarkLabel.Text = MetaExtract(src)[5];
+            RemarkLabel.Text = MetaExtract(src)[6];
         }
         public string[] ColorCategories(string src)
         {
             using (var reader = new StreamReader(src))
             {
                 reader.ReadLine();
-                var data = reader.ReadLine().Split(',');
+                reader.ReadLine();
+                var data = reader.ReadLine().Split(';');
                 return data;
             }
         }
@@ -80,6 +90,7 @@ namespace ElectionPredict
             {
                 reader.ReadLine();
                 reader.ReadLine();
+                reader.ReadLine();
                 while (reader.EndOfStream == false)
                 {
                     var line = reader.ReadLine();
@@ -87,12 +98,18 @@ namespace ElectionPredict
                     {
                         break;
                     }
-                    var values = line.Split(',');
+                    var values = line.Split(';');
                     string[] arrayvals = new string[] { values[1], values[2] };
                     dict.Add(values[0], arrayvals);
                 }
             }
             return dict;
+        }
+        public List<Color> GetGradient(string src)
+        {
+            string[] Parties = ColorCategories(src);
+            List<Color> Colors = ColorsExtract(Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/"+MetaExtract(src)[5]));
+            return Colors;
         }
         //Creates Bar at Top showing Electoral Votes
         private void DrawElectoralVotes(string src)
@@ -100,7 +117,7 @@ namespace ElectionPredict
             Dictionary<string, string[]> dict = CreateDictionary(src);
             List<int> Votes = new List<int>();
             string[] Parties = ColorCategories(src);
-            List<Color> Colors = ColorsExtract(Properties.Resources.colorgradient);
+            List<Color> Colors = GetGradient(src);
             for (int i = 0; i < Parties.Length; i++)
             {
                 Votes.Add(0);
@@ -118,12 +135,14 @@ namespace ElectionPredict
             int curxpos = 226;
             for(int i = 0; i < Parties.Length; i++)
             {
-                Panel votespanel = new Panel();
-                votespanel.Width = Convert.ToInt32(Convert.ToDouble(Votes[i]) / Convert.ToDouble(Votes.Sum()) * Convert.ToDouble(883));
-                votespanel.BackColor = Colors[i];
-                votespanel.Top = 167;
-                votespanel.Height = 34;
-                votespanel.Left = curxpos;
+                Panel votespanel = new Panel
+                {
+                    Width = Convert.ToInt32(Convert.ToDouble(Votes[i]) / Convert.ToDouble(Votes.Sum()) * Convert.ToDouble(883)),
+                    BackColor = Colors[i],
+                    Top = 167,
+                    Height = 34,
+                    Left = curxpos
+                };
                 curxpos = curxpos + votespanel.Width;
                 this.Controls.Add(votespanel);
                 votespanel.BringToFront();
@@ -132,23 +151,50 @@ namespace ElectionPredict
             int DEMvotes = 0;
             for(int i = 0; i < Votes.Count; i++)
             {
-                if (Convert.ToDouble(i) < Convert.ToDouble(Votes.Count) / 2 + 1)
+                if (Convert.ToDouble(i)+1 < Convert.ToDouble(Votes.Count) / Convert.ToDouble(2))
                 {
                     REPvotes = REPvotes + Votes[i];
                 }
-                if (Convert.ToDouble(i) > Convert.ToDouble(Votes.Count) / 2 + 1)
+                if (Convert.ToDouble(i)+1 > Convert.ToDouble(Votes.Count) / Convert.ToDouble(2))
                 {
                     DEMvotes = DEMvotes + Votes[i];
                 }
             }
             RepVotesLabel.Text = Convert.ToString(REPvotes);
             DemVotesLabel.Text = Convert.ToString(DEMvotes);
+            foreach (Control c in KeyGroupBox.Controls)
+            {
+                c.Visible = false;
+            }
+            int startypos = 23;
+            foreach (string party in Parties)
+            {
+                Panel legendcolour = new Panel();
+                Label legendname = new Label();
+                legendcolour.Visible = false;
+                legendname.Visible = false;
+                legendname.Font = RemarkLabel.Font;
+                legendname.Text = party;
+                legendcolour.Width = 15;
+                legendcolour.Height = 15;
+                legendname.Width = 140;
+                legendcolour.BackColor = Colors[Array.IndexOf(Parties, party)];
+                KeyGroupBox.Controls.Add(legendcolour);
+                KeyGroupBox.Controls.Add(legendname);
+                legendcolour.Location = new Point(7,startypos);
+                legendname.Location = new Point(26, startypos);
+                legendcolour.Visible = true;
+                legendname.Visible = true;
+                startypos = startypos + 20;
+            }
+            KeyGroupBox.Visible = true;
+            this.Invalidate();
         }
         private void DrawMap(string src)
         {
             var map = SvgDocument.Open(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/"+MetaExtract(src)[4]);
             Dictionary<string, string[]> dict = CreateDictionary(src);
-            List<Color> Colors = ColorsExtract(Properties.Resources.colorgradient);
+            List<Color> Colors = GetGradient(src);
             string[] Parties = ColorCategories(src);
             List<List<string>> AssignedStates = new List<List<string>>();
             for(int i = 0; i < Parties.Length; i++)
@@ -206,16 +252,17 @@ namespace ElectionPredict
         private void button1_Click(object sender, EventArgs e)
         {
             string source = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/DataFiles/" +Convert.ToString(listPublications.SelectedItem) + "/" + Convert.ToString(listYears.SelectedItem)+".csv");
+            mappanel.Tag = source;
             try
             {
-                DrawMap(source);
-                DrawElectoralVotes(source);
-                MetaLabeling(source);
+                if (SourceFormatType(source) == "MapVis")
+                {
+                    DrawMap(source);
+                    DrawElectoralVotes(source);
+                    MetaLabeling(source);
+                }
             }
-            catch
-            {
-                MessageBox.Show("File could not be found (Because it doesn't exist yet).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            catch { }
         }
 
         private void listPublications_SelectedIndexChanged(object sender, EventArgs e)

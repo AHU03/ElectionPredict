@@ -44,6 +44,7 @@
             this.CandidatesLabel = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
             this.mappanel = new System.Windows.Forms.Panel();
+            this.KeyGroupBox = new System.Windows.Forms.GroupBox();
             this.ExitLabel = new System.Windows.Forms.Label();
             this.MinimizeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -136,6 +137,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.panel2.Controls.Add(this.KeyGroupBox);
             this.panel2.Controls.Add(this.RemarkLabel);
             this.panel2.Controls.Add(this.DemVotesPanel);
             this.panel2.Controls.Add(this.RepVotesPanel);
@@ -232,6 +234,18 @@
             this.mappanel.TabIndex = 0;
             this.mappanel.Visible = false;
             // 
+            // KeyGroupBox
+            // 
+            this.KeyGroupBox.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.KeyGroupBox.ForeColor = System.Drawing.Color.FloralWhite;
+            this.KeyGroupBox.Location = new System.Drawing.Point(782, 537);
+            this.KeyGroupBox.Name = "KeyGroupBox";
+            this.KeyGroupBox.Size = new System.Drawing.Size(179, 130);
+            this.KeyGroupBox.TabIndex = 0;
+            this.KeyGroupBox.TabStop = false;
+            this.KeyGroupBox.Text = "Key";
+            this.KeyGroupBox.Visible = false;
+            // 
             // ExitLabel
             // 
             this.ExitLabel.AutoSize = true;
@@ -306,6 +320,7 @@
         private System.Windows.Forms.Panel RepVotesPanel;
         private System.Windows.Forms.Label MinimizeLabel;
         private System.Windows.Forms.Label RemarkLabel;
+        private System.Windows.Forms.GroupBox KeyGroupBox;
     }
 }
 
