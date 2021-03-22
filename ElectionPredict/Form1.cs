@@ -20,7 +20,9 @@ namespace ElectionPredict
         public Form1()
         {
             InitializeComponent();
+            LoadOptions();
         }
+        protected string Optionssource = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/usoptions.csv";
         //Window Functionality
         protected override void WndProc(ref Message m)
         {
@@ -35,7 +37,42 @@ namespace ElectionPredict
 
             base.WndProc(ref m);
         }
-        //Extracts Metadata
+        //Loads csv with different Options
+        public void LoadOptions()
+        {
+            using (var reader = new StreamReader(Optionssource))
+            {
+                while (reader.EndOfStream == false)
+                {
+                    string data = reader.ReadLine();
+                    listPublicationsHistorical.Items.Add(data);
+                    listPublicationsCompare.Items.Add(data);
+                    reader.ReadLine();
+                }
+            }
+        }
+        //Create List with needed Years
+        public List<string> GetOptionYear(string src)
+        {
+            List<string> years = new List<string>();
+            using (var reader = new StreamReader(Optionssource))
+            {
+                while (reader.EndOfStream == false)
+                {
+                    string data = reader.ReadLine();
+                    if (data == src)
+                    {
+                        var yearsstream = reader.ReadLine().Split(';');
+                        foreach (string year in yearsstream)
+                        {
+                            years.Add(year);
+                        }
+                    }
+                }
+            }
+            return years;
+        }
+        //Extracts Type of Visualization required
         public string SourceFormatType(string src)
         {
             using (var reader = new StreamReader(src))
@@ -44,6 +81,7 @@ namespace ElectionPredict
                 return data;
             }
         }
+        //Extracts Data for Meta Infolabels
         public string[] MetaExtract(string src)
         {
             using (var reader = new StreamReader(src))
@@ -54,16 +92,58 @@ namespace ElectionPredict
             }
         }
         //Assigns Metadata Infolabels
-        private void MetaLabeling(string src)
+        private void MetaLabeling(string title, string candidates, string remarks)
         {
-            TitleLabel.Text = (MetaExtract(src)[3] + ", " + MetaExtract(src)[2]);
-            CandidatesLabel.Text = (MetaExtract(src)[0] + " v. " + MetaExtract(src)[1]);
-            RemarkLabel.Text = MetaExtract(src)[6];
+            TitleLabel.Text = (title);
+            CandidatesLabel.Text = (candidates);
+            RemarkLabel.Text = remarks;
         }
+        //Returns all Categroies of Parties
         public string[] ColorCategories(string src)
         {
             using (var reader = new StreamReader(src))
             {
+                reader.ReadLine();
+                reader.ReadLine();
+                var data = reader.ReadLine().Split(';');
+                return data;
+            }
+        }
+        public string[] ColorComparedCategories(string src1, string src2)
+        {
+            List<string> data = new List<string>(ColorCategories(src1));
+            List<string> removedata = new List<string>();
+            var data1 = ColorCategories(src1);
+            var data2 = ColorCategories(src2);
+            foreach (string val2 in data2)
+            {
+                foreach (string val1 in data1)
+                {
+                    if(val1 != val2)
+                    {
+                        data.Add(val2 + " -> " + val1);
+                    }
+                }
+            }
+            foreach(string[] value in CreateComparedDictionary(CreateDictionary(src1), CreateDictionary(src2)).Values)
+            {
+                removedata.Add(value[0]);
+            }
+            foreach(string key in data.ToArray())
+            {
+                if(!removedata.Contains(key) && key.Contains("->"))
+                {
+                    data.Remove(key);
+                }
+            }
+            return data.ToArray();
+        }
+        //Find two main parties
+        public string[] MainParties(string src)
+        {
+            using (var reader = new StreamReader(src))
+            {
+                reader.ReadLine();
                 reader.ReadLine();
                 reader.ReadLine();
                 var data = reader.ReadLine().Split(';');
@@ -81,13 +161,13 @@ namespace ElectionPredict
             }
             return Colors;
         }
-
         //Puts Vote Results into Dictionary
-        private Dictionary<string, string[]> CreateDictionary(string src)
+        private SortedDictionary<string, string[]> CreateDictionary(string src)
         {
-            Dictionary<string, string[]> dict = new Dictionary<string, string[]>();
+            SortedDictionary<string, string[]> dict = new SortedDictionary<string, string[]>();
             using (var reader = new StreamReader(src))
             {
+                reader.ReadLine();
                 reader.ReadLine();
                 reader.ReadLine();
                 reader.ReadLine();
@@ -105,19 +185,59 @@ namespace ElectionPredict
             }
             return dict;
         }
+        //Compares two dicitonaries and creates a new one
+        private SortedDictionary<string, string[]> CreateComparedDictionary(SortedDictionary<string, string[]> dict1, SortedDictionary<string, string[]> dict2)
+        {
+            SortedDictionary<string, string[]> dict = new SortedDictionary<string, string[]>();
+            foreach(string key in dict1.Keys)
+            {
+                if (dict2.Keys.Contains(key))
+                {
+                    if(dict1[key][0] == "NULL"  || dict2[key][0] == "NULL")
+                    {
+                        dict.Add(key,new string[] { "NULL", dict1[key][1]});
+                    }
+                    else if(dict1[key][0] == dict2[key][0])
+                    {
+                        dict.Add(key, new string[] { dict1[key][0], dict1[key][1]});
+                    }
+                    else
+                    {
+                        dict.Add(key, new string[] { (dict2[key][0]+" -> "+dict1[key][0]), dict1[key][1] });
+                    }
+                }
+            }
+            return dict;
+        }
+        //Puts all Party Names which actually appear into List
+        public List<string> DictionaryValueList(SortedDictionary<string, string[]> dict)
+        {
+            List<string> s = new List<string>();
+            foreach(string[] sarray in dict.Values)
+            {
+                s.Add(sarray[0]);
+            }
+            return s;
+        }
+        public string DictionaryValueString(SortedDictionary<string, string[]> dict)
+        {
+            string s = "";
+            foreach (string[] sarray in dict.Values)
+            {
+                s += sarray[0];
+            }
+            return s;
+        }
+        //Extract the Colors for Painting the Map from Image
         public List<Color> GetGradient(string src)
         {
-            string[] Parties = ColorCategories(src);
-            List<Color> Colors = ColorsExtract(Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/"+MetaExtract(src)[5]));
+            List<Color> Colors = ColorsExtract(Image.FromFile(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/colorgradients/"+src));
             return Colors;
         }
-        //Creates Bar at Top showing Electoral Votes
-        private void DrawElectoralVotes(string src)
+        //Creates Bar at Top showing Electoral Votes and Key
+        private void DrawElectoralVotes(bool countvotes, SortedDictionary<string, string[]> dict, string[] Parties, List<Color> Colors, string[] MainParties)
         {
-            Dictionary<string, string[]> dict = CreateDictionary(src);
             List<int> Votes = new List<int>();
-            string[] Parties = ColorCategories(src);
-            List<Color> Colors = GetGradient(src);
             for (int i = 0; i < Parties.Length; i++)
             {
                 Votes.Add(0);
@@ -128,22 +248,39 @@ namespace ElectionPredict
                 {
                     if(item.Value[0] == party)
                     {
-                        Votes[Array.IndexOf(Parties,party)] = Votes[Array.IndexOf(Parties, party)] + Convert.ToInt32(item.Value[1]);
+                        if (countvotes)
+                        {
+                            Votes[Array.IndexOf(Parties,party)] += Convert.ToInt32(item.Value[1]);
+                        }
+                        else
+                        {
+                            Votes[Array.IndexOf(Parties, party)] += 1;
+                        }
+
                     }
                 }
             }
             int curxpos = 226;
             for(int i = 0; i < Parties.Length; i++)
             {
+                double width;
+                if (countvotes)
+                {
+                    width = Convert.ToDouble(Votes[i]) / Convert.ToDouble(Votes.Sum()) * Convert.ToDouble(this.Width - 246);
+                }
+                else
+                {
+                    width = Convert.ToDouble(Votes[i]) / Convert.ToDouble(Votes.Sum()) * Convert.ToDouble(this.Width - 246);
+                }
                 Panel votespanel = new Panel
                 {
-                    Width = Convert.ToInt32(Convert.ToDouble(Votes[i]) / Convert.ToDouble(Votes.Sum()) * Convert.ToDouble(883)),
+                    Width = Convert.ToInt32(width),
                     BackColor = Colors[i],
                     Top = 167,
                     Height = 34,
                     Left = curxpos
                 };
-                curxpos = curxpos + votespanel.Width;
+                curxpos += votespanel.Width;
                 this.Controls.Add(votespanel);
                 votespanel.BringToFront();
             }
@@ -151,51 +288,99 @@ namespace ElectionPredict
             int DEMvotes = 0;
             for(int i = 0; i < Votes.Count; i++)
             {
-                if (Convert.ToDouble(i)+1 < Convert.ToDouble(Votes.Count) / Convert.ToDouble(2))
+                if (Parties[i].Contains(MainParties[0]))
                 {
-                    REPvotes = REPvotes + Votes[i];
+                    REPvotes += Votes[i];
                 }
-                if (Convert.ToDouble(i)+1 > Convert.ToDouble(Votes.Count) / Convert.ToDouble(2))
+                if (Parties[i].Contains(MainParties[1]))
                 {
-                    DEMvotes = DEMvotes + Votes[i];
+                    DEMvotes += Votes[i];
                 }
             }
             RepVotesLabel.Text = Convert.ToString(REPvotes);
             DemVotesLabel.Text = Convert.ToString(DEMvotes);
+            if(REPvotes + DEMvotes > 0)
+            {
+                RepVotesLabel.Visible = true;
+                DemVotesLabel.Visible = true;
+            }
+            else
+            {
+                RepVotesLabel.Visible = false;
+                DemVotesLabel.Visible = false;
+            }
+        }
+        private void DrawKeyBox(SortedDictionary<string, string[]> dict, string[] Parties, List<Color> Colors)
+        {
+            KeyGroupBox.Visible = false;
             foreach (Control c in KeyGroupBox.Controls)
             {
                 c.Visible = false;
             }
-            int startypos = 23;
+            int startypos = 20;
+            bool passedbool = false;
+            if (DictionaryValueString(dict).Contains("->") && !DictionaryValueList(dict)[0].Contains("->"))
+            {
+                Label legendname = new Label
+                {
+                    Font = RemarkLabel.Font,
+                    Text = "Matching:",
+                    AutoSize = true
+                };
+                KeyGroupBox.Controls.Add(legendname);
+                legendname.Location = new Point(7, startypos);
+                legendname.Visible = true;
+                startypos += 15;
+                passedbool = true;
+            }
             foreach (string party in Parties)
             {
-                Panel legendcolour = new Panel();
-                Label legendname = new Label();
-                legendcolour.Visible = false;
-                legendname.Visible = false;
-                legendname.Font = RemarkLabel.Font;
-                legendname.Text = party;
-                legendcolour.Width = 15;
-                legendcolour.Height = 15;
-                legendname.Width = 140;
-                legendcolour.BackColor = Colors[Array.IndexOf(Parties, party)];
-                KeyGroupBox.Controls.Add(legendcolour);
-                KeyGroupBox.Controls.Add(legendname);
-                legendcolour.Location = new Point(7,startypos);
-                legendname.Location = new Point(26, startypos);
-                legendcolour.Visible = true;
-                legendname.Visible = true;
-                startypos = startypos + 20;
+                if (((DictionaryValueList(dict).Contains(party))))
+                {
+                    if (party.Contains("->")&&passedbool)
+                    {
+                        Label legendnotice = new Label
+                        {
+                            Font = RemarkLabel.Font,
+                            Text = "Compared to Historical:",
+                            AutoSize = true
+                        };
+                        KeyGroupBox.Controls.Add(legendnotice);
+                        legendnotice.Location = new Point(7, startypos);
+                        legendnotice.Visible = true;
+                        startypos += 15;
+                        passedbool = false;
+                    }
+                    Panel legendcolour = new Panel();
+                    Label legendname = new Label();
+                    legendcolour.Visible = false;
+                    legendname.Visible = false;
+                    legendname.Font = RemarkLabel.Font;
+                    legendname.Text = party;
+                    legendcolour.Width = 10;
+                    legendcolour.Height = 10;
+                    legendname.AutoSize = true;
+                    legendcolour.BackColor = Colors[Array.IndexOf(Parties, party)];
+                    KeyGroupBox.Controls.Add(legendcolour);
+                    KeyGroupBox.Controls.Add(legendname);
+                    legendcolour.Location = new Point(7, startypos);
+                    legendname.Location = new Point(21, startypos);
+                    legendcolour.Visible = true;
+                    legendname.Visible = true;
+                    startypos += 15;
+                }
             }
+            KeyGroupBox.AutoSize = true;
+            KeyGroupBox.MaximumSize = new Size(int.MaxValue, startypos + 5);
+            KeyGroupBox.Location = new Point(this.Size.Width - 20 - KeyGroupBox.Size.Width, this.Size.Height - 40 - KeyGroupBox.Size.Height);
             KeyGroupBox.Visible = true;
-            this.Invalidate();
         }
-        private void DrawMap(string src)
+        private SvgDocument GetSvgFromDirectory(string src)
         {
-            var map = SvgDocument.Open(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/"+MetaExtract(src)[4]);
-            Dictionary<string, string[]> dict = CreateDictionary(src);
-            List<Color> Colors = GetGradient(src);
-            string[] Parties = ColorCategories(src);
+            return SvgDocument.Open(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/" + MetaExtract(src)[3]);
+        }
+        private void DrawMap(SvgDocument map, SortedDictionary<string, string[]> dict, List<Color> Colors, string[] Parties)
+        {
             List<List<string>> AssignedStates = new List<List<string>>();
             for(int i = 0; i < Parties.Length; i++)
             {
@@ -233,83 +418,93 @@ namespace ElectionPredict
             mappanel.BackgroundImage = map.Draw();
             mappanel.Visible = true;
         }
-
         private void ExitLabel_MouseClick(object sender, MouseEventArgs e)
         {
             Application.Exit();
         }
-
         private void ExitLabel_MouseEnter(object sender, EventArgs e)
         {
             ExitLabel.ForeColor = Color.LightGray;
         }
-
         private void ExitLabel_MouseLeave(object sender, EventArgs e)
         {
             ExitLabel.ForeColor = Color.FloralWhite;
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
-            string source = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/DataFiles/" +Convert.ToString(listPublications.SelectedItem) + "/" + Convert.ToString(listYears.SelectedItem)+".csv");
+            string source = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/DataFiles/" +Convert.ToString(listPublicationsHistorical.SelectedItem) + "/" + Convert.ToString(listYearsHistorical.SelectedItem)+".csv");
+            string sourcecompare = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/DataFiles/" + Convert.ToString(listPublicationsCompare.SelectedItem) + "/" + Convert.ToString(listYearsCompare.SelectedItem) + ".csv");
             mappanel.Tag = source;
             try
             {
-                if (SourceFormatType(source) == "MapVis")
+                if (listPublicationsCompare.Visible && SourceFormatType(source) == "MapVis" && SourceFormatType(sourcecompare) == "MapVis")
                 {
-                    DrawMap(source);
-                    DrawElectoralVotes(source);
-                    MetaLabeling(source);
+                    DrawMap(GetSvgFromDirectory(source), CreateComparedDictionary(CreateDictionary(source), CreateDictionary(sourcecompare)), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), ColorComparedCategories(source, sourcecompare));
+                    DrawElectoralVotes(false, CreateComparedDictionary(CreateDictionary(source), CreateDictionary(sourcecompare)), ColorComparedCategories(source, sourcecompare), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), new string[] { "*", "*" });
+                    DrawKeyBox(CreateComparedDictionary(CreateDictionary(source), CreateDictionary(sourcecompare)), ColorComparedCategories(source, sourcecompare), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))));
+                    MetaLabeling((MetaExtract(sourcecompare)[2] + ", " + MetaExtract(sourcecompare)[1] + " compared to " + MetaExtract(source)[2] + ", " + MetaExtract(source)[1]), MetaExtract(sourcecompare)[0] + " compared to " + MetaExtract(source)[0], "Comparison, bar at top shows number of states in each category");
                 }
+                else if (SourceFormatType(source) == "MapVis")
+                {
+                    DrawMap(GetSvgFromDirectory(source), CreateDictionary(source), GetGradient(MetaExtract(source)[4]), ColorCategories(source));
+                    DrawElectoralVotes(true, CreateDictionary(source), ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source));
+                    DrawKeyBox(CreateDictionary(source), ColorCategories(source), GetGradient(MetaExtract(source)[4]));
+                    MetaLabeling((MetaExtract(source)[2] + ", " + MetaExtract(source)[1]), MetaExtract(source)[0], MetaExtract(source)[5]);
+                }
+                ErrorLabel.Text = "";
             }
-            catch { }
+            catch
+            {
+                ErrorLabel.Text = "Error, try again";
+            }
         }
-
-        private void listPublications_SelectedIndexChanged(object sender, EventArgs e)
+        private void ListPublications_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (Convert.ToString(listPublications.SelectedItem) == "Literary Digest")
+            if (sender == listPublicationsCompare)
             {
-                listYears.Items.Clear();
-                for (int i = 1916; i < 1937; i = i + 4)
+                List<string> years = GetOptionYear(Convert.ToString(listPublicationsCompare.SelectedItem));
+                listYearsCompare.Items.Clear();
+                foreach (string year in years)
                 {
-                    listYears.Items.Add(i);
+                    listYearsCompare.Items.Add(year);
                 }
             }
-            else if (Convert.ToString(listPublications.SelectedItem) == "Gallup")
+            if (sender == listPublicationsHistorical)
             {
-                listYears.Items.Clear();
-                for (int i = 1936; i < 2013; i = i + 4)
+                List<string> years = GetOptionYear(Convert.ToString(listPublicationsHistorical.SelectedItem));
+                listYearsHistorical.Items.Clear();
+                foreach (string year in years)
                 {
-                    listYears.Items.Add(i);
+                    listYearsHistorical.Items.Add(year);
                 }
-            }
-            else if (Convert.ToString(listPublications.SelectedItem) == "Real Results")
-            {
-                listYears.Items.Clear();
-                for (int i = 1916; i < 2021; i = i + 4)
-                {
-                    listYears.Items.Add(i);
-                }
-            }
-            else
-            {
-                listYears.Items.Clear();
             }
         }
-
         private void MinimizeLabel_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
-
         private void MinimizeLabel_MouseEnter(object sender, EventArgs e)
         {
             MinimizeLabel.ForeColor = Color.LightGray;
         }
-
         private void MinimizeLabel_MouseLeave(object sender, EventArgs e)
         {
             MinimizeLabel.ForeColor = Color.FloralWhite;
+        }
+        private void CompareLabel_Click(object sender, EventArgs e)
+        {        
+            if(CompareLabel.Text == "Compare ▲")
+            {
+                CompareLabel.Text = "Compare ▼";
+                listYearsCompare.Visible = true;
+                listPublicationsCompare.Visible = true;
+            }
+            else if (CompareLabel.Text == "Compare ▼")
+            {
+                CompareLabel.Text = "Compare ▲";
+                listYearsCompare.Visible = false;
+                listPublicationsCompare.Visible = false;
+            }
         }
     }
 }

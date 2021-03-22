@@ -1,17 +1,17 @@
 MapVis
-Hoover v. Smith;1928;Actual Results;usa.svg;colorgradientusfull.png;Election Results not considering faithless Electors
+Hoover v. Smith;1928;Literary Digest;usa.svg;colorgradientusfull.png;1'750'584 Straw Votes, 1'206'325 for Hoover, 264'483 for Smith, Source: Literary Digest November 3, 1928
 Republican;Leaning Republican;3rd;Tie;Leaning Democrat;Democrat
 Republican;Democrat
 AL;Democrat;12
 AK;NULL;0
 AZ;Republican;3
-AR;Democrat;9
+AR;Leaning Democrat;9
 CA;Republican;13
 CO;Republican;6
 CT;Republican;7
 DE;Republican;3
 DC;NULL;0
-FL;Republican;6
+FL;Democrat;6
 GA;Democrat;14
 HI;NULL;0
 ID;Republican;4
@@ -23,7 +23,7 @@ KY;Republican;13
 LA;Democrat;10
 ME;Republican;6
 MD;Republican;8
-MA;Democrat;18
+MA;Republican;18
 MI;Republican;15
 MN;Republican;12
 MS;Democrat;10
@@ -41,14 +41,14 @@ OH;Republican;24
 OK;Republican;10
 OR;Republican;5
 PA;Republican;38
-RI;Democrat;5
+RI;Republican;5
 SC;Democrat;9
 SD;Republican;5
 TN;Republican;12
-TX;Republican;20
+TX;Democrat;20
 UT;Republican;4
 VT;Republican;4
-VA;Republican;12
+VA;Tie;12
 WA;Republican;7
 WV;Republican;8
 WI;Republican;13

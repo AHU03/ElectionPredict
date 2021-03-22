@@ -1,6 +1,7 @@
 MapVis
-Nixon;McGovern;1972;Actual Results;usa.svg;colorgradientus.png;Election Results not considering faithless Electors
-Republican;Leaning Republican;Tie;Leaning Democrat;Democrat
+Nixon v. McGovern;1972;Actual Results;usa.svg;colorgradientusfull.png;Election Results not considering faithless Electors
+Republican;Leaning Republican;3rd;Tie;Leaning Democrat;Democrat
+Republican;Democrat
 AL;Republican;9
 AK;Republican;3
 AZ;Republican;6

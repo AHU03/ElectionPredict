@@ -1,7 +1,8 @@
 MapVis
-Dewey;Thurmond v. Truman;1948;Gallup Final Poll;usa.svg;colorgradientusblank.png;Polling Averages on November 4, 49.5% for Dewey, 44.5% for Truman, 6% for Others, Source: The Gallup Poll: Public Opinion 1935 - 1971
-Republican;Leaning Republican;Ballot Confusing;Leaning Democrat;Democrat
-AL;NULL;0
+Dewey v. Truman;1948;Gallup Final Poll;usa.svg;colorgradientusfull.png;Polling Averages on November 4, 49.5% for Dewey, 44.5% for Truman, 6% for Others, Source: The Gallup Poll: Public Opinion 1935 - 1971
+Republican;Leaning Republican;3rd;Ballot Confusing;Leaning Democrat;Democrat
+Republican;Democrat
+AL;Ballot Confusing;0
 AK;NULL;0
 AZ;Democrat;4
 AR;Democrat;9
@@ -19,13 +20,13 @@ IN;Republican;13
 IA;Republican;10
 KS;Republican;8
 KY;Leaning Democrat;11
-LA;NULL;0
+LA;Ballot Confusing;0
 ME;Republican;5
 MD;Republican;8
 MA;Leaning Republican;16
 MI;Republican;19
 MN;Leaning Republican;11
-MS;NULL;0
+MS;Ballot Confusing;0
 MO;Leaning Democrat;15
 MT;Leaning Democrat;4
 NE;Republican;6
@@ -41,7 +42,7 @@ OK;Democrat;10
 OR;Republican;6
 PA;Republican;35
 RI;Democrat;4
-SC;NULL;0
+SC;Ballot Confusing;0
 SD;Republican;4
 TN;Democrat;12
 TX;Democrat;23

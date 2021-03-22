@@ -1,5 +1,5 @@
 MapVis
-Willkie v. Roosevelt;1940;Actual Results;usa.svg;colorgradientusfull.png;Election Results not considering faithless Electors
+Hoover v. Roosevelt;1932;Literary Digest;usa.svg;colorgradientusfull.png;3'064'497 Straw Votes, 1'150'398 for Hoover, 1'715'789 for Roosevelt, Source: Literary Digest November 5, 1932
 Republican;Leaning Republican;3rd;Tie;Leaning Democrat;Democrat
 Republican;Democrat
 AL;Democrat;11
@@ -7,43 +7,43 @@ AK;NULL;0
 AZ;Democrat;3
 AR;Democrat;9
 CA;Democrat;22
-CO;Republican;6
-CT;Democrat;8
-DE;Democrat;3
+CO;Democrat;6
+CT;Republican;8
+DE;Leaning Democrat;3
 DC;NULL;0
 FL;Democrat;7
 GA;Democrat;12
 HI;NULL;0
 ID;Democrat;4
 IL;Democrat;29
-IN;Republican;14
-IA;Republican;11
-KS;Republican;9
+IN;Democrat;14
+IA;Democrat;11
+KS;Democrat;9
 KY;Democrat;11
 LA;Democrat;10
 ME;Republican;5
 MD;Democrat;8
-MA;Democrat;17
-MI;Republican;19
+MA;Republican;17
+MI;Democrat;19
 MN;Democrat;11
 MS;Democrat;9
 MO;Democrat;15
 MT;Democrat;4
-NE;Republican;7
+NE;Democrat;7
 NV;Democrat;3
-NH;Democrat;4
-NJ;Democrat;16
+NH;Republican;4
+NJ;Republican;16
 NM;Democrat;3
-NY;Democrat;47
+NY;Leaning Democrat;47
 NC;Democrat;13
-ND;Republican;4
+ND;Democrat;4
 OH;Democrat;26
 OK;Democrat;11
 OR;Democrat;5
 PA;Democrat;36
-RI;Democrat;4
+RI;Republican;4
 SC;Democrat;8
-SD;Republican;4
+SD;Democrat;4
 TN;Democrat;11
 TX;Democrat;23
 UT;Democrat;4

@@ -1,6 +1,7 @@
 MapVis
-Goldwater;Johnson;1964;Actual Results;usa.svg;colorgradientus.png;Election Results not considering faithless Electors
-Republican;Leaning Republican;Tie;Leaning Democrat;Democrat
+Goldwater v. Johnson;1964;Actual Results;usa.svg;colorgradientusfull.png;Election Results not considering faithless Electors
+Republican;Leaning Republican;3rd;Tie;Leaning Democrat;Democrat
+Republican;Democrat
 AL;Republican;10
 AK;Democrat;3
 AZ;Republican;5

@@ -1,6 +1,7 @@
 MapVis
-Nixon;Wallace v. Humphrey;1968;Actual Results;usa.svg;colorgradientus3rd.png;Election Results not considering faithless Electors
-Republican;Leaning Republican;3rd Party;Leaning Democrat;Democrat
+Nixon v. Wallace v. Humphrey;1968;Actual Results;usa.svg;colorgradientusfull.png;Election Results not considering faithless Electors
+Republican;Leaning Republican;3rd Party;Tie;Leaning Democrat;Democrat
+Republican;Democrat
 AL;3rd Party;10
 AK;Republican;3
 AZ;Republican;5
