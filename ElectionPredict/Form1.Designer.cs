@@ -30,6 +30,19 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.DLabelCompare = new System.Windows.Forms.Label();
+            this.RLabelCompare = new System.Windows.Forms.Label();
+            this.ZeroLabelCompare = new System.Windows.Forms.Label();
+            this.TrackBarTrackerCompare = new System.Windows.Forms.Label();
+            this.ShiftResultPanelCompare = new System.Windows.Forms.Panel();
+            this.ShiftResultsTrackBarCompare = new System.Windows.Forms.TrackBar();
+            this.DLabel = new System.Windows.Forms.Label();
+            this.RLabel = new System.Windows.Forms.Label();
+            this.ZeroLabel = new System.Windows.Forms.Label();
+            this.TrackBarTracker = new System.Windows.Forms.Label();
+            this.ShiftResultPanel = new System.Windows.Forms.Panel();
+            this.ShiftResultLabel = new System.Windows.Forms.Label();
+            this.ShiftResultsTrackBar = new System.Windows.Forms.TrackBar();
             this.ErrorLabel = new System.Windows.Forms.Label();
             this.listYearsCompare = new System.Windows.Forms.ListBox();
             this.listPublicationsCompare = new System.Windows.Forms.ListBox();
@@ -40,7 +53,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.Title = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.KeyGroupBox = new System.Windows.Forms.GroupBox();
             this.RemarkLabel = new System.Windows.Forms.Label();
             this.DemVotesPanel = new System.Windows.Forms.Panel();
             this.DemVotesLabel = new System.Windows.Forms.Label();
@@ -49,9 +61,12 @@
             this.CandidatesLabel = new System.Windows.Forms.Label();
             this.TitleLabel = new System.Windows.Forms.Label();
             this.mappanel = new System.Windows.Forms.Panel();
+            this.KeyGroupBox = new System.Windows.Forms.GroupBox();
             this.ExitLabel = new System.Windows.Forms.Label();
             this.MinimizeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ShiftResultsTrackBarCompare)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShiftResultsTrackBar)).BeginInit();
             this.panel2.SuspendLayout();
             this.DemVotesPanel.SuspendLayout();
             this.RepVotesPanel.SuspendLayout();
@@ -60,6 +75,18 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.panel1.Controls.Add(this.DLabelCompare);
+            this.panel1.Controls.Add(this.RLabelCompare);
+            this.panel1.Controls.Add(this.ZeroLabelCompare);
+            this.panel1.Controls.Add(this.TrackBarTrackerCompare);
+            this.panel1.Controls.Add(this.ShiftResultPanelCompare);
+            this.panel1.Controls.Add(this.DLabel);
+            this.panel1.Controls.Add(this.RLabel);
+            this.panel1.Controls.Add(this.ZeroLabel);
+            this.panel1.Controls.Add(this.TrackBarTracker);
+            this.panel1.Controls.Add(this.ShiftResultPanel);
+            this.panel1.Controls.Add(this.ShiftResultLabel);
+            this.panel1.Controls.Add(this.ShiftResultsTrackBar);
             this.panel1.Controls.Add(this.ErrorLabel);
             this.panel1.Controls.Add(this.listYearsCompare);
             this.panel1.Controls.Add(this.listPublicationsCompare);
@@ -69,11 +96,162 @@
             this.panel1.Controls.Add(this.SubtitleHistorical);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.Title);
+            this.panel1.Controls.Add(this.ShiftResultsTrackBarCompare);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(206, 710);
             this.panel1.TabIndex = 0;
+            // 
+            // DLabelCompare
+            // 
+            this.DLabelCompare.AutoSize = true;
+            this.DLabelCompare.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DLabelCompare.ForeColor = System.Drawing.Color.FloralWhite;
+            this.DLabelCompare.Location = new System.Drawing.Point(-1, 376);
+            this.DLabelCompare.Name = "DLabelCompare";
+            this.DLabelCompare.Size = new System.Drawing.Size(49, 13);
+            this.DLabelCompare.TabIndex = 21;
+            this.DLabelCompare.Text = " +20% D";
+            this.DLabelCompare.Visible = false;
+            // 
+            // RLabelCompare
+            // 
+            this.RLabelCompare.AutoSize = true;
+            this.RLabelCompare.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RLabelCompare.ForeColor = System.Drawing.Color.FloralWhite;
+            this.RLabelCompare.Location = new System.Drawing.Point(156, 375);
+            this.RLabelCompare.Name = "RLabelCompare";
+            this.RLabelCompare.Size = new System.Drawing.Size(49, 13);
+            this.RLabelCompare.TabIndex = 20;
+            this.RLabelCompare.Text = " +20% R";
+            this.RLabelCompare.Visible = false;
+            // 
+            // ZeroLabelCompare
+            // 
+            this.ZeroLabelCompare.AutoSize = true;
+            this.ZeroLabelCompare.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ZeroLabelCompare.ForeColor = System.Drawing.Color.FloralWhite;
+            this.ZeroLabelCompare.Location = new System.Drawing.Point(90, 374);
+            this.ZeroLabelCompare.Name = "ZeroLabelCompare";
+            this.ZeroLabelCompare.Size = new System.Drawing.Size(19, 13);
+            this.ZeroLabelCompare.TabIndex = 16;
+            this.ZeroLabelCompare.Text = " 0";
+            this.ZeroLabelCompare.Visible = false;
+            // 
+            // TrackBarTrackerCompare
+            // 
+            this.TrackBarTrackerCompare.AutoSize = true;
+            this.TrackBarTrackerCompare.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TrackBarTrackerCompare.ForeColor = System.Drawing.Color.FloralWhite;
+            this.TrackBarTrackerCompare.Location = new System.Drawing.Point(92, 346);
+            this.TrackBarTrackerCompare.Name = "TrackBarTrackerCompare";
+            this.TrackBarTrackerCompare.Size = new System.Drawing.Size(20, 22);
+            this.TrackBarTrackerCompare.TabIndex = 18;
+            this.TrackBarTrackerCompare.Text = "▼";
+            this.TrackBarTrackerCompare.Visible = false;
+            this.TrackBarTrackerCompare.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TrackBarTracker_MouseDown);
+            this.TrackBarTrackerCompare.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackBarTracker_MouseMove);
+            this.TrackBarTrackerCompare.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarTracker_MouseUp);
+            // 
+            // ShiftResultPanelCompare
+            // 
+            this.ShiftResultPanelCompare.Location = new System.Drawing.Point(3, 346);
+            this.ShiftResultPanelCompare.Name = "ShiftResultPanelCompare";
+            this.ShiftResultPanelCompare.Size = new System.Drawing.Size(196, 22);
+            this.ShiftResultPanelCompare.TabIndex = 19;
+            this.ShiftResultPanelCompare.Visible = false;
+            // 
+            // ShiftResultsTrackBarCompare
+            // 
+            this.ShiftResultsTrackBarCompare.Location = new System.Drawing.Point(4, 346);
+            this.ShiftResultsTrackBarCompare.Maximum = 20;
+            this.ShiftResultsTrackBarCompare.Minimum = -20;
+            this.ShiftResultsTrackBarCompare.Name = "ShiftResultsTrackBarCompare";
+            this.ShiftResultsTrackBarCompare.Size = new System.Drawing.Size(196, 45);
+            this.ShiftResultsTrackBarCompare.TabIndex = 17;
+            this.ShiftResultsTrackBarCompare.Visible = false;
+            // 
+            // DLabel
+            // 
+            this.DLabel.AutoSize = true;
+            this.DLabel.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DLabel.ForeColor = System.Drawing.Color.FloralWhite;
+            this.DLabel.Location = new System.Drawing.Point(-1, 335);
+            this.DLabel.Name = "DLabel";
+            this.DLabel.Size = new System.Drawing.Size(49, 13);
+            this.DLabel.TabIndex = 15;
+            this.DLabel.Text = " +20% D";
+            this.DLabel.Visible = false;
+            // 
+            // RLabel
+            // 
+            this.RLabel.AutoSize = true;
+            this.RLabel.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RLabel.ForeColor = System.Drawing.Color.FloralWhite;
+            this.RLabel.Location = new System.Drawing.Point(156, 334);
+            this.RLabel.Name = "RLabel";
+            this.RLabel.Size = new System.Drawing.Size(49, 13);
+            this.RLabel.TabIndex = 14;
+            this.RLabel.Text = " +20% R";
+            this.RLabel.Visible = false;
+            // 
+            // ZeroLabel
+            // 
+            this.ZeroLabel.AutoSize = true;
+            this.ZeroLabel.Font = new System.Drawing.Font("Consolas", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ZeroLabel.ForeColor = System.Drawing.Color.FloralWhite;
+            this.ZeroLabel.Location = new System.Drawing.Point(90, 333);
+            this.ZeroLabel.Name = "ZeroLabel";
+            this.ZeroLabel.Size = new System.Drawing.Size(19, 13);
+            this.ZeroLabel.TabIndex = 10;
+            this.ZeroLabel.Text = " 0";
+            this.ZeroLabel.Visible = false;
+            // 
+            // TrackBarTracker
+            // 
+            this.TrackBarTracker.AutoSize = true;
+            this.TrackBarTracker.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TrackBarTracker.ForeColor = System.Drawing.Color.FloralWhite;
+            this.TrackBarTracker.Location = new System.Drawing.Point(92, 305);
+            this.TrackBarTracker.Name = "TrackBarTracker";
+            this.TrackBarTracker.Size = new System.Drawing.Size(20, 22);
+            this.TrackBarTracker.TabIndex = 12;
+            this.TrackBarTracker.Text = "▼";
+            this.TrackBarTracker.Visible = false;
+            this.TrackBarTracker.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TrackBarTracker_MouseDown);
+            this.TrackBarTracker.MouseMove += new System.Windows.Forms.MouseEventHandler(this.TrackBarTracker_MouseMove);
+            this.TrackBarTracker.MouseUp += new System.Windows.Forms.MouseEventHandler(this.TrackBarTracker_MouseUp);
+            // 
+            // ShiftResultPanel
+            // 
+            this.ShiftResultPanel.Location = new System.Drawing.Point(3, 305);
+            this.ShiftResultPanel.Name = "ShiftResultPanel";
+            this.ShiftResultPanel.Size = new System.Drawing.Size(196, 22);
+            this.ShiftResultPanel.TabIndex = 13;
+            this.ShiftResultPanel.Visible = false;
+            // 
+            // ShiftResultLabel
+            // 
+            this.ShiftResultLabel.AutoSize = true;
+            this.ShiftResultLabel.Font = new System.Drawing.Font("Consolas", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ShiftResultLabel.ForeColor = System.Drawing.Color.FloralWhite;
+            this.ShiftResultLabel.Location = new System.Drawing.Point(3, 280);
+            this.ShiftResultLabel.Name = "ShiftResultLabel";
+            this.ShiftResultLabel.Size = new System.Drawing.Size(160, 22);
+            this.ShiftResultLabel.TabIndex = 11;
+            this.ShiftResultLabel.Text = "Shift Results ▲";
+            this.ShiftResultLabel.Click += new System.EventHandler(this.ShiftResultLabel_Click);
+            // 
+            // ShiftResultsTrackBar
+            // 
+            this.ShiftResultsTrackBar.Location = new System.Drawing.Point(4, 305);
+            this.ShiftResultsTrackBar.Maximum = 20;
+            this.ShiftResultsTrackBar.Minimum = -20;
+            this.ShiftResultsTrackBar.Name = "ShiftResultsTrackBar";
+            this.ShiftResultsTrackBar.Size = new System.Drawing.Size(196, 45);
+            this.ShiftResultsTrackBar.TabIndex = 10;
+            this.ShiftResultsTrackBar.Visible = false;
             // 
             // ErrorLabel
             // 
@@ -203,19 +381,6 @@
             this.panel2.Size = new System.Drawing.Size(996, 699);
             this.panel2.TabIndex = 1;
             // 
-            // KeyGroupBox
-            // 
-            this.KeyGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.KeyGroupBox.Font = new System.Drawing.Font("Consolas", 9.75F);
-            this.KeyGroupBox.ForeColor = System.Drawing.Color.FloralWhite;
-            this.KeyGroupBox.Location = new System.Drawing.Point(924, 529);
-            this.KeyGroupBox.Name = "KeyGroupBox";
-            this.KeyGroupBox.Size = new System.Drawing.Size(230, 187);
-            this.KeyGroupBox.TabIndex = 0;
-            this.KeyGroupBox.TabStop = false;
-            this.KeyGroupBox.Text = "Key:";
-            this.KeyGroupBox.Visible = false;
-            // 
             // RemarkLabel
             // 
             this.RemarkLabel.AutoSize = true;
@@ -273,22 +438,22 @@
             // CandidatesLabel
             // 
             this.CandidatesLabel.AutoSize = true;
-            this.CandidatesLabel.Font = new System.Drawing.Font("Consolas", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CandidatesLabel.Font = new System.Drawing.Font("Consolas", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CandidatesLabel.ForeColor = System.Drawing.Color.FloralWhite;
             this.CandidatesLabel.Location = new System.Drawing.Point(43, 99);
             this.CandidatesLabel.Name = "CandidatesLabel";
-            this.CandidatesLabel.Size = new System.Drawing.Size(25, 28);
+            this.CandidatesLabel.Size = new System.Drawing.Size(22, 24);
             this.CandidatesLabel.TabIndex = 5;
             this.CandidatesLabel.Text = " ";
             // 
             // TitleLabel
             // 
             this.TitleLabel.AutoSize = true;
-            this.TitleLabel.Font = new System.Drawing.Font("Consolas", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleLabel.Font = new System.Drawing.Font("Consolas", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.TitleLabel.ForeColor = System.Drawing.Color.FloralWhite;
             this.TitleLabel.Location = new System.Drawing.Point(42, 57);
             this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(31, 34);
+            this.TitleLabel.Size = new System.Drawing.Size(30, 32);
             this.TitleLabel.TabIndex = 4;
             this.TitleLabel.Text = " ";
             // 
@@ -300,6 +465,19 @@
             this.mappanel.Size = new System.Drawing.Size(742, 504);
             this.mappanel.TabIndex = 0;
             this.mappanel.Visible = false;
+            // 
+            // KeyGroupBox
+            // 
+            this.KeyGroupBox.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.KeyGroupBox.Font = new System.Drawing.Font("Consolas", 9.75F);
+            this.KeyGroupBox.ForeColor = System.Drawing.Color.FloralWhite;
+            this.KeyGroupBox.Location = new System.Drawing.Point(924, 529);
+            this.KeyGroupBox.Name = "KeyGroupBox";
+            this.KeyGroupBox.Size = new System.Drawing.Size(230, 187);
+            this.KeyGroupBox.TabIndex = 0;
+            this.KeyGroupBox.TabStop = false;
+            this.KeyGroupBox.Text = "Key:";
+            this.KeyGroupBox.Visible = false;
             // 
             // ExitLabel
             // 
@@ -337,8 +515,8 @@
             this.ClientSize = new System.Drawing.Size(1175, 710);
             this.Controls.Add(this.KeyGroupBox);
             this.Controls.Add(this.MinimizeLabel);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.ExitLabel);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -348,6 +526,8 @@
             this.Text = "Form1";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.ShiftResultsTrackBarCompare)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ShiftResultsTrackBar)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.DemVotesPanel.ResumeLayout(false);
@@ -383,6 +563,19 @@
         private System.Windows.Forms.ListBox listYearsCompare;
         private System.Windows.Forms.ListBox listPublicationsCompare;
         private System.Windows.Forms.Label ErrorLabel;
+        private System.Windows.Forms.TrackBar ShiftResultsTrackBar;
+        private System.Windows.Forms.Label ShiftResultLabel;
+        private System.Windows.Forms.Label TrackBarTracker;
+        private System.Windows.Forms.Panel ShiftResultPanel;
+        private System.Windows.Forms.Label DLabel;
+        private System.Windows.Forms.Label RLabel;
+        private System.Windows.Forms.Label ZeroLabel;
+        private System.Windows.Forms.TrackBar ShiftResultsTrackBarCompare;
+        private System.Windows.Forms.Label DLabelCompare;
+        private System.Windows.Forms.Label RLabelCompare;
+        private System.Windows.Forms.Label ZeroLabelCompare;
+        private System.Windows.Forms.Label TrackBarTrackerCompare;
+        private System.Windows.Forms.Panel ShiftResultPanelCompare;
     }
 }
 

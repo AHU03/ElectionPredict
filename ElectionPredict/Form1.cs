@@ -23,7 +23,7 @@ namespace ElectionPredict
             LoadOptions();
         }
         protected string Optionssource = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/usoptions.csv";
-        //Window Functionality
+        //Windows Functionality
         protected override void WndProc(ref Message m)
         {
             switch (m.Msg)
@@ -109,7 +109,7 @@ namespace ElectionPredict
                 return data;
             }
         }
-        public string[] ColorComparedCategories(string src1, string src2)
+        public string[] ColorComparedCategories(string src1, string src2, SortedDictionary<string, string[]> compareddict)
         {
             List<string> data = new List<string>(ColorCategories(src1));
             List<string> removedata = new List<string>();
@@ -125,7 +125,7 @@ namespace ElectionPredict
                     }
                 }
             }
-            foreach(string[] value in CreateComparedDictionary(CreateDictionary(src1), CreateDictionary(src2)).Values)
+            foreach(string[] value in compareddict.Values)
             {
                 removedata.Add(value[0]);
             }
@@ -162,7 +162,7 @@ namespace ElectionPredict
             return Colors;
         }
         //Puts Vote Results into Dictionary
-        private SortedDictionary<string, string[]> CreateDictionary(string src)
+        private SortedDictionary<string, string[]> CreateDictionary(string src, int shift)
         {
             SortedDictionary<string, string[]> dict = new SortedDictionary<string, string[]>();
             using (var reader = new StreamReader(src))
@@ -171,17 +171,79 @@ namespace ElectionPredict
                 reader.ReadLine();
                 reader.ReadLine();
                 reader.ReadLine();
-                while (reader.EndOfStream == false)
+                if(shift != 0)
                 {
-                    var line = reader.ReadLine();
-                    if(line == null)
+                    while (reader.EndOfStream == false)
                     {
-                        break;
+                        try
+                        {
+                            var line = reader.ReadLine();
+                            if (line == null)
+                            {
+                                break;
+                            }
+                            var values = line.Split(';');
+                            string[] mp = MainParties(src);
+                            string[] parties = ColorCategories(src);
+                            double newvalr = Convert.ToDouble(values[3]) / Convert.ToDouble(100) + (Convert.ToDouble((shift)) / Convert.ToDouble(2));
+                            double newvald = Convert.ToDouble(values[4]) / Convert.ToDouble(100) - (Convert.ToDouble((shift)) / Convert.ToDouble(2));
+                            string party = "";
+                            string[] arrayvals = new string[] { values[1], values[2] };
+                            if (values[1].Contains(mp[0]) || values[1].Contains(mp[1]))
+                            {
+                                if (newvalr - newvald > 0)
+                                {
+                                    party = mp[0];
+                                }
+                                else if (newvalr - newvald < 0)
+                                {
+                                    party = mp[1];
+                                }
+                                else if (newvalr - newvald == 0)
+                                {
+                                    party = "Tie";
+                                }
+                                if (Math.Abs(newvalr - newvald) < 6 && newvalr - newvald != 0)
+                                {
+                                    foreach (string s in parties)
+                                    {
+                                        if (s.Contains(" "))
+                                        {
+                                            if (party == s.Split(' ')[1])
+                                            {
+                                                party = s;
+                                                break;
+                                            }
+                                        }
+
+                                    }
+                                }
+                                arrayvals = new string[] { party, values[2] };
+                            }
+
+                            dict.Add(values[0], arrayvals);
+                        }
+                        catch
+                        {
+                            ErrorLabel.Text = "No %-Data for "+ src.Replace('/', ' ').Replace((Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/DataFiles/").Replace('/', ' '), "").Replace(".csv","");
+                        }
                     }
-                    var values = line.Split(';');
-                    string[] arrayvals = new string[] { values[1], values[2] };
-                    dict.Add(values[0], arrayvals);
                 }
+                else
+                {
+                    while (reader.EndOfStream == false)
+                    {
+                        var line = reader.ReadLine();
+                        if(line == null)
+                        {
+                            break;
+                        }
+                        var values = line.Split(';');
+                        string[] arrayvals = new string[] { values[1], values[2] };
+                        dict.Add(values[0], arrayvals);
+                    }
+                }
+
             }
             return dict;
         }
@@ -310,6 +372,7 @@ namespace ElectionPredict
                 DemVotesLabel.Visible = false;
             }
         }
+        //Draws Key
         private void DrawKeyBox(SortedDictionary<string, string[]> dict, string[] Parties, List<Color> Colors)
         {
             KeyGroupBox.Visible = false;
@@ -379,6 +442,7 @@ namespace ElectionPredict
         {
             return SvgDocument.Open(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/" + MetaExtract(src)[3]);
         }
+        //Draws the Map
         private void DrawMap(SvgDocument map, SortedDictionary<string, string[]> dict, List<Color> Colors, string[] Parties)
         {
             List<List<string>> AssignedStates = new List<List<string>>();
@@ -403,20 +467,43 @@ namespace ElectionPredict
                 }
             }
             //Creates Map
+            bool atleastonepainted = false;
             foreach(List<string> parties in AssignedStates)
             {
                 foreach (string state in parties)
                 {
-                    try { map.GetElementById(state).Fill = new SvgColourServer(Colors[AssignedStates.IndexOf(parties)]); }
+                    try { map.GetElementById(state).Fill = new SvgColourServer(Colors[AssignedStates.IndexOf(parties)]); atleastonepainted = true; }
                     catch { }
                 }
             }
             foreach(string state in BLANKColors)
             {
                 map.GetElementById(state).Fill = new SvgColourServer(panel2.BackColor);
+                atleastonepainted = true;
             }
-            mappanel.BackgroundImage = map.Draw();
-            mappanel.Visible = true;
+            if (atleastonepainted)
+            {
+                mappanel.BackgroundImage = map.Draw();
+                mappanel.Visible = true;
+            }
+
+        }
+        private string TitleShiftModifier(string title, string src, int shift)
+        {
+            if(ShiftResultsTrackBar.Visible && shift != 0)
+            {
+                string winningparty;
+                if(shift > 0)
+                {
+                    winningparty = MainParties(src)[0];
+                }
+                else
+                {
+                    winningparty = MainParties(src)[1];
+                }
+                title += " (+" + Math.Abs(shift) + "% " + winningparty[0]+")";
+            }
+            return title;
         }
         private void ExitLabel_MouseClick(object sender, MouseEventArgs e)
         {
@@ -434,28 +521,42 @@ namespace ElectionPredict
         {
             string source = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/DataFiles/" +Convert.ToString(listPublicationsHistorical.SelectedItem) + "/" + Convert.ToString(listYearsHistorical.SelectedItem)+".csv");
             string sourcecompare = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/DataFiles/" + Convert.ToString(listPublicationsCompare.SelectedItem) + "/" + Convert.ToString(listYearsCompare.SelectedItem) + ".csv");
-            mappanel.Tag = source;
+            int shift = 0;
+            if (ShiftResultsTrackBar.Visible)
+            {
+                shift = ShiftResultsTrackBar.Value;
+            }
+            int shiftcompare = 0;
+            if (ShiftResultsTrackBar.Visible)
+            {
+                shiftcompare = ShiftResultsTrackBarCompare.Value;
+            }
             try
             {
+                ErrorLabel.Text = "";
                 if (listPublicationsCompare.Visible && SourceFormatType(source) == "MapVis" && SourceFormatType(sourcecompare) == "MapVis")
                 {
-                    DrawMap(GetSvgFromDirectory(source), CreateComparedDictionary(CreateDictionary(source), CreateDictionary(sourcecompare)), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), ColorComparedCategories(source, sourcecompare));
-                    DrawElectoralVotes(false, CreateComparedDictionary(CreateDictionary(source), CreateDictionary(sourcecompare)), ColorComparedCategories(source, sourcecompare), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), new string[] { "*", "*" });
-                    DrawKeyBox(CreateComparedDictionary(CreateDictionary(source), CreateDictionary(sourcecompare)), ColorComparedCategories(source, sourcecompare), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))));
-                    MetaLabeling((MetaExtract(sourcecompare)[2] + ", " + MetaExtract(sourcecompare)[1] + " compared to " + MetaExtract(source)[2] + ", " + MetaExtract(source)[1]), MetaExtract(sourcecompare)[0] + " compared to " + MetaExtract(source)[0], "Comparison, bar at top shows number of states in each category");
+                    SortedDictionary<string, string[]> compareddict = CreateComparedDictionary(CreateDictionary(source, shift), CreateDictionary(sourcecompare, shiftcompare));
+                    DrawMap(GetSvgFromDirectory(source), compareddict, new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), ColorComparedCategories(source, sourcecompare, compareddict));
+                    DrawElectoralVotes(false, compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), new string[] { "*", "*" });
+                    DrawKeyBox(compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))));
+                    MetaLabeling((TitleShiftModifier(MetaExtract(sourcecompare)[2] + ", " + MetaExtract(sourcecompare)[1], sourcecompare, shiftcompare) + " -> " + TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift)), MetaExtract(sourcecompare)[0] + " compared to " + MetaExtract(source)[0], "Comparison, bar at top shows number of states in each category");
                 }
                 else if (SourceFormatType(source) == "MapVis")
                 {
-                    DrawMap(GetSvgFromDirectory(source), CreateDictionary(source), GetGradient(MetaExtract(source)[4]), ColorCategories(source));
-                    DrawElectoralVotes(true, CreateDictionary(source), ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source));
-                    DrawKeyBox(CreateDictionary(source), ColorCategories(source), GetGradient(MetaExtract(source)[4]));
-                    MetaLabeling((MetaExtract(source)[2] + ", " + MetaExtract(source)[1]), MetaExtract(source)[0], MetaExtract(source)[5]);
+                    SortedDictionary<string, string[]> dict = CreateDictionary(source, shift);
+                    DrawMap(GetSvgFromDirectory(source), dict, GetGradient(MetaExtract(source)[4]), ColorCategories(source));
+                    DrawElectoralVotes(true, dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source));
+                    DrawKeyBox(dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
+                    MetaLabeling(TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift), MetaExtract(source)[0], MetaExtract(source)[5]);
                 }
-                ErrorLabel.Text = "";
             }
             catch
             {
-                ErrorLabel.Text = "Error, try again";
+                if(ErrorLabel.Text == "")
+                {
+                    ErrorLabel.Text = "Error occured.";
+                }
             }
         }
         private void ListPublications_SelectedIndexChanged(object sender, EventArgs e)
@@ -479,6 +580,7 @@ namespace ElectionPredict
                 }
             }
         }
+        //UI Functionality
         private void MinimizeLabel_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -495,15 +597,171 @@ namespace ElectionPredict
         {        
             if(CompareLabel.Text == "Compare ▲")
             {
+                if (ShiftResultLabel.Text == "Shift Results ▼")
+                {
+                    ShiftResultsTrackBarCompare.Visible = true;
+                    TrackBarTrackerCompare.Visible = true;
+                    ShiftResultPanelCompare.Visible = true;
+                    ZeroLabelCompare.Visible = true;
+                    DLabelCompare.Visible = true;
+                    RLabelCompare.Visible = true;
+                }
                 CompareLabel.Text = "Compare ▼";
                 listYearsCompare.Visible = true;
                 listPublicationsCompare.Visible = true;
+                ShiftResultLabel.Top += listPublicationsCompare.Height;
+                ShiftResultsTrackBar.Top += listPublicationsCompare.Height;
+                TrackBarTracker.Top += listPublicationsCompare.Height;
+                ShiftResultPanel.Top += listPublicationsCompare.Height;
+                ZeroLabel.Top += listPublicationsCompare.Height;
+                DLabel.Top += listPublicationsCompare.Height;
+                RLabel.Top += listPublicationsCompare.Height;
+                ShiftResultsTrackBarCompare.Top += listPublicationsCompare.Height;
+                TrackBarTrackerCompare.Top += listPublicationsCompare.Height;
+                ShiftResultPanelCompare.Top += listPublicationsCompare.Height;
+                ZeroLabelCompare.Top += listPublicationsCompare.Height;
+                DLabelCompare.Top += listPublicationsCompare.Height;
+                RLabelCompare.Top += listPublicationsCompare.Height;
             }
             else if (CompareLabel.Text == "Compare ▼")
             {
                 CompareLabel.Text = "Compare ▲";
                 listYearsCompare.Visible = false;
                 listPublicationsCompare.Visible = false;
+                ShiftResultLabel.Top -= listPublicationsCompare.Height;
+                ShiftResultsTrackBar.Top -= listPublicationsCompare.Height;
+                TrackBarTracker.Top -= listPublicationsCompare.Height;
+                ShiftResultPanel.Top -= listPublicationsCompare.Height;
+                ZeroLabel.Top -= listPublicationsCompare.Height;
+                DLabel.Top -= listPublicationsCompare.Height;
+                RLabel.Top -= listPublicationsCompare.Height;
+                ShiftResultsTrackBarCompare.Top -= listPublicationsCompare.Height;
+                TrackBarTrackerCompare.Top -= listPublicationsCompare.Height;
+                ShiftResultPanelCompare.Top -= listPublicationsCompare.Height;
+                ZeroLabelCompare.Top -= listPublicationsCompare.Height;
+                DLabelCompare.Top -= listPublicationsCompare.Height;
+                RLabelCompare.Top -= listPublicationsCompare.Height;
+                ShiftResultsTrackBarCompare.Visible = false;
+                TrackBarTrackerCompare.Visible = false;
+                ShiftResultPanelCompare.Visible = false;
+                ZeroLabelCompare.Visible = false;
+                DLabelCompare.Visible = false;
+                RLabelCompare.Visible = false;
+            }
+        }
+
+        private void ShiftResultLabel_Click(object sender, EventArgs e)
+        {
+            if (ShiftResultLabel.Text == "Shift Results ▲")
+            {
+                if (CompareLabel.Text == "Compare ▼")
+                {
+                    ShiftResultsTrackBarCompare.Visible = true;
+                    TrackBarTrackerCompare.Visible = true;
+                    ShiftResultPanelCompare.Visible = true;
+                    ZeroLabelCompare.Visible = true;
+                    DLabelCompare.Visible = true;
+                    RLabelCompare.Visible = true;
+                }
+                ShiftResultLabel.Text = "Shift Results ▼";
+                ShiftResultsTrackBar.Visible = true;
+                TrackBarTracker.Visible = true;
+                ShiftResultPanel.Visible = true;
+                ZeroLabel.Visible = true;
+                DLabel.Visible = true;
+                RLabel.Visible = true;
+            }
+            else if (ShiftResultLabel.Text == "Shift Results ▼")
+            {
+                ShiftResultLabel.Text = "Shift Results ▲";
+                ShiftResultsTrackBar.Visible = false;
+                TrackBarTracker.Visible = false;
+                ShiftResultPanel.Visible = false;
+                ZeroLabel.Visible = false;
+                DLabel.Visible = false;
+                RLabel.Visible = false ;
+                ShiftResultsTrackBarCompare.Visible = false;
+                TrackBarTrackerCompare.Visible = false;
+                ShiftResultPanelCompare.Visible = false;
+                ZeroLabelCompare.Visible = false;
+                DLabelCompare.Visible = false;
+                RLabelCompare.Visible = false;
+            }
+        }
+        private Point MouseDownLocation;
+        private Point MouseDownLocationCompare;
+        private void TrackBarTracker_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (sender.Equals(TrackBarTracker))
+            {
+                TrackBarTracker.ForeColor = Color.FloralWhite;
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    MouseDownLocation = e.Location;
+                    TrackBarTracker.ForeColor = Color.LightGray;
+                }
+            }
+            else if (sender.Equals(TrackBarTrackerCompare))
+            {
+                TrackBarTrackerCompare.ForeColor = Color.FloralWhite;
+                if (e.Button == System.Windows.Forms.MouseButtons.Left)
+                {
+                    MouseDownLocationCompare = e.Location;
+                    TrackBarTrackerCompare.ForeColor = Color.LightGray;
+                }
+            }
+        }
+
+        private void TrackBarTracker_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.Button == System.Windows.Forms.MouseButtons.Left)
+            {
+                if (sender.Equals(TrackBarTracker))
+                {
+                    if (e.X + TrackBarTracker.Left - MouseDownLocation.X >= 5 && e.X + TrackBarTracker.Left - MouseDownLocation.X < ShiftResultsTrackBar.Width - 15)
+                    {
+                        TrackBarTracker.Left = e.X + TrackBarTracker.Left - MouseDownLocation.X;
+                        int newbarval = Convert.ToInt32(Math.Round(((Convert.ToDouble(TrackBarTracker.Left) - Convert.ToDouble(5)) / (Convert.ToDouble(ShiftResultsTrackBar.Width) - Convert.ToDouble(20)) * (Convert.ToDouble(ShiftResultsTrackBar.Maximum) - Convert.ToDouble(ShiftResultsTrackBar.Minimum)) - Convert.ToDouble(20))));
+                        if (newbarval > 20)
+                        {
+                            newbarval = 20;
+                        }
+                        if (newbarval < -20)
+                        {
+                            newbarval = -20;
+                        }
+                        ShiftResultsTrackBar.Value = newbarval;
+                    }
+                }
+                else if (sender.Equals(TrackBarTrackerCompare))
+                {
+                    if (e.X + TrackBarTrackerCompare.Left - MouseDownLocationCompare.X >= 5 && e.X + TrackBarTrackerCompare.Left - MouseDownLocationCompare.X < ShiftResultsTrackBarCompare.Width - 15)
+                    {
+                        TrackBarTrackerCompare.Left = e.X + TrackBarTrackerCompare.Left - MouseDownLocationCompare.X;
+                        int newbarval = Convert.ToInt32(Math.Round(((Convert.ToDouble(TrackBarTrackerCompare.Left) - Convert.ToDouble(5)) / (Convert.ToDouble(ShiftResultsTrackBarCompare.Width) - Convert.ToDouble(20)) * (Convert.ToDouble(ShiftResultsTrackBarCompare.Maximum) - Convert.ToDouble(ShiftResultsTrackBarCompare.Minimum)) - Convert.ToDouble(20))));
+                        if (newbarval > 20)
+                        {
+                            newbarval = 20;
+                        }
+                        if (newbarval < -20)
+                        {
+                            newbarval = -20;
+                        }
+                        ShiftResultsTrackBarCompare.Value = newbarval;
+                    }
+                }
+            }
+        }
+
+        private void TrackBarTracker_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (sender.Equals(TrackBarTracker))
+            {
+                TrackBarTracker.ForeColor = Color.FloralWhite;
+            }
+            else if (sender.Equals(TrackBarTrackerCompare))
+            {
+                TrackBarTrackerCompare.ForeColor = Color.FloralWhite;
             }
         }
     }
