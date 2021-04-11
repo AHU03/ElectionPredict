@@ -1,55 +1,55 @@
-MapVis
+MapVis;;;;;
 Hoover v. Roosevelt;1932;Literary Digest;usa.svg;colorgradientusfull.png;3'064'497 Straw Votes, 1'150'398 for Hoover, 1'715'789 for Roosevelt, Source: Literary Digest November 5, 1932
 Republican;Leaning Republican;3rd;Tie;Leaning Democrat;Democrat
-Republican;Democrat
-AL;Democrat;11;16.99;80.18
-AK;NULL;0;0;0
-AZ;Democrat;3;32.81;62.58
-AR;Democrat;9;18.20;79.55
-CA;Democrat;22;33.82;61.51
-CO;Democrat;6;42.33;50.67
-CT;Republican;8;54.89;35.01
-DE;Leaning Democrat;3;45.77;48.88
-DC;NULL;0;0;0
-FL;Democrat;7;27.04;68.62
-GA;Democrat;12;12.85;84.83
-HI;NULL;0;0;0
-ID;Democrat;4;36.14;56.80
-IL;Democrat;29;39.26;54.41
-IN;Democrat;14;40.82;54.25
-IA;Democrat;11;39.75;56.04
-KS;Democrat;9;42.56;52.57
-KY;Democrat;11;33.49;63.40
-LA;Democrat;10;16.81;79.99
-ME;Republican;5;56.07;40.43
-MD;Democrat;8;29.95;62.81
-MA;Republican;17;58.40;33.34
-MI;Democrat;19;39.13;55.04
-MN;Democrat;11;36.00;57.67
-MS;Democrat;9;9.39;88.33
-MO;Democrat;15;34.30;62.22
-MT;Democrat;4;38.67;55.10
-NE;Democrat;7;33.82;62.14
-NV;Democrat;3;30.56;65.65
-NH;Republican;4;57.46;38.28
-NJ;Republican;16;49.29;41.01
-NM;Democrat;3;37.75;57.49
-NY;Leaning Democrat;47;43.89;46.11
-NC;Democrat;13;25.34;71.61
-ND;Democrat;4;33.59;60.33
-OH;Democrat;26;39.22;52.89
-OK;Democrat;11;30.13;64.39
-OR;Democrat;5;33.57;60.58
-PA;Democrat;36;38.62;51.75
-RI;Republican;4;52.62;41.87
-SC;Democrat;8;9.07;88.74
-SD;Democrat;4;37.84;58.47
-TN;Democrat;11;28.99;68.03
-TX;Democrat;23;16.58;80.65
-UT;Democrat;4;34.49;60.16
-VT;Republican;3;57.59;38.45
-VA;Democrat;11;27.29;69.44
-WA;Democrat;8;33.56;60.87
-WV;Democrat;8;37.12;59.83
-WI;Democrat;12;30.33;62.51
-WY;Democrat;3;40.45;53.54
+Republican;Democrat;;;;
+AL;Democrat;11;16.99;80.18;
+AK;NULL;0;0;0;
+AZ;Democrat;3;32.81;62.58;
+AR;Democrat;9;18.20;79.55;
+CA;Democrat;22;33.82;61.51;
+CO;Democrat;6;42.33;50.67;
+CT;Republican;8;54.89;35.01;
+DE;Leaning Democrat;3;45.77;48.88;
+DC;NULL;0;0;0;
+FL;Democrat;7;27. Apr;68.62;
+GA;Democrat;12;Dez 85;84.83;
+HI;NULL;0;0;0;
+ID;Democrat;4;36.14;56.80;
+IL;Democrat;29;39.26;54.41;
+IN;Democrat;14;40.82;54.25;
+IA;Democrat;11;39.75;56.04;
+KS;Democrat;9;42.56;52.57;
+KY;Democrat;11;33.49;63.40;
+LA;Democrat;10;16.81;79.99;
+ME;Republican;5;56.07;40.43;
+MD;Democrat;8;29.95;62.81;
+MA;Republican;17;58.40;33.34;
+MI;Democrat;19;39.13;55.04;
+MN;Democrat;11;36.00;57.67;
+MS;Democrat;9;Sep 39;88.33;
+MO;Democrat;15;34.30;62.22;
+MT;Democrat;4;38.67;55.10;
+NE;Democrat;7;33.82;62.14;
+NV;Democrat;3;30.56;65.65;
+NH;Republican;4;57.46;38.28;
+NJ;Republican;16;49.29;41.01;
+NM;Democrat;3;37.75;57.49;
+NY;Leaning Democrat;47;43.89;46.11;
+NC;Democrat;13;25.34;71.61;
+ND;Democrat;4;33.59;60.33;
+OH;Democrat;26;39.22;52.89;
+OK;Democrat;11;30.13;64.39;
+OR;Democrat;5;33.57;60.58;
+PA;Democrat;36;38.62;51.75;
+RI;Republican;4;52.62;41.87;
+SC;Democrat;8;09. Jul;88.74;
+SD;Democrat;4;37.84;58.47;
+TN;Democrat;11;28.99;68.03;
+TX;Democrat;23;16.58;80.65;
+UT;Democrat;4;34.49;60.16;
+VT;Republican;3;57.59;38.45;
+VA;Democrat;11;27.29;69.44;
+WA;Democrat;8;33.56;60.87;
+WV;Democrat;8;37.12;59.83;
+WI;Democrat;12;30.33;62.51;
+WY;Democrat;3;40.45;53.54;

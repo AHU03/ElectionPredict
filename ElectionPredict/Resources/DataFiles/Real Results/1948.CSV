@@ -1,55 +1,55 @@
-MapVis
+MapVis;;;;;
 Dewey v. Thurmond v. Truman;1948;Actual Results;usa.svg;colorgradientusfull.png;Election Results not considering faithless Electors
 Republican;Leaning Republican;3rd Party;Tie;Leaning Democrat;Democrat
-Republican;Democrat
-AL;3rd Party;11;19.04;0
-AK;NULL;0;0;0
-AZ;Democrat;4;43.82;53.79
-AR;Democrat;9;21.02;61.72
-CA;Democrat;25;47.13;47.57
-CO;Democrat;6;46.52;51.88
-CT;Republican;8;49.55;47.91
-DE;Republican;3;50.04;48.76
-DC;NULL;0;0;0
-FL;Democrat;8;33.63;48.82
-GA;Democrat;12;18.31;60.81
-HI;NULL;0;0;0
-ID;Democrat;4;47.26;49.98
-IL;Democrat;28;49.22;50.07
-IN;Republican;13;49.58;48.78
-IA;Democrat;10;47.58;50.31
-KS;Republican;8;53.63;44.61
-KY;Democrat;11;41.48;56.74
-LA;3rd Party;10;17.45;32.75
-ME;Republican;5;56.74;42.27
-MD;Republican;8;49.40;48.01
-MA;Democrat;16;43.16;54.66
-MI;Republican;19;49.23;47.57
-MN;Democrat;11;39.89;57.16
-MS;3rd Party;9;2.62;10.09
-MO;Democrat;15;41.49;58.11
-MT;Democrat;4;43.15;53.09
-NE;Republican;6;54.15;45.85
-NV;Democrat;3;47.26;50.37
-NH;Republican;4;52.41;46.66
-NJ;Republican;16;50.33;45.93
-NM;Democrat;4;42.93;56.38
-NY;Republican;47;45.99;45.01
-NC;Democrat;14;32.68;58.02
-ND;Republican;4;52.17;43.41
-OH;Democrat;25;49.24;49.48
-OK;Democrat;10;37.25;62.75
-OR;Republican;6;49.78;46.40
-PA;Republican;35;50.93;46.92
-RI;Democrat;4;41.44;57.59
-SC;3rd Party;8;3.78;24.14
-SD;Republican;4;51.84;47.04
-TN;Democrat;12;36.87;49.14
-TX;Democrat;23;24.29;65.96
-UT;Democrat;4;45.02;53.98
-VT;Republican;3;61.54;36.92
-VA;Democrat;11;41.04;47.89
-WA;Democrat;8;42.68;52.61
-WV;Democrat;8;42.24;57.32
-WI;Democrat;12;46.28;50.70
-WY;Democrat;3;47.27;51.62
+Republican;Democrat;;;;
+AL;3rd Party;11;19. Apr;0;
+AK;NULL;0;0;0;
+AZ;Democrat;4;43.82;53.79;
+AR;Democrat;9;21. Feb;61.72;
+CA;Democrat;25;47.13;47.57;
+CO;Democrat;6;46.52;51.88;
+CT;Republican;8;49.55;47.91;
+DE;Republican;3;50.04;48.76;
+DC;NULL;0;0;0;
+FL;Democrat;8;33.63;48.82;
+GA;Democrat;12;18.31;60.81;
+HI;NULL;0;0;0;
+ID;Democrat;4;47.26;49.98;
+IL;Democrat;28;49.22;50.07;
+IN;Republican;13;49.58;48.78;
+IA;Democrat;10;47.58;50.31;
+KS;Republican;8;53.63;44.61;
+KY;Democrat;11;41.48;56.74;
+LA;3rd Party;10;17.45;32.75;
+ME;Republican;5;56.74;42.27;
+MD;Republican;8;49.40;48.01;
+MA;Democrat;16;43.16;54.66;
+MI;Republican;19;49.23;47.57;
+MN;Democrat;11;39.89;57.16;
+MS;3rd Party;9;Feb 62;10. Sep;
+MO;Democrat;15;41.49;58.11;
+MT;Democrat;4;43.15;53.09;
+NE;Republican;6;54.15;45.85;
+NV;Democrat;3;47.26;50.37;
+NH;Republican;4;52.41;46.66;
+NJ;Republican;16;50.33;45.93;
+NM;Democrat;4;42.93;56.38;
+NY;Republican;47;45.99;45.01;
+NC;Democrat;14;32.68;58.02;
+ND;Republican;4;52.17;43.41;
+OH;Democrat;25;49.24;49.48;
+OK;Democrat;10;37.25;62.75;
+OR;Republican;6;49.78;46.40;
+PA;Republican;35;50.93;46.92;
+RI;Democrat;4;41.44;57.59;
+SC;3rd Party;8;Mrz 78;24.14;
+SD;Republican;4;51.84;47.04;
+TN;Democrat;12;36.87;49.14;
+TX;Democrat;23;24.29;65.96;
+UT;Democrat;4;45.02;53.98;
+VT;Republican;3;61.54;36.92;
+VA;Democrat;11;41.04;47.89;
+WA;Democrat;8;42.68;52.61;
+WV;Democrat;8;42.24;57.32;
+WI;Democrat;12;46.28;50.70;
+WY;Democrat;3;47.27;51.62;
