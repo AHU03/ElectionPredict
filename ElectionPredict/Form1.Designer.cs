@@ -240,7 +240,7 @@
             this.ErrorLabel.AutoSize = true;
             this.ErrorLabel.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ErrorLabel.ForeColor = System.Drawing.Color.Maroon;
-            this.ErrorLabel.Location = new System.Drawing.Point(7, 633);
+            this.ErrorLabel.Location = new System.Drawing.Point(12, 555);
             this.ErrorLabel.Name = "ErrorLabel";
             this.ErrorLabel.Size = new System.Drawing.Size(0, 15);
             this.ErrorLabel.TabIndex = 9;
