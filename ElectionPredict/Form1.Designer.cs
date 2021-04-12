@@ -54,8 +54,8 @@
             this.ShiftResultsTrackBarCompare = new System.Windows.Forms.TrackBar();
             this.panel2 = new System.Windows.Forms.Panel();
             this.RemarkLabel = new System.Windows.Forms.Label();
-            this.TitleLabel = new System.Windows.Forms.Label();
             this.mappanel = new System.Windows.Forms.Panel();
+            this.TitleLabel = new System.Windows.Forms.Label();
             this.ExitLabel = new System.Windows.Forms.Label();
             this.MinimizeLabel = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
@@ -364,7 +364,6 @@
             // 
             this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.panel2.Controls.Add(this.RemarkLabel);
-            this.panel2.Controls.Add(this.TitleLabel);
             this.panel2.Controls.Add(this.mappanel);
             this.panel2.Location = new System.Drawing.Point(181, 28);
             this.panel2.Name = "panel2";
@@ -382,17 +381,6 @@
             this.RemarkLabel.TabIndex = 0;
             this.RemarkLabel.Text = " ";
             // 
-            // TitleLabel
-            // 
-            this.TitleLabel.AutoSize = true;
-            this.TitleLabel.Font = new System.Drawing.Font("Consolas", 18.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TitleLabel.ForeColor = System.Drawing.Color.FloralWhite;
-            this.TitleLabel.Location = new System.Drawing.Point(35, 3);
-            this.TitleLabel.Name = "TitleLabel";
-            this.TitleLabel.Size = new System.Drawing.Size(27, 29);
-            this.TitleLabel.TabIndex = 4;
-            this.TitleLabel.Text = " ";
-            // 
             // mappanel
             // 
             this.mappanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
@@ -401,6 +389,17 @@
             this.mappanel.Size = new System.Drawing.Size(742, 504);
             this.mappanel.TabIndex = 0;
             this.mappanel.Visible = false;
+            // 
+            // TitleLabel
+            // 
+            this.TitleLabel.AutoSize = true;
+            this.TitleLabel.Font = new System.Drawing.Font("Consolas", 18.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TitleLabel.ForeColor = System.Drawing.Color.FloralWhite;
+            this.TitleLabel.Location = new System.Drawing.Point(214, 134);
+            this.TitleLabel.Name = "TitleLabel";
+            this.TitleLabel.Size = new System.Drawing.Size(27, 29);
+            this.TitleLabel.TabIndex = 4;
+            this.TitleLabel.Text = " ";
             // 
             // ExitLabel
             // 
@@ -437,6 +436,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.ClientSize = new System.Drawing.Size(1175, 639);
             this.Controls.Add(this.MinimizeLabel);
+            this.Controls.Add(this.TitleLabel);
             this.Controls.Add(this.ExitLabel);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.panel2);

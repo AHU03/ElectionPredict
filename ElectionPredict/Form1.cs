@@ -360,7 +360,7 @@ namespace ElectionPredict
         //Creates Bar at Top showing Electoral Votes
         private void DrawElectoralVotes(bool countvotes, bool shiftdown, SortedDictionary<string, string[]> dict, string[] Parties, List<Color> Colors, string[] MainParties, int height, string candidates, string repvotetext, string demvotetext)
         {
-            int curxpos = 216;
+            int curxpos = TitleLabel.Left;
             Label CandidatesLabel = new Label
             {
                 Font = new Font("Consolas", 15.75F, FontStyle.Bold),
@@ -391,6 +391,10 @@ namespace ElectionPredict
             };
             this.Controls.Add(DemVotesLabel);
             GeneratedControls.Add(DemVotesLabel);
+            if(CandidatesLabel.Top - TitleLabel.Height < TitleLabel.Top)
+            {
+                TitleLabel.Location = new Point(TitleLabel.Left, CandidatesLabel.Top - TitleLabel.Height);
+            }
             List<double> Votes = new List<double>();
             for (int i = 0; i < Parties.Length; i++)
             {
@@ -423,11 +427,11 @@ namespace ElectionPredict
                 double width;
                 if (countvotes)
                 {
-                    width = Convert.ToDouble(Votes[i]) / Convert.ToDouble(Votes.Sum()) * Convert.ToDouble(this.Width - 246);
+                    width = Convert.ToDouble(Votes[i]) / Convert.ToDouble(Votes.Sum()) * Convert.ToDouble(this.Width - TitleLabel.Left - 10);
                 }
                 else
                 {
-                    width = Convert.ToDouble(Votes[i]) / Convert.ToDouble(Votes.Sum()) * Convert.ToDouble(this.Width - 246);
+                    width = Convert.ToDouble(Votes[i]) / Convert.ToDouble(Votes.Sum()) * Convert.ToDouble(this.Width - TitleLabel.Left - 10);
                 }
                 Panel votespanel = new Panel
                 {
@@ -547,7 +551,7 @@ namespace ElectionPredict
             KeyGroupBox.BringToFront();
             KeyGroupBox.AutoSize = true;
             KeyGroupBox.MaximumSize = new Size(int.MaxValue, startypos + 5);
-            KeyGroupBox.Location = new Point(this.Size.Width - 20 - KeyGroupBox.Size.Width, this.Size.Height - 40 - KeyGroupBox.Size.Height);
+            KeyGroupBox.Location = new Point(this.Size.Width - 10 - KeyGroupBox.Size.Width, this.Size.Height - 40 - KeyGroupBox.Size.Height);
             KeyGroupBox.Visible = true;
         }
         //Loads the Svg-Document
@@ -648,8 +652,8 @@ namespace ElectionPredict
             {
                 shiftcompare = ShiftResultsTrackBarCompare.Value;
             }
-            //try
-            //{
+            try
+            {
                 ErrorLabel.Text = "";
                 if (listPublicationsCompare.Visible && SourceFormatType(source).Contains("MapVis") && SourceFormatType(sourcecompare).Contains("MapVis"))
                 {
@@ -672,14 +676,14 @@ namespace ElectionPredict
                     CreateMultipleBars(CreateStatDictionary(source), ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source));
                     MetaLabeling(MetaExtract(source)[2] + ", " + MetaExtract(source)[1] + ", " + MetaExtract(source)[0], MetaExtract(source)[5]);
                 }
-            //}
-            //catch
-            //{
-                //if(ErrorLabel.Text == "")
-                //{
-                    //ErrorLabel.Text = "Error occured.";
-                //}
-            //}
+            }
+            catch
+            {
+                if(ErrorLabel.Text == "")
+                {
+                    ErrorLabel.Text = "Error occured.";
+                }
+            }
         }
         //UI Functionality, just don't look at anything below this line.
         private bool IsMapVis(string publication, string year)
