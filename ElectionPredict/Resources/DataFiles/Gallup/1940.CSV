@@ -1,55 +1,55 @@
-MapVis;;;;;
+MapVis
 Willkie v. Roosevelt;1940;Gallup Final Poll;usa.svg;colorgradientusfull.png;Polling Averages on November 4, 52% for Roosevelt, 48% for Willkie, Source: The Gallup Poll: Public Opinion 1935 - 1971
 Republican;Leaning Republican;3rd;Tie;Leaning Democrat;Democrat
-Republican;Democrat;;;;
-AL;Democrat;11;14.00;86.00;
-AK;NULL;0;0;0;
-AZ;Democrat;3;39.00;61.00;
-AR;Democrat;9;18.00;82.00;
-CA;Democrat;22;42.00;58.00;
-CO;Republican;6;55.00;45.00;
-CT;Leaning Democrat;8;47.00;53.00;
-DE;Democrat;3;44.00;56.00;
-DC;NULL;0;0;0;
-FL;Democrat;7;28.00;72.00;
-GA;Democrat;12;13.00;87.00;
-HI;NULL;0;0;0;
-ID;Leaning Republican;4;51.00;49.00;
-IL;Leaning Republican;29;52.00;48.00;
-IN;Republican;14;55.00;45.00;
-IA;Republican;11;55.00;45.00;
-KS;Republican;9;57.00;43.00;
-KY;Democrat;11;46.00;54.00;
-LA;Democrat;10;14.00;86.00;
-ME;Republican;5;57.00;43.00;
-MD;Democrat;8;41.00;59.00;
-MA;Leaning Democrat;17;49.00;51.00;
-MI;Leaning Republican;19;52.00;48.00;
-MN;Leaning Democrat;11;49.00;51.00;
-MS;Democrat;9;6.00;94.00;
-MO;Leaning Republican;15;51.00;49.00;
-MT;Democrat;4;43.00;57.00;
-NE;Republican;7;59.00;41.00;
-NV;Democrat;3;44.00;56.00;
-NH;Leaning Republican;4;51.00;49.00;
-NJ;Leaning Democrat;16;48.00;52.00;
-NM;Leaning Democrat;3;47.00;53.00;
-NY;Leaning Republican;47;51.00;49.00;
-NC;Democrat;13;28.00;72.00;
-ND;Republican;4;54.00;46.00;
-OH;Leaning Republican;26;51.00;49.00;
-OK;Democrat;11;44.00;56.00;
-OR;Democrat;5;46.00;54.00;
-PA;Leaning Republican;36;51.00;49.00;
-RI;Democrat;4;46.00;54.00;
-SC;Democrat;8;3.00;97.00;
-SD;Republican;4;59.00;41.00;
-TN;Democrat;11;36.00;64.00;
-TX;Democrat;23;21.00;79.00;
-UT;Democrat;4;45.00;55.00;
-VT;Republican;3;58.00;42.00;
-VA;Democrat;11;30.00;70.00;
-WA;Democrat;8;43.00;57.00;
-WV;Democrat;8;41.00;59.00;
-WI;Leaning Republican;12;52.00;48.00;
-WY;Leaning Democrat;3;47.00;53.00;
+Republican;Democrat
+AL;Democrat;11;14.00;86.00
+AK;NULL;0;0;0
+AZ;Democrat;3;39.00;61.00
+AR;Democrat;9;18.00;82.00
+CA;Democrat;22;42.00;58.00
+CO;Republican;6;55.00;45.00
+CT;Leaning Democrat;8;47.00;53.00
+DE;Democrat;3;44.00;56.00
+DC;NULL;0;0;0
+FL;Democrat;7;28.00;72.00
+GA;Democrat;12;13.00;87.00
+HI;NULL;0;0;0
+ID;Leaning Republican;4;51.00;49.00
+IL;Leaning Republican;29;52.00;48.00
+IN;Republican;14;55.00;45.00
+IA;Republican;11;55.00;45.00
+KS;Republican;9;57.00;43.00
+KY;Democrat;11;46.00;54.00
+LA;Democrat;10;14.00;86.00
+ME;Republican;5;57.00;43.00
+MD;Democrat;8;41.00;59.00
+MA;Leaning Democrat;17;49.00;51.00
+MI;Leaning Republican;19;52.00;48.00
+MN;Leaning Democrat;11;49.00;51.00
+MS;Democrat;9;6.00;94.00
+MO;Leaning Republican;15;51.00;49.00
+MT;Democrat;4;43.00;57.00
+NE;Republican;7;59.00;41.00
+NV;Democrat;3;44.00;56.00
+NH;Leaning Republican;4;51.00;49.00
+NJ;Leaning Democrat;16;48.00;52.00
+NM;Leaning Democrat;3;47.00;53.00
+NY;Leaning Republican;47;51.00;49.00
+NC;Democrat;13;28.00;72.00
+ND;Republican;4;54.00;46.00
+OH;Leaning Republican;26;51.00;49.00
+OK;Democrat;11;44.00;56.00
+OR;Democrat;5;46.00;54.00
+PA;Leaning Republican;36;51.00;49.00
+RI;Democrat;4;46.00;54.00
+SC;Democrat;8;3.00;97.00
+SD;Republican;4;59.00;41.00
+TN;Democrat;11;36.00;64.00
+TX;Democrat;23;21.00;79.00
+UT;Democrat;4;45.00;55.00
+VT;Republican;3;58.00;42.00
+VA;Democrat;11;30.00;70.00
+WA;Democrat;8;43.00;57.00
+WV;Democrat;8;41.00;59.00
+WI;Leaning Republican;12;52.00;48.00
+WY;Leaning Democrat;3;47.00;53.00

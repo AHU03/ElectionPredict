@@ -1,55 +1,55 @@
-MapVis;;;;;
+MapVis
 Harding v. Cox;1920;Literary Digest;usa.svg;colorgradientusfull.png;153'237 Straw Votes in Six Big States, 112'554 to Harding, 31'796 to Cox, Source: Literary Digest October 23, 1920
 Republican;Leaning Republican;3rd;No prediction;Leaning Democrat;Democrat
-Republican;Democrat;;;;
-NH;No prediction;4;0;0;
-VT;No prediction;4;0;0;
-MA;No prediction;18;0;0;
-RI;No prediction;5;0;0;
-CT;No prediction;7;0;0;
-ME;No prediction;6;0;0;
-PA;No prediction;38;0;0;
-NJ;Republican;14;79.14;16.26;
-DE;No prediction;3;0;0;
-MD;No prediction;8;0;0;
-WV;No prediction;8;0;0;
-VA;No prediction;12;0;0;
-MI;No prediction;15;0;0;
-WI;No prediction;13;0;0;
-KY;No prediction;13;0;0;
-MN;No prediction;12;0;0;
-IA;No prediction;13;0;0;
-MO;No prediction;18;0;0;
-KS;No prediction;10;0;0;
-NE;No prediction;8;0;0;
-SD;No prediction;5;0;0;
-ND;No prediction;5;0;0;
-CO;No prediction;6;0;0;
-WY;No prediction;3;0;0;
-MT;No prediction;4;0;0;
-NV;No prediction;3;0;0;
-AZ;No prediction;3;0;0;
-NM;No prediction;3;0;0;
-UT;No prediction;4;0;0;
-ID;No prediction;4;0;0;
-WA;No prediction;7;0;0;
-OR;No prediction;5;0;0;
-CA;Republican;13;71.56;20.37;
-NY;Republican;45;76.85;16.29;
-OH;Republican;24;71.10;24.70;
-IN;Republican;15;63.98;31.53;
-IL;Republican;29;77.22;15.89;
-TX;No prediction;20;0;0;
-OK;No prediction;10;0;0;
-AR;No prediction;9;0;0;
-LA;No prediction;10;0;0;
-MS;No prediction;10;0;0;
-TN;No prediction;12;0;0;
-AL;No prediction;12;0;0;
-GA;No prediction;14;0;0;
-FL;No prediction;6;0;0;
-SC;No prediction;9;0;0;
-NC;No prediction;12;0;0;
-HI;NULL;0;0;0;
-AK;NULL;0;0;0;
-DC;NULL;0;0;0;
+Republican;Democrat
+NH;No prediction;4;0;0
+VT;No prediction;4;0;0
+MA;No prediction;18;0;0
+RI;No prediction;5;0;0
+CT;No prediction;7;0;0
+ME;No prediction;6;0;0
+PA;No prediction;38;0;0
+NJ;Republican;14;79.14;16.26
+DE;No prediction;3;0;0
+MD;No prediction;8;0;0
+WV;No prediction;8;0;0
+VA;No prediction;12;0;0
+MI;No prediction;15;0;0
+WI;No prediction;13;0;0
+KY;No prediction;13;0;0
+MN;No prediction;12;0;0
+IA;No prediction;13;0;0
+MO;No prediction;18;0;0
+KS;No prediction;10;0;0
+NE;No prediction;8;0;0
+SD;No prediction;5;0;0
+ND;No prediction;5;0;0
+CO;No prediction;6;0;0
+WY;No prediction;3;0;0
+MT;No prediction;4;0;0
+NV;No prediction;3;0;0
+AZ;No prediction;3;0;0
+NM;No prediction;3;0;0
+UT;No prediction;4;0;0
+ID;No prediction;4;0;0
+WA;No prediction;7;0;0
+OR;No prediction;5;0;0
+CA;Republican;13;71.56;20.37
+NY;Republican;45;76.85;16.29
+OH;Republican;24;71.10;24.70
+IN;Republican;15;63.98;31.53
+IL;Republican;29;77.22;15.89
+TX;No prediction;20;0;0
+OK;No prediction;10;0;0
+AR;No prediction;9;0;0
+LA;No prediction;10;0;0
+MS;No prediction;10;0;0
+TN;No prediction;12;0;0
+AL;No prediction;12;0;0
+GA;No prediction;14;0;0
+FL;No prediction;6;0;0
+SC;No prediction;9;0;0
+NC;No prediction;12;0;0
+HI;NULL;0;0;0
+AK;NULL;0;0;0
+DC;NULL;0;0;0
