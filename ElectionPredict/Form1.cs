@@ -23,7 +23,7 @@ namespace ElectionPredict
             InitializeComponent();
             LoadOptions();
         }
-        protected string Optionssource = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/usoptions.csv";
+        protected string Optionssource = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/usoptions.tsv";
         public List<Control> GeneratedControls = new List<Control>();
         //Windows Functionality (Totally not copied from StackOverflow)
         protected override void WndProc(ref Message m)
@@ -64,7 +64,7 @@ namespace ElectionPredict
                     string data = reader.ReadLine();
                     if (data == src)
                     {
-                        var yearsstream = RemoveEmptyInfo(reader.ReadLine().Split(';'));
+                        var yearsstream = RemoveEmptyInfo(reader.ReadLine().Split('\t'));
                         foreach (string year in yearsstream)
                         {
                             years.Add(year);
@@ -89,7 +89,7 @@ namespace ElectionPredict
             using (var reader = new StreamReader(src))
             {
                 reader.ReadLine();
-                var data = RemoveEmptyInfo(reader.ReadLine().Split(';'));
+                var data = RemoveEmptyInfo(reader.ReadLine().Split('\t'));
                 return data;
             }
         }
@@ -106,7 +106,7 @@ namespace ElectionPredict
             {
                 reader.ReadLine();
                 reader.ReadLine();
-                var data = RemoveEmptyInfo(reader.ReadLine().Split(';'));
+                var data = RemoveEmptyInfo(reader.ReadLine().Split('\t'));
                 return data;
             }
         }
@@ -148,7 +148,7 @@ namespace ElectionPredict
                 reader.ReadLine();
                 reader.ReadLine();
                 reader.ReadLine();
-                var data = RemoveEmptyInfo(reader.ReadLine().Split(';'));
+                var data = RemoveEmptyInfo(reader.ReadLine().Split('\t'));
                 return data;
             }
         }
@@ -184,7 +184,7 @@ namespace ElectionPredict
                             {
                                 break;
                             }
-                            var values = RemoveEmptyInfo(line.Split(';'));
+                            var values = RemoveEmptyInfo(line.Split('\t'));
                             string[] mp = MainParties(src);
                             string[] parties = ColorCategories(src);
                             NumberFormatInfo format = new NumberFormatInfo
@@ -231,7 +231,7 @@ namespace ElectionPredict
                         }
                         catch
                         {
-                            ErrorLabel.Text = "No %-Data for "+ src.Replace('/', ' ').Replace((Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/DataFiles/").Replace('/', ' '), "").Replace(".csv","");
+                            ErrorLabel.Text = "No %-Data for "+ src.Replace('/', ' ').Replace((Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/DataFiles/").Replace('/', ' '), "").Replace(".tsv","");
                         }
                     }
                 }
@@ -244,7 +244,7 @@ namespace ElectionPredict
                         {
                             break;
                         }
-                        var values = RemoveEmptyInfo(line.Split(';'));
+                        var values = RemoveEmptyInfo(line.Split('\t'));
                         string[] arrayvals = new string[] { values[1], values[2] };
                         dict.Add(values[0], arrayvals);
                     }
@@ -272,7 +272,7 @@ namespace ElectionPredict
                     {
                         break;
                     }
-                    var values = RemoveEmptyInfo(line.Split(';'));
+                    var values = RemoveEmptyInfo(line.Split('\t'));
                     string title = values[0];
                     for( int i = 0; i < parties.Length; i++)
                     {
@@ -628,8 +628,8 @@ namespace ElectionPredict
         {
             foreach(Control c in GeneratedControls)
             {
-                this.Controls.Remove(c);
                 c.Visible = false;
+                this.Controls.Remove(c);
                 c.Dispose();
             }
             mappanel.Visible = false;
@@ -640,8 +640,8 @@ namespace ElectionPredict
         private void Button1_Click(object sender, EventArgs e)
         {
             ClearDisplay();
-            string source = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/DataFiles/" +Convert.ToString(listPublicationsHistorical.SelectedItem) + "/" + Convert.ToString(listYearsHistorical.SelectedItem)+".csv");
-            string sourcecompare = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/DataFiles/" + Convert.ToString(listPublicationsCompare.SelectedItem) + "/" + Convert.ToString(listYearsCompare.SelectedItem) + ".csv");
+            string source = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName+"/Resources/DataFiles/" +Convert.ToString(listPublicationsHistorical.SelectedItem) + "/" + Convert.ToString(listYearsHistorical.SelectedItem)+".tsv");
+            string sourcecompare = (Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/DataFiles/" + Convert.ToString(listPublicationsCompare.SelectedItem) + "/" + Convert.ToString(listYearsCompare.SelectedItem) + ".tsv");
             int shift = 0;
             if (ShiftResultsTrackBar.Visible)
             {
@@ -652,38 +652,48 @@ namespace ElectionPredict
             {
                 shiftcompare = ShiftResultsTrackBarCompare.Value;
             }
-            try
-            {
+            //try
+            //{
                 ErrorLabel.Text = "";
                 if (listPublicationsCompare.Visible && SourceFormatType(source).Contains("MapVis") && SourceFormatType(sourcecompare).Contains("MapVis"))
                 {
                     SortedDictionary<string, string[]> compareddict = CreateComparedDictionary(CreateDictionary(source, shift), CreateDictionary(sourcecompare, shiftcompare));
-                    DrawMap(GetSvgFromDirectory(source), compareddict, new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), ColorComparedCategories(source, sourcecompare, compareddict));
-                    DrawElectoralVotes(false, true, compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), new string[] { "*", "*" }, 100, MetaExtract(sourcecompare)[0] + " compared to " + MetaExtract(source)[0],"","");
-                    DrawKeyBox(compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))));
-                    MetaLabeling((TitleShiftModifier(MetaExtract(sourcecompare)[2] + ", " + MetaExtract(sourcecompare)[1], sourcecompare, shiftcompare) + " -> " + TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift)), "Comparison, bar at top shows number of states in each category");
+                    if(ErrorLabel.Text == "")
+                    {
+                        DrawMap(GetSvgFromDirectory(source), compareddict, new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), ColorComparedCategories(source, sourcecompare, compareddict));
+                        DrawElectoralVotes(false, true, compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), new string[] { "*", "*" }, 100, MetaExtract(sourcecompare)[0] + " compared to " + MetaExtract(source)[0],"","");
+                        DrawKeyBox(compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))));
+                        MetaLabeling((TitleShiftModifier(MetaExtract(sourcecompare)[2] + ", " + MetaExtract(sourcecompare)[1], sourcecompare, shiftcompare) + " -> " + TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift)), "Comparison, bar at top shows number of states in each category");
+                    }
                 }
                 else if (SourceFormatType(source).Contains("MapVis"))
                 {
                     SortedDictionary<string, string[]> dict = CreateDictionary(source, shift);
-                    DrawMap(GetSvgFromDirectory(source), dict, GetGradient(MetaExtract(source)[4]), ColorCategories(source));
-                    DrawElectoralVotes(true, true, dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), 100, MetaExtract(source)[0],"","");
-                    DrawKeyBox(dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
-                    MetaLabeling(TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift), MetaExtract(source)[5]);
+                    if(ErrorLabel.Text == "")
+                    {
+                        DrawMap(GetSvgFromDirectory(source), dict, GetGradient(MetaExtract(source)[4]), ColorCategories(source));
+                        DrawElectoralVotes(true, true, dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), 100, MetaExtract(source)[0],"","");
+                        DrawKeyBox(dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
+                        MetaLabeling(TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift), MetaExtract(source)[5]);
+                    }
                 }
                 else if(SourceFormatType(source).Contains("StatVis"))
                 {
                     CreateMultipleBars(CreateStatDictionary(source), ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source));
                     MetaLabeling(MetaExtract(source)[2] + ", " + MetaExtract(source)[1] + ", " + MetaExtract(source)[0], MetaExtract(source)[5]);
                 }
-            }
-            catch
-            {
-                if(ErrorLabel.Text == "")
+                if(ErrorLabel.Text != "")
                 {
-                    ErrorLabel.Text = "Error occured.";
+                    ClearDisplay();
                 }
-            }
+            //}
+            //catch
+            //{
+                //if(ErrorLabel.Text == "")
+                //{
+                    //ErrorLabel.Text = "Error occured.";
+                //}
+            //}
         }
         //UI Functionality, just don't look at anything below this line.
         private bool IsMapVis(string publication, string year)
@@ -691,7 +701,7 @@ namespace ElectionPredict
             bool returnval = false;
             try
             {
-                if (SourceFormatType((Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/DataFiles/" + publication + "/" + year + ".csv")).Contains("MapVis"))
+                if (SourceFormatType((Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/DataFiles/" + publication + "/" + year + ".tsv")).Contains("MapVis"))
                 {
                     returnval = true;
                 }

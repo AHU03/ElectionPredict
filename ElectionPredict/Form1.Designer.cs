@@ -367,7 +367,7 @@
             this.panel2.Controls.Add(this.mappanel);
             this.panel2.Location = new System.Drawing.Point(181, 28);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(996, 695);
+            this.panel2.Size = new System.Drawing.Size(996, 611);
             this.panel2.TabIndex = 1;
             // 
             // RemarkLabel
