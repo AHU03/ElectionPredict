@@ -24,7 +24,7 @@ namespace ElectionPredict
             LoadOptions();
         }
         protected string Optionssource = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + "/Resources/usoptions.tsv";
-        public List<Control> GeneratedControls = new List<Control>();
+        public List<Object> GeneratedControls = new List<Object>();
         //Windows Functionality (Totally not copied from StackOverflow)
         protected override void WndProc(ref Message m)
         {
