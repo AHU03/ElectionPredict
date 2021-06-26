@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
+             x:Class="ElectionPredictFinal.MainPage"
+             BackgroundColor="#282828">
+    <ContentPage.Content>
+        <StackLayout Orientation="Horizontal">
+            <StackLayout BackgroundColor="#141414" Padding="10, 20,10,10" WidthRequest="295"  MinimumWidthRequest="295" Orientation="Vertical">
+                <Label Text="Election Simulation"  HorizontalTextAlignment="Start" TextColor="FloralWhite" FontSize="36" FontAttributes="Bold"/>
+                <Label Text="Country"  HorizontalTextAlignment="Start" TextColor="FloralWhite"  FontSize="20" FontAttributes="Bold" />
+                <Frame BackgroundColor="#282828" CornerRadius="10" HasShadow="False" HeightRequest="35" HorizontalOptions="Start">
+                    <ListView x:Name="CountryListView" SeparatorVisibility="None" RowHeight="30" ItemSelected="CountryListView_ItemSelected" BackgroundColor="#282828" SeparatorColor="#282828" MinimumWidthRequest="140" Margin="-15,-15,0,-15">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell  TextColor="FloralWhite"  Text="{Binding}" Tapped="TextCell_Tapped_4"/>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Frame>
+                <Label Text="Historical" x:Name="HistoricalLabel" IsVisible="false" HorizontalTextAlignment="Start" TextColor="FloralWhite"  FontSize="20" FontAttributes="Bold" />
+                <StackLayout Orientation="Horizontal" x:Name="HistoricalStackLayout" IsVisible="false">
+                    <Frame BackgroundColor="#282828" CornerRadius="10" HasShadow="False" HeightRequest="60" HorizontalOptions="Start">
+                        <ListView x:Name="HistoricalListView" SeparatorVisibility="None" RowHeight="30" ItemSelected="HistoricalListView_ItemSelected" BackgroundColor="#282828" SeparatorColor="#282828" MinimumWidthRequest="140" Margin="-15,-15,0,-15">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell  TextColor="FloralWhite"  Text="{Binding}" Tapped="TextCell_Tapped"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Frame>
+                    <Frame BackgroundColor="#282828" CornerRadius="10"  HasShadow="False" HeightRequest="60" HorizontalOptions="Start">
+                        <ListView x:Name="HistoricalYearsListView" RowHeight="30" SeparatorVisibility="None" BackgroundColor="#282828" SeparatorColor="#282828" Margin="-15,-15,-15,-15">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell  TextColor="FloralWhite"  Text="{Binding}" Tapped="TextCell_Tapped_1"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Frame>
+                </StackLayout>
+                <Label Text="Compare ▲" IsVisible="False" x:Name="CompareLabel" HorizontalTextAlignment="Start" TextColor="FloralWhite"  FontSize="20" FontAttributes="Bold">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <StackLayout Orientation="Horizontal" x:Name="CompareGroup" IsVisible="False">
+                    <Frame BackgroundColor="#282828" CornerRadius="10" HasShadow="False" HeightRequest="60" HorizontalOptions="Start" >
+                        <ListView x:Name="CompareListView" RowHeight="30" SeparatorVisibility="None" ItemSelected="HistoricalListView_ItemSelected" BackgroundColor="#282828" SeparatorColor="#282828" MinimumWidthRequest="150" Margin="-15,-15,0,-15">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell TextColor="FloralWhite"  Text="{Binding}" Tapped="TextCell_Tapped_2"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Frame>
+                    <Frame BackgroundColor="#282828" CornerRadius="10" HasShadow="False" HeightRequest="60" HorizontalOptions="Start">
+                        <ListView x:Name="CompareYearsListView" RowHeight="30" SeparatorVisibility="None" BackgroundColor="#282828" SeparatorColor="#282828" Margin="-15,-15,-15,-15">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <TextCell  TextColor="FloralWhite"  Text="{Binding}" Tapped="TextCell_Tapped_3"/>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Frame>
+                </StackLayout>
+                <Label Text="Shift Results ▲"  x:Name="ShiftResultLabel" IsVisible="False" HorizontalTextAlignment="Start" TextColor="FloralWhite"  FontSize="20" FontAttributes="Bold">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped_1"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <StackLayout Orientation="Vertical">
+                    <Frame BackgroundColor="#282828" x:Name="ShiftResultsHistoricalFrame" IsVisible="False" CornerRadius="10" HasShadow="False" VerticalOptions="Fill" MinimumHeightRequest="35" HorizontalOptions="Fill">
+                        <StackLayout Margin="0,-5">
+                            <Label FontSize="10" TextColor="FloralWhite" Margin="0,-5">Shift Historical Results:</Label>
+                            <Slider Minimum="-20" x:Name="ShiftResultsTrackBar" MinimumTrackColor="FloralWhite" MaximumTrackColor="FloralWhite" Maximum="20" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label FontSize="10" TextColor="FloralWhite" Margin="0,-5">+20%</Label>
+                                <Label HorizontalOptions="CenterAndExpand" TextColor="FloralWhite" FontSize="10" Margin="0,-5">0</Label>
+                                <Label HorizontalOptions="End" FontSize="10" TextColor="FloralWhite" Margin="0,-5">+20%</Label>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                    <Frame BackgroundColor="#282828" x:Name="ShiftResultsCompareFrame" IsVisible="False" CornerRadius="10" HasShadow="False" VerticalOptions="Fill" MinimumHeightRequest="35" HorizontalOptions="Fill">
+                        <StackLayout Margin="0,-5">
+                            <Label FontSize="10" Margin="0,-5">Shift Comparison Results:</Label>
+                            <Slider Minimum="-20" x:Name="ShiftResultsTrackBarCompare" MinimumTrackColor="FloralWhite" MaximumTrackColor="FloralWhite" Maximum="20" />
+                            <StackLayout Orientation="Horizontal">
+                                <Label FontSize="10" TextColor="FloralWhite" Margin="0,-5">+20%</Label>
+                                <Label HorizontalOptions="CenterAndExpand" TextColor="FloralWhite" FontSize="10" Margin="0,-5">0</Label>
+                                <Label HorizontalOptions="End" TextColor="FloralWhite" FontSize="10" Margin="0,-5">+20%</Label>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+                <Label x:Name="ErrorLabel" Text="" TextColor="Maroon" VerticalOptions="EndAndExpand"/>
+                <Button Text="Show Results" Clicked="Button_Clicked"  BackgroundColor="#282828" TextColor="FloralWhite" VerticalOptions="End"></Button>
+            </StackLayout>
+            <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#282828" Padding="10, 20" Orientation="Vertical">
+                <StackLayout x:Name="DisplayStackLayout">
+                    <Label Text=""  x:Name="TitleLabel" HorizontalTextAlignment="Start" TextColor="FloralWhite"  FontSize="36" FontAttributes="Bold" />
+                    <StackLayout x:Name="BarStackLayout" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" BackgroundColor="#282828" Orientation="Vertical">
+                    </StackLayout>
+                    <skia:SKCanvasView x:Name="mappanel" MinimumHeightRequest="200" PaintSurface="mappanel_PaintSurface" HeightRequest="380" VerticalOptions="Fill" HorizontalOptions="FillAndExpand">
+
+                    </skia:SKCanvasView>
+                    <StackLayout x:Name="KeyStackLayout" HorizontalOptions="FillAndExpand" MinimumHeightRequest="0" VerticalOptions="Fill" BackgroundColor="#282828" Orientation="Vertical">
+                    </StackLayout>
+                    <Label Text=""  x:Name="RemarkLabel" HorizontalTextAlignment="Start" VerticalOptions="Fill" TextColor="FloralWhite"  FontSize="10" FontAttributes="Bold" />
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
