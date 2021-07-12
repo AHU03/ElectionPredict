@@ -31,7 +31,6 @@ namespace ElectionPredictFinal
             ClearDisplay();
             string source = Convert.ToString(HistoricalListView.SelectedItem) + Convert.ToString(HistoricalYearsListView.SelectedItem);
             string sourcecompare = Convert.ToString(CompareListView.SelectedItem) + Convert.ToString(CompareYearsListView.SelectedItem);
-            Console.WriteLine(sourcecompare);
             if (sourcecompare.Length < 1)
             {
                 sourcecompare = Convert.ToString(HistoricalListView.SelectedItem) + Convert.ToString(1916);
@@ -62,7 +61,7 @@ namespace ElectionPredictFinal
                     if (ErrorLabel.Text == "")
                     {
                         DrawMap(GetSvgFromDirectory(MetaExtract(source)[3]), compareddict, new List<Xamarin.Forms.Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), ColorComparedCategories(source, sourcecompare, compareddict));
-                        DrawElectoralVotes(false, false, new double[] { }, compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Xamarin.Forms.Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), new string[] { "*", "*" }, voteslabel, "", "");
+                        DrawElectoralVotes(false, false, false, new double[] { }, compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Xamarin.Forms.Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), new string[] { "*", "*" }, voteslabel, "", "");
                         DrawKeyBox(compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Xamarin.Forms.Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))));
                         MetaLabeling((TitleShiftModifier(MetaExtract(sourcecompare)[2] + ", " + MetaExtract(sourcecompare)[1], sourcecompare, shiftcompare) + " -> " + TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift)), "Comparison, bar at top shows number of states in each category");
                     }
@@ -81,11 +80,11 @@ namespace ElectionPredictFinal
                     {
                         MetaLabeling(TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift), MetaExtract(source)[5]);
                         DrawMap(GetSvgFromDirectory(MetaExtract(source)[3]), dict, GetGradient(MetaExtract(source)[4]), ColorCategories(source));
-                        DrawElectoralVotes(true, false, new double[] { }, dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), voteslabel, "", "");
+                        DrawElectoralVotes(true, false, false, new double[] { }, dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), voteslabel, "", "");
                         if (popvote)
                         {
                             double[] splitvotes = SplitVote(source, shift);
-                            DrawElectoralVotes(true, true, splitvotes, dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), "Stimmen", "%", "%");
+                            DrawElectoralVotes(true, true, false, splitvotes, dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), "Stimmen", "%", "%");
                         }
                         DrawKeyBox(dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
                     }
@@ -94,6 +93,20 @@ namespace ElectionPredictFinal
                 {
                     CreateMultipleBars(CreateStatDictionary(source), ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source));
                     MetaLabeling(MetaExtract(source)[2] + ", " + MetaExtract(source)[1] + ", " + MetaExtract(source)[0], MetaExtract(source)[5]);
+                    SortedDictionary<string, string[]> data = new SortedDictionary<string, string[]>();
+                    foreach(string s in ColorCategories(source))
+                    {
+                        data.Add(s, new string[]{s});
+                    }
+                    DrawKeyBox(data, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
+                }
+                else if (SourceFormatType(source).Contains("TableVis"))
+                {
+                    SortedDictionary<string, string[]> dict = CreateTableDicitonary(source);
+                    DrawElectoralVotes(false, false, true, new double[] { }, dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), MetaExtract(source)[0], " Keys true", " Keys false");
+                    DrawTable(dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
+                    MetaLabeling(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], MetaExtract(source)[5]);
+                    DrawKeyBox(dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
                 }
                 if (ErrorLabel.Text != "")
                 {
@@ -127,7 +140,10 @@ namespace ElectionPredictFinal
                 {
                     string line = reader.ReadLine();
                     data.Add(line);
-                    datacompare.Add(line);
+                    if(line != "13 Keys")
+                    {
+                        datacompare.Add(line);
+                    }
                     reader.ReadLine();
                 }
             }
@@ -173,7 +189,6 @@ namespace ElectionPredictFinal
                         {
                             NumberDecimalSeparator = "."
                         };
-                        Console.WriteLine(Convert.ToString(Convert.ToDouble(values[3], format)));
                         double percentage1 = Convert.ToDouble(values[3], format);
                         double percentage2 = Convert.ToDouble(values[4], format);
                         double totalvotes = percentage1 + percentage2;
@@ -195,8 +210,13 @@ namespace ElectionPredictFinal
             return new double[] { votetotal1, votetotal2 };
         }
         //Creates a Bar with given Numbers, Labels and Colours, with minimal adjustment
-        private void DrawElectoralVotes(bool countvotes, bool popvote, double[] SplitVote, SortedDictionary<string, string[]> dict, string[] Parties, List<Xamarin.Forms.Color> Colors, string[] MainParties, string candidates, string repvotetext, string demvotetext)
+        private void DrawElectoralVotes(bool countvotes, bool popvote, bool displayvotescount, double[] SplitVote, SortedDictionary<string, string[]> dict, string[] Parties, List<Xamarin.Forms.Color> Colors, string[] MainParties, string candidates, string repvotetext, string demvotetext)
         {
+            if(Parties[0] != MainParties[0])
+            {
+                Array.Reverse(Parties);
+                Colors.Reverse();
+            }
             Label CandidatesLabel = new Label
             {
                 Text = (candidates),
@@ -235,7 +255,6 @@ namespace ElectionPredictFinal
             {
                 Votes[Array.IndexOf(Parties, MainParties[0])] = Math.Round(SplitVote[0] / (SplitVote[0] + SplitVote[1]) * 100, 2);
                 Votes[Array.IndexOf(Parties, MainParties[1])] = Math.Round(SplitVote[1] / (SplitVote[0] + SplitVote[1]) * 100, 2);
-                Console.WriteLine(Convert.ToString(Votes[0]) + Convert.ToString(Votes[5]));
             }
             else
             {
@@ -307,7 +326,7 @@ namespace ElectionPredictFinal
             GeneratedControls.Add(DemVotesLabel);
             RepVotesLabel.Text = repvotetext;
             DemVotesLabel.Text = demvotetext;
-            if (countvotes)
+            if (countvotes || displayvotescount)
             {
                 double REPvotes = 0;
                 double DEMvotes = 0;
@@ -361,6 +380,53 @@ namespace ElectionPredictFinal
             }
             catch { }
             return returnval;
+        }
+        //Draws Table data onto View
+        private void DrawTable(SortedDictionary<string, string[]> dict, string[] Parties, List<Xamarin.Forms.Color> Colors)
+        {
+            StackLayout space = new StackLayout
+            {
+                MinimumHeightRequest = 10,
+                HeightRequest = 10
+            };
+            BarStackLayout.Children.Add(space);
+            GeneratedControls.Add(space);
+            foreach(string s in dict.Keys)
+            {
+                Label CandidatesLabel = new Label
+                {
+                    Text = s,
+                    TextColor = Xamarin.Forms.Color.FloralWhite,
+                    FontAttributes = FontAttributes.Bold,
+                    FontSize = 20
+                };
+                Frame votespanel = new Frame
+                {
+                    MinimumWidthRequest = 15,
+                    WidthRequest = 15,
+                    BackgroundColor = Colors[Array.IndexOf(Parties, dict[s][0])],
+                    Padding = new Thickness(5),
+                    MinimumHeightRequest = 15,
+                    HeightRequest = 15
+                };
+                StackLayout stack = new StackLayout
+                {
+                    Orientation = StackOrientation.Horizontal
+                };
+                GeneratedControls.Add(stack);
+                GeneratedControls.Add(CandidatesLabel);
+                GeneratedControls.Add(votespanel);
+                stack.Children.Add(CandidatesLabel);
+                stack.Children.Add(votespanel);
+                BarStackLayout.Children.Add(stack);
+            }
+            StackLayout spacebottom = new StackLayout
+            {
+                MinimumHeightRequest = 10,
+                HeightRequest = 10
+            };
+            BarStackLayout.Children.Add(spacebottom);
+            GeneratedControls.Add(spacebottom);
         }
         //Creates List of Second Part of Data Selection
         private List<string> GetOptionYear(string src)
@@ -423,7 +489,7 @@ namespace ElectionPredictFinal
             }
             foreach (string party in Parties)
             {
-                if (((DictionaryValueList(dict).Contains(party))))
+                if (DictionaryValueList(dict).Contains(party))
                 {
                     if (party.Contains("->") && passedbool)
                     {
@@ -568,6 +634,38 @@ namespace ElectionPredictFinal
                 var data = RemoveEmptyInfo(reader.ReadLine().Split('\t'));
                 return data;
             }
+        }
+        //Creates Dictionary with Table Data and according Parties for 13-Key Prediciton
+        private SortedDictionary<string, string[]> CreateTableDicitonary(string src)
+        {
+            SortedDictionary<string, string[]> dict = new SortedDictionary<string, string[]>();
+            using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetManifestResourceNames().Single(str => str.Contains(src)))))
+            {
+                reader.ReadLine();
+                reader.ReadLine();
+                reader.ReadLine();
+                reader.ReadLine();
+                while (reader.EndOfStream == false)
+                {
+                    var line = reader.ReadLine();
+                    if (line == null)
+                    {
+                        break;
+                    }
+                    var values = RemoveEmptyInfo(line.Split('\t'));
+                    string[] valarray = new string[] { "placeholder", values[1] };
+                    if(values[1] == "True")
+                    {
+                        valarray[0] = MainParties(src)[0];
+                    }
+                    else
+                    {
+                        valarray[0] = MainParties(src)[1];
+                    }
+                    dict.Add(values[0], valarray);
+                }
+            }
+            return dict;
         }
         //Creates the Main Dictionary from the File and applies a Shift if specified
         private SortedDictionary<string, string[]> CreateDictionary(string src, int shift, bool popvoteadjust)
@@ -846,7 +944,7 @@ namespace ElectionPredictFinal
         {
             foreach (string title in maindict.Keys)
             {
-                DrawElectoralVotes(true, false, new double[] { }, maindict[title], parties, Colors, MainParties, title, "%", "%");
+                DrawElectoralVotes(true, false, false, new double[] { }, maindict[title], parties, Colors, MainParties, title, "%", "%");
             }
         }
         //Creates Dictionary for Statistics Visualisation Display Type
@@ -890,19 +988,24 @@ namespace ElectionPredictFinal
         {
             try
             {
-                if (!sksvg.Picture.Equals(null))
-                {
-                    float scale = (float)mappanel.Width * (float)0.75 / (float)sksvg.Picture.CullRect.Width;
-                    var matrix = SKMatrix.CreateScale(scale, scale);
-                    e.Surface.Canvas.DrawPicture(sksvg.Picture, ref matrix);
-                    MainLoadFunc();
-                }
+                float scale = (float)mappanel.Width * (float)1.75 / (float)sksvg.Picture.CullRect.Width;
+                var matrix = SKMatrix.CreateScale(scale, scale);
+                e.Surface.Canvas.DrawPicture(sksvg.Picture, ref matrix);
             }
             catch { }
         }
         //Checks Logic of Dropdown Menus
         private void CheckVisibility()
         {
+            if (!IsMapVis(Convert.ToString(HistoricalListView.SelectedItem), Convert.ToString(HistoricalYearsListView.SelectedItem)))
+            {
+                ShiftResultLabel.IsVisible = false;
+                CompareLabel.IsVisible = false;
+                CompareGroup.IsVisible = false;
+                ShiftResultsHistoricalFrame.IsVisible = false;
+                ShiftResultsCompareFrame.IsVisible = false;
+                return;
+            }
             ShiftResultLabel.IsVisible = true;
             CompareLabel.IsVisible = true;
             if (CompareLabel.Text == "Compare ▼")
@@ -916,14 +1019,6 @@ namespace ElectionPredictFinal
             if ((CompareLabel.Text == "Compare ▼") & (CompareLabel.Text == "Shift Results ▼"))
             {
                 ShiftResultsCompareFrame.IsVisible = true;
-            }
-            if (!IsMapVis(Convert.ToString(HistoricalListView.SelectedItem), Convert.ToString(HistoricalYearsListView.SelectedItem)))
-            {
-                ShiftResultLabel.IsVisible = false;
-                CompareLabel.IsVisible = false;
-                CompareGroup.IsVisible = false;
-                ShiftResultsHistoricalFrame.IsVisible = false;
-                ShiftResultsCompareFrame.IsVisible = false;
             }
         }
         //Decides on Visibility of Compare and Shift Options

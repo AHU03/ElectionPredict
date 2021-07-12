@@ -1,6 +1,6 @@
 MapVis
-Nixon v. Byrd v. Kennedy	1960	Actual Results	usa.svg	colorgradientusfull.png	Election Results not considering faithless Electors
-Republican	Leaning Republican	3rd Party	Tie	Leaning Democrat	Democrat
+Nixon (R) v. Byrd (I) v. Kennedy  (D)	1960	Actual Results	usa.svg	colorgradientusfull.png	Election Results not considering faithless Electors
+Republican	Leaning Republican	Independent	Tie	Leaning Democrat	Democrat
 Republican	Democrat
 AL	Democrat	11	42.16	56.39
 AK	Republican	3	50.94	49.06
@@ -26,7 +26,7 @@ MD	Democrat	9	46.39	53.61
 MA	Democrat	16	39.55	60.22
 MI	Democrat	20	48.84	50.85
 MN	Democrat	11	49.16	50.58
-MS	3rd Party	8	24.67	36.34
+MS	Independent	8	24.67	36.34
 MO	Democrat	13	49.74	50.26
 MT	Republican	4	51.10	48.60
 NE	Republican	6	62.07	37.93

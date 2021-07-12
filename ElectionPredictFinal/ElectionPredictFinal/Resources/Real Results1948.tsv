@@ -1,8 +1,8 @@
 MapVis
-Dewey v. Thurmond v. Truman	1948	Actual Results	usa.svg	colorgradientusfull.png	Election Results not considering faithless Electors
-Republican	Leaning Republican	3rd Party	Tie	Leaning Democrat	Democrat
+Dewey (R) v. Thurmond (Dixiecrat) v. Truman (D)	1948	Actual Results	usa.svg	colorgradientusfull.png	Election Results not considering faithless Electors
+Republican	Leaning Republican	Dixiecrat	Tie	Leaning Democrat	Democrat
 Republican	Democrat
-AL	3rd Party	11	19.04	0
+AL	Dixiecrat	11	19.04	0
 AK	NULL	0	0	0
 AZ	Democrat	4	43.82	53.79
 AR	Democrat	9	21.02	61.72
@@ -20,13 +20,13 @@ IN	Republican	13	49.58	48.78
 IA	Democrat	10	47.58	50.31
 KS	Republican	8	53.63	44.61
 KY	Democrat	11	41.48	56.74
-LA	3rd Party	10	17.45	32.75
+LA	Dixiecrat	10	17.45	32.75
 ME	Republican	5	56.74	42.27
 MD	Republican	8	49.40	48.01
 MA	Democrat	16	43.16	54.66
 MI	Republican	19	49.23	47.57
 MN	Democrat	11	39.89	57.16
-MS	3rd Party	9	2.62	10.09
+MS	Dixiecrat	9	2.62	10.09
 MO	Democrat	15	41.49	58.11
 MT	Democrat	4	43.15	53.09
 NE	Republican	6	54.15	45.85
@@ -42,7 +42,7 @@ OK	Democrat	10	37.25	62.75
 OR	Republican	6	49.78	46.40
 PA	Republican	35	50.93	46.92
 RI	Democrat	4	41.44	57.59
-SC	3rd Party	8	3.78	24.14
+SC	Dixiecrat	8	3.78	24.14
 SD	Republican	4	51.84	47.04
 TN	Democrat	12	36.87	49.14
 TX	Democrat	23	24.29	65.96

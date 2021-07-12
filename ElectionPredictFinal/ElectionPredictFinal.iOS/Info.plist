@@ -34,5 +34,9 @@
 	<true/>
 	<key>XSAppIconAssets</key>
 	<string>Media.xcassets/AppIconEP.appiconset</string>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+	<key>UIStatusBarHidden</key>
+	<true/>
 </dict>
 </plist>

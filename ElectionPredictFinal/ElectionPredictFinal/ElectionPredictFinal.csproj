@@ -11,6 +11,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\13 Keys1916.tsv" />
+    <None Remove="Resources\13 Keys1920.tsv" />
+    <None Remove="Resources\13 Keys1924.tsv" />
+    <None Remove="Resources\13 Keys1928.tsv" />
+    <None Remove="Resources\13 Keys1932.tsv" />
+    <None Remove="Resources\13 Keys1936.tsv" />
+    <None Remove="Resources\13 Keys1940.tsv" />
+    <None Remove="Resources\13 Keys1944.tsv" />
+    <None Remove="Resources\13 Keys1948.tsv" />
+    <None Remove="Resources\13 Keys1952.tsv" />
+    <None Remove="Resources\13 Keys1956.tsv" />
+    <None Remove="Resources\13 Keys1960.tsv" />
+    <None Remove="Resources\13 Keys1964.tsv" />
+    <None Remove="Resources\13 Keys1968.tsv" />
+    <None Remove="Resources\13 Keys1972.tsv" />
+    <None Remove="Resources\13 Keys1976.tsv" />
+    <None Remove="Resources\13 Keys1980.tsv" />
+    <None Remove="Resources\13 Keys1984.tsv" />
+    <None Remove="Resources\13 Keys1988.tsv" />
+    <None Remove="Resources\13 Keys1992.tsv" />
+    <None Remove="Resources\13 Keys1996.tsv" />
+    <None Remove="Resources\13 Keys2000.tsv" />
+    <None Remove="Resources\13 Keys2004.tsv" />
+    <None Remove="Resources\13 Keys2008.tsv" />
+    <None Remove="Resources\13 Keys2012.tsv" />
+    <None Remove="Resources\13 Keys2016.tsv" />
+    <None Remove="Resources\13 Keys2020.tsv" />
     <None Remove="Resources\1866-01-141.tsv" />
     <None Remove="Resources\1866-01-142.tsv" />
     <None Remove="Resources\1866-01-143.tsv" />
@@ -728,6 +755,33 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Resources\13 Keys1916.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1920.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1924.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1928.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1932.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1936.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1940.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1944.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1948.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1952.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1956.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1960.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1964.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1968.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1972.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1976.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1980.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1984.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1988.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1992.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys1996.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys2000.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys2004.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys2008.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys2012.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys2016.tsv" />
+    <EmbeddedResource Include="Resources\13 Keys2020.tsv" />
     <EmbeddedResource Include="Resources\1866-01-141.tsv" />
     <EmbeddedResource Include="Resources\1866-01-142.tsv" />
     <EmbeddedResource Include="Resources\1866-01-143.tsv" />

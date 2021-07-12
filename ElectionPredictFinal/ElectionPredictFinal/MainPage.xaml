@@ -5,7 +5,7 @@
              x:Class="ElectionPredictFinal.MainPage"
              BackgroundColor="#282828">
     <ContentPage.Content>
-        <StackLayout Orientation="Horizontal">
+        <StackLayout x:Name="DataViewerStackLayout" IsVisible="True" Orientation="Horizontal">
             <StackLayout BackgroundColor="#141414" Padding="10, 20,10,10" WidthRequest="295"  MinimumWidthRequest="295" Orientation="Vertical">
                 <Label Text="Election Simulation"  HorizontalTextAlignment="Start" TextColor="FloralWhite" FontSize="36" FontAttributes="Bold"/>
                 <Label Text="Country"  HorizontalTextAlignment="Start" TextColor="FloralWhite"  FontSize="20" FontAttributes="Bold" />
@@ -102,7 +102,6 @@
                     <StackLayout x:Name="BarStackLayout" HorizontalOptions="FillAndExpand" VerticalOptions="Fill" BackgroundColor="#282828" Orientation="Vertical">
                     </StackLayout>
                     <skia:SKCanvasView x:Name="mappanel" MinimumHeightRequest="200" PaintSurface="mappanel_PaintSurface" HeightRequest="380" VerticalOptions="Fill" HorizontalOptions="FillAndExpand">
-
                     </skia:SKCanvasView>
                     <StackLayout x:Name="KeyStackLayout" HorizontalOptions="FillAndExpand" MinimumHeightRequest="0" VerticalOptions="Fill" BackgroundColor="#282828" Orientation="Vertical">
                     </StackLayout>
