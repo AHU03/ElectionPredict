@@ -4,6 +4,16 @@
              xmlns:skia="clr-namespace:SkiaSharp.Views.Forms;assembly=SkiaSharp.Views.Forms"
              x:Class="ElectionPredictFinal.MainPage"
              BackgroundColor="#282828">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="Menlo" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Menlo Regular" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout x:Name="DataViewerStackLayout" IsVisible="True" Orientation="Horizontal">
             <StackLayout BackgroundColor="#141414" Padding="10, 20,10,10" WidthRequest="295"  MinimumWidthRequest="295" Orientation="Vertical">

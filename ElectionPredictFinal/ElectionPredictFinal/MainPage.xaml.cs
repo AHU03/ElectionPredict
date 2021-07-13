@@ -61,9 +61,10 @@ namespace ElectionPredictFinal
                     if (ErrorLabel.Text == "")
                     {
                         DrawMap(GetSvgFromDirectory(MetaExtract(source)[3]), compareddict, new List<Xamarin.Forms.Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), ColorComparedCategories(source, sourcecompare, compareddict));
-                        DrawElectoralVotes(false, false, false, new double[] { }, compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Xamarin.Forms.Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), new string[] { "*", "*" }, voteslabel, "", "");
+                        double[] splitvotes = SplitVote(source, shift);
+                        DrawElectoralVotes(true, false, true, splitvotes, compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Xamarin.Forms.Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))), MainParties(source), voteslabel, "", "");
                         DrawKeyBox(compareddict, ColorComparedCategories(source, sourcecompare, compareddict), new List<Xamarin.Forms.Color>(GetGradient(MetaExtract(source)[4]).Concat(GetGradient("colorgradientrandom.png"))));
-                        MetaLabeling((TitleShiftModifier(MetaExtract(sourcecompare)[2] + ", " + MetaExtract(sourcecompare)[1], sourcecompare, shiftcompare) + " -> " + TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift)), "Comparison, bar at top shows number of states in each category");
+                        MetaLabeling(TitleShiftModifier(MetaExtract(sourcecompare)[2] + ", " + MetaExtract(sourcecompare)[1], sourcecompare, shiftcompare) + " -> " + TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift), "Comparison, bar at top shows number of states in each category");
                     }
                 }
                 else if (SourceFormatType(source).Contains("MapVis"))
@@ -102,11 +103,11 @@ namespace ElectionPredictFinal
                 }
                 else if (SourceFormatType(source).Contains("TableVis"))
                 {
-                    SortedDictionary<string, string[]> dict = CreateTableDicitonary(source);
-                    DrawElectoralVotes(false, false, true, new double[] { }, dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), MetaExtract(source)[0], " Keys true", " Keys false");
+                    Dictionary<string, string[]> dict = CreateTableDicitonary(source);
+                    DrawElectoralVotes(false, false, true, new double[] { }, new SortedDictionary<string, string[]>(dict), ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), IncumbentModifier(MetaExtract(source)[0], MainParties(source)), " Keys true", " Keys false");
                     DrawTable(dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
                     MetaLabeling(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], MetaExtract(source)[5]);
-                    DrawKeyBox(dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
+                    DrawKeyBox(new SortedDictionary<string, string[]>(dict), ColorCategories(source), GetGradient(MetaExtract(source)[4]));
                 }
                 if (ErrorLabel.Text != "")
                 {
@@ -344,6 +345,11 @@ namespace ElectionPredictFinal
                 RepVotesLabel.Text = Convert.ToString(REPvotes) + repvotetext;
                 DemVotesLabel.Text = Convert.ToString(DEMvotes) + demvotetext;
             }
+            if (countvotes && displayvotescount)
+            {
+                RepVotesLabel.Text = "";
+                DemVotesLabel.Text = "";
+            }
         }
         //Sanitise Info from Lists so as to not cause Errors
         private string[] RemoveEmptyInfo(string[] s)
@@ -357,6 +363,24 @@ namespace ElectionPredictFinal
                 }
             }
             return list.ToArray();
+        }
+        private string IncumbentModifier(string s, string[] MainParties)
+        {
+            string returnstring = "";
+            string[] split = s.Split(' ');
+            if (split[1][1] == MainParties[0][0])
+            {
+                returnstring = split[0] + " " + split[1][0] + split[1][1] + ", Incumbent" + split[1][2] + " " + split[2] + " " + split[3] + " " + split[4];
+            }
+            else
+            {
+                for(int i = 0; i < split.Length -1; i++)
+                {
+                    returnstring += split[i] + " ";
+                }
+                returnstring += Convert.ToString(split[(split.Length - 1)][0]) + Convert.ToString(split[(split.Length - 1)][1]) + ", Incumbent" + split[(split.Length - 1)][2];
+            }
+            return returnstring;
         }
         //Gets the type of data to be displayed
         private string SourceFormatType(string src)
@@ -382,7 +406,7 @@ namespace ElectionPredictFinal
             return returnval;
         }
         //Draws Table data onto View
-        private void DrawTable(SortedDictionary<string, string[]> dict, string[] Parties, List<Xamarin.Forms.Color> Colors)
+        private void DrawTable(Dictionary<string, string[]> dict, string[] Parties, List<Xamarin.Forms.Color> Colors)
         {
             StackLayout space = new StackLayout
             {
@@ -636,9 +660,9 @@ namespace ElectionPredictFinal
             }
         }
         //Creates Dictionary with Table Data and according Parties for 13-Key Prediciton
-        private SortedDictionary<string, string[]> CreateTableDicitonary(string src)
+        private Dictionary<string, string[]> CreateTableDicitonary(string src)
         {
-            SortedDictionary<string, string[]> dict = new SortedDictionary<string, string[]>();
+            Dictionary<string, string[]> dict = new Dictionary<string, string[]>();
             using (var reader = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetManifestResourceNames().Single(str => str.Contains(src)))))
             {
                 reader.ReadLine();
