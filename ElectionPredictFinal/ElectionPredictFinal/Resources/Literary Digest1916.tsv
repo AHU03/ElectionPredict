@@ -1,7 +1,7 @@
 MapVis
-Hughes (R) v. Wilson (D)	1916	Literary Digest	usa.svg	colorgradientusfull.png	30'000 Straw Votes in Five Big Doubtful States, 17'938 to Hughes, 10'646 to Wilson, Source: Literary Digest November 4, 1916
-Republican	Leaning Republican	3rd	No prediction	Leaning Democrat	Democrat
-Republican	Democrat
+Hughes (R) v. Wilson (D)	1916	Literary Digest	usa.svg	colorgradientusfull.png	30'000 Wahlzettel in fünf grossen Staaten, 17'938 für Hughes, 10'646 für Wilson, Quelle: Literary Digest 4. November, 1916
+Republikanisch	Tendenz Republikanisch	Drittpartei	No prediction	Tendenz Demokratisch	Demokratisch
+Republikanisch	Demokratisch
 NH	No prediction	4	0	0
 VT	No prediction	4	0	0
 MA	No prediction	18	0	0
@@ -9,7 +9,7 @@ RI	No prediction	5	0	0
 CT	No prediction	7	0	0
 ME	No prediction	6	0	0
 PA	No prediction	38	0	0
-NJ	Republican	14	65.31	34.69
+NJ	Republikanisch	14	65.31	34.69
 DE	No prediction	3	0	0
 MD	No prediction	8	0	0
 WV	No prediction	8	0	0
@@ -35,10 +35,10 @@ ID	No prediction	4	0	0
 WA	No prediction	7	0	0
 OR	No prediction	5	0	0
 CA	No prediction	13	0	0
-NY	Republican	45	67.52	32.48
-OH	Republican	24	55.81	44.19
-IN	Republican	15	61.43	38.57
-IL	Republican	29	63.95	36.05
+NY	Republikanisch	45	67.52	32.48
+OH	Republikanisch	24	55.81	44.19
+IN	Republikanisch	15	61.43	38.57
+IL	Republikanisch	29	63.95	36.05
 TX	No prediction	20	0	0
 OK	No prediction	10	0	0
 AR	No prediction	9	0	0

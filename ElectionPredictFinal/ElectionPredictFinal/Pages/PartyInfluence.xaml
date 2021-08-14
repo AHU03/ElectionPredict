@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ElectionPredictFinal.Pages.PartyInfluence"
+             BackgroundColor="#282828">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="Label">
+                <Setter Property="FontFamily" Value="Menlo" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="FontFamily" Value="Menlo Regular" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout Orientation="Horizontal">
+            <StackLayout BackgroundColor="#151515" Padding="10, 10,10,10" WidthRequest="295"  MinimumWidthRequest="295" Orientation="Vertical">
+                <Label Text="Parolen"  HorizontalTextAlignment="Start" TextColor="FloralWhite" FontSize="36" FontAttributes="Bold"/>
+                <ScrollView>
+                    <StackLayout x:Name="SelectionStackLayout"></StackLayout>
+                </ScrollView>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

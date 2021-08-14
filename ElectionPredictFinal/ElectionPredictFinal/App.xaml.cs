@@ -10,7 +10,7 @@ namespace ElectionPredictFinal
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new Pages.AppShellPage();
         }
 
         protected override void OnStart()

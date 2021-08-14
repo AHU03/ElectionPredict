@@ -1,55 +1,55 @@
 MapVis
-Hoover (R) v. Smith (D)	1928	Literary Digest	usa.svg	colorgradientusfull.png	1'750'584 Straw Votes, 1'206'325 for Hoover, 264'483 for Smith, Source: Literary Digest November 3, 1928
-Republican	Leaning Republican	3rd	Tie	Leaning Democrat	Democrat
-Republican	Democrat
-AL	Democrat	12	53.01	46.58
+Hoover (R) v. Smith (D)	1928	Literary Digest	usa.svg	colorgradientusfull.png	1'750'584 Wahlzettel, 1'206'325 für Hoover, 264'483 für Smith, Quelle: Literary Digest 3. November, 1928
+Republikanisch	Tendenz Republikanisch	Drittpartei	Unentschieden	Tendenz Demokratisch	Demokratisch
+Republikanisch	Demokratisch
+AL	Demokratisch	12	53.01	46.58
 AK	NULL	0	0	0
-AZ	Republican	3	59.32	39.59
-AR	Leaning Democrat	9	50.55	48.88
-CA	Republican	13	67.73	31.60
-CO	Republican	6	70.40	28.41
-CT	Republican	7	68.59	30.59
-DE	Republican	3	73.93	25.56
+AZ	Republikanisch	3	59.32	39.59
+AR	Tendenz Demokratisch	9	50.55	48.88
+CA	Republikanisch	13	67.73	31.60
+CO	Republikanisch	6	70.40	28.41
+CT	Republikanisch	7	68.59	30.59
+DE	Republikanisch	3	73.93	25.56
 DC	NULL	0	0	0
-FL	Democrat	6	65.37	34.20
-GA	Democrat	14	46.40	53.10
+FL	Demokratisch	6	65.37	34.20
+GA	Demokratisch	14	46.40	53.10
 HI	NULL	0	0	0
-ID	Republican	4	65.67	32.68
-IL	Republican	29	61.57	38.34
-IN	Republican	15	67.88	31.30
-IA	Republican	13	70.72	28.33
-KS	Republican	10	77.94	21.01
-KY	Republican	13	59.57	39.95
-LA	Democrat	10	41.59	58.03
-ME	Republican	6	74.06	25.41
-MD	Republican	8	60.16	37.49
-MA	Republican	18	66.12	32.96
-MI	Republican	15	73.51	25.61
-MN	Republican	12	68.71	30.21
-MS	Democrat	10	31.50	67.91
-MO	Republican	18	64.59	34.92
-MT	Republican	4	67.54	31.13
-NE	Republican	8	67.53	31.47
-NV	Republican	3	65.92	33.00
-NH	Republican	4	72.09	27.30
-NJ	Republican	14	71.96	27.06
-NM	Republican	3	63.14	36.24
-NY	Republican	45	54.05	45.84
-NC	Republican	12	58.18	41.35
-ND	Republican	5	63.27	35.32
-OH	Republican	24	70.00	29.13
-OK	Republican	10	70.01	29.04
-OR	Republican	5	66.90	31.67
-PA	Republican	38	66.43	33.15
-RI	Republican	5	66.62	32.70
-SC	Democrat	9	27.63	71.73
-SD	Republican	5	69.81	29.26
-TN	Republican	12	59.02	40.52
-TX	Democrat	20	59.49	40.09
-UT	Republican	4	59.44	39.57
-VT	Republican	4	76.78	22.56
-VA	Tie	12	59.92	39.59
-WA	Republican	7	70.09	28.45
-WV	Republican	8	64.23	35.30
-WI	Republican	13	57.88	40.00
-WY	Republican	3	68.49	30.36
+ID	Republikanisch	4	65.67	32.68
+IL	Republikanisch	29	61.57	38.34
+IN	Republikanisch	15	67.88	31.30
+IA	Republikanisch	13	70.72	28.33
+KS	Republikanisch	10	77.94	21.01
+KY	Republikanisch	13	59.57	39.95
+LA	Demokratisch	10	41.59	58.03
+ME	Republikanisch	6	74.06	25.41
+MD	Republikanisch	8	60.16	37.49
+MA	Republikanisch	18	66.12	32.96
+MI	Republikanisch	15	73.51	25.61
+MN	Republikanisch	12	68.71	30.21
+MS	Demokratisch	10	31.50	67.91
+MO	Republikanisch	18	64.59	34.92
+MT	Republikanisch	4	67.54	31.13
+NE	Republikanisch	8	67.53	31.47
+NV	Republikanisch	3	65.92	33.00
+NH	Republikanisch	4	72.09	27.30
+NJ	Republikanisch	14	71.96	27.06
+NM	Republikanisch	3	63.14	36.24
+NY	Republikanisch	45	54.05	45.84
+NC	Republikanisch	12	58.18	41.35
+ND	Republikanisch	5	63.27	35.32
+OH	Republikanisch	24	70.00	29.13
+OK	Republikanisch	10	70.01	29.04
+OR	Republikanisch	5	66.90	31.67
+PA	Republikanisch	38	66.43	33.15
+RI	Republikanisch	5	66.62	32.70
+SC	Demokratisch	9	27.63	71.73
+SD	Republikanisch	5	69.81	29.26
+TN	Republikanisch	12	59.02	40.52
+TX	Demokratisch	20	59.49	40.09
+UT	Republikanisch	4	59.44	39.57
+VT	Republikanisch	4	76.78	22.56
+VA	Unentschieden	12	59.92	39.59
+WA	Republikanisch	7	70.09	28.45
+WV	Republikanisch	8	64.23	35.30
+WI	Republikanisch	13	57.88	40.00
+WY	Republikanisch	3	68.49	30.36

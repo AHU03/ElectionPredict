@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -723,8 +723,26 @@
     <None Remove="Resources\Literary Digest1928.tsv" />
     <None Remove="Resources\Literary Digest1932.tsv" />
     <None Remove="Resources\Literary Digest1936.tsv" />
-    <None Remove="Resources\Real Results1916.tsv" />
-    <None Remove="Resources\Real Results1920.tsv" />
+    <None Remove="Resources\Parties\Autopartei.tsv" />
+    <None Remove="Resources\Parties\Bürgerlich-Demokratische Partei.tsv" />
+    <None Remove="Resources\Parties\Christlichdemokratische Volkspartei.tsv" />
+    <None Remove="Resources\Parties\Die Mitte.tsv" />
+    <None Remove="Resources\Parties\Eidgenössisch-Demokratische Union.tsv" />
+    <None Remove="Resources\Parties\Evangelische Volkspartei.tsv" />
+    <None Remove="Resources\Parties\Freisinnig-demokratische Partei.tsv" />
+    <None Remove="Resources\Parties\Grüne Partei der Schweiz.tsv" />
+    <None Remove="Resources\Parties\Grünliberale Partei.tsv" />
+    <None Remove="Resources\Parties\Landesring der Unabhängigen.tsv" />
+    <None Remove="Resources\Parties\Lega dei Ticinesi.tsv" />
+    <None Remove="Resources\Parties\Liberale Partei der Schweiz.tsv" />
+    <None Remove="Resources\Parties\Mouvement Citoyens Genevois.tsv" />
+    <None Remove="Resources\Parties\Partei der Arbeit.tsv" />
+    <None Remove="Resources\Parties\partyindex.txt" />
+    <None Remove="Resources\Parties\Progressive Organisationen der Schweiz.tsv" />
+    <None Remove="Resources\Parties\Schweizer Demokraten.tsv" />
+    <None Remove="Resources\Parties\Schweizerische Republikanische Bewegung.tsv" />
+    <None Remove="Resources\Parties\Schweizerische Volkspartei.tsv" />
+    <None Remove="Resources\Parties\Sozialdemokratische Partei.tsv" />
     <None Remove="Resources\Real Results1924.tsv" />
     <None Remove="Resources\Real Results1928.tsv" />
     <None Remove="Resources\Real Results1932.tsv" />
@@ -752,6 +770,33 @@
     <None Remove="Resources\Real Results2020.tsv" />
     <None Remove="Resources\swissoption.tsv" />
     <None Remove="Resources\usoption.tsv" />
+    <None Remove="Resources\Wahlresultate1916.tsv" />
+    <None Remove="Resources\Wahlresultate1920.tsv" />
+    <None Remove="Resources\Wahlresultate1924.tsv" />
+    <None Remove="Resources\Wahlresultate1928.tsv" />
+    <None Remove="Resources\Wahlresultate1932.tsv" />
+    <None Remove="Resources\Wahlresultate1936.tsv" />
+    <None Remove="Resources\Wahlresultate1940.tsv" />
+    <None Remove="Resources\Wahlresultate1944.tsv" />
+    <None Remove="Resources\Wahlresultate1948.tsv" />
+    <None Remove="Resources\Wahlresultate1952.tsv" />
+    <None Remove="Resources\Wahlresultate1956.tsv" />
+    <None Remove="Resources\Wahlresultate1960.tsv" />
+    <None Remove="Resources\Wahlresultate1964.tsv" />
+    <None Remove="Resources\Wahlresultate1968.tsv" />
+    <None Remove="Resources\Wahlresultate1972.tsv" />
+    <None Remove="Resources\Wahlresultate1976.tsv" />
+    <None Remove="Resources\Wahlresultate1980.tsv" />
+    <None Remove="Resources\Wahlresultate1984.tsv" />
+    <None Remove="Resources\Wahlresultate1988.tsv" />
+    <None Remove="Resources\Wahlresultate1992.tsv" />
+    <None Remove="Resources\Wahlresultate1996.tsv" />
+    <None Remove="Resources\Wahlresultate2000.tsv" />
+    <None Remove="Resources\Wahlresultate2004.tsv" />
+    <None Remove="Resources\Wahlresultate2008.tsv" />
+    <None Remove="Resources\Wahlresultate2012.tsv" />
+    <None Remove="Resources\Wahlresultate2016.tsv" />
+    <None Remove="Resources\Wahlresultate2020.tsv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1467,35 +1512,55 @@
     <EmbeddedResource Include="Resources\Literary Digest1928.tsv" />
     <EmbeddedResource Include="Resources\Literary Digest1932.tsv" />
     <EmbeddedResource Include="Resources\Literary Digest1936.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1916.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1920.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1924.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1928.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1932.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1936.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1940.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1944.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1948.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1952.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1956.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1960.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1964.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1968.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1972.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1976.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1980.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1984.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1988.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1992.tsv" />
-    <EmbeddedResource Include="Resources\Real Results1996.tsv" />
-    <EmbeddedResource Include="Resources\Real Results2000.tsv" />
-    <EmbeddedResource Include="Resources\Real Results2004.tsv" />
-    <EmbeddedResource Include="Resources\Real Results2008.tsv" />
-    <EmbeddedResource Include="Resources\Real Results2012.tsv" />
-    <EmbeddedResource Include="Resources\Real Results2016.tsv" />
-    <EmbeddedResource Include="Resources\Real Results2020.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Autopartei.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Bürgerlich-Demokratische Partei.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Christlichdemokratische Volkspartei.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Die Mitte.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Eidgenössisch-Demokratische Union.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Evangelische Volkspartei.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Freisinnig-demokratische Partei.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Grüne Partei der Schweiz.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Grünliberale Partei.tsv" />
+    <EmbeddedResource Include="Resources\Parties\partyindex.txt" />
+    <EmbeddedResource Include="Resources\Parties\Landesring der Unabhängigen.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Lega dei Ticinesi.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Liberale Partei der Schweiz.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Mouvement Citoyens Genevois.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Partei der Arbeit.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Progressive Organisationen der Schweiz.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Schweizer Demokraten.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Schweizerische Republikanische Bewegung.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Schweizerische Volkspartei.tsv" />
+    <EmbeddedResource Include="Resources\Parties\Sozialdemokratische Partei.tsv" />
     <EmbeddedResource Include="Resources\swissoption.tsv" />
     <EmbeddedResource Include="Resources\usoption.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1916.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1920.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1924.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1928.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1932.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1936.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1940.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1944.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1948.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1952.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1956.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1960.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1964.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1968.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1972.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1976.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1980.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1984.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1988.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1992.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate1996.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate2000.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate2004.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate2008.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate2012.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate2016.tsv" />
+    <EmbeddedResource Include="Resources\Wahlresultate2020.tsv" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1504,5 +1569,17 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="Xamarin.Forms.Svg" Version="1.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Pages\AppShellPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\DataViewer.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\PartyInfluence.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 </Project>
