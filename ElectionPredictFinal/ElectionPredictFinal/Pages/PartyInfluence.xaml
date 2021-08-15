@@ -7,6 +7,7 @@
         <ResourceDictionary>
             <Style TargetType="Label">
                 <Setter Property="FontFamily" Value="Menlo" />
+                <Setter Property="TextColor" Value="FloralWhite" />
             </Style>
             <Style TargetType="Button">
                 <Setter Property="FontFamily" Value="Menlo Regular" />
@@ -21,6 +22,27 @@
                     <StackLayout x:Name="SelectionStackLayout"></StackLayout>
                 </ScrollView>
             </StackLayout>
+            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" HeightRequest="200">
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand">
+                        <Label Margin="15,15,15,30">TestLabel</Label>
+                        <Label Margin="15,30,15,15">TestLabel</Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="50">
+                        <Label FontSize="60" x:Name="MainLabel">40%</Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
+                        <Label Margin="15,15,15,30">TestLabel</Label>
+                        <Label Margin="15,30,15,15">TestLabel</Label>
+                    </StackLayout>
+            </StackLayout>
+            <ScrollView Orientation="Horizontal">
+                <StackLayout x:Name="ActivePartiesStackLayout" Orientation="Horizontal">
+                    
+                </StackLayout>
+            </ScrollView>
+            </StackLayout>
+
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

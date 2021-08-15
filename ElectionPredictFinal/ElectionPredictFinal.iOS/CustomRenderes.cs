@@ -1,5 +1,5 @@
 ﻿using ElectionPredictFinal.iOS;
-using ElectionPredictFinal.Pages;
+using ElectionPredictFinal.Pages.Classes;
 using Foundation;
 using System;
 using System.Collections.Generic;

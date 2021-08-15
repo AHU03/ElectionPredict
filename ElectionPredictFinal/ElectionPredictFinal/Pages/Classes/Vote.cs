@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ElectionPredictFinal.Pages.Classes
 {
-    class Vote
+    public class Vote
     {
         private int myindex;
         private string mytitle;

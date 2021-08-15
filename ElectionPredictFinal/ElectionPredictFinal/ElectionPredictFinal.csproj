@@ -1564,6 +1564,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NSwag.Core" Version="13.13.2" />
     <PackageReference Include="SkiaSharp" Version="2.80.2" />
     <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
