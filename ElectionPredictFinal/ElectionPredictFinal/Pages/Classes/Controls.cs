@@ -48,18 +48,31 @@ namespace ElectionPredictFinal.Pages.Classes
             {
                 if (PartyInfluence.activevotes.ContainsKey(party))
                 {
-                    PartyInfluence.activevotes.Remove(party);
-                }
-                if (myactivstate == ((Button)sender).Text)
-                {
-                    myactivstate = "";
+                    if (myactivstate == ((Button)sender).Text)
+                    {
+                        myactivstate = "";
+                    }
+                    else
+                    {
+                        myactivstate = ((Button)sender).Text;
+
+                        PartyInfluence.activevotes[party] = party.RequestVotes(myactivstate);
+                    }
                 }
                 else
                 {
-                    myactivstate = ((Button)sender).Text;
+                    if (myactivstate == ((Button)sender).Text)
+                    {
+                        myactivstate = "";
+                    }
+                    else
+                    {
+                        myactivstate = ((Button)sender).Text;
                     
-                    PartyInfluence.activevotes.Add(party, party.RequestVotes(myactivstate));
+                        PartyInfluence.activevotes.Add(party, party.RequestVotes(myactivstate));
+                    }
                 }
+
                 CheckActive();
             }
         }

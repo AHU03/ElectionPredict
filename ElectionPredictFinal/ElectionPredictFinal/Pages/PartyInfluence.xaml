@@ -23,26 +23,31 @@
                 </ScrollView>
             </StackLayout>
             <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="FillAndExpand" HeightRequest="200">
-                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand">
-                        <Label Margin="15,15,15,30">TestLabel</Label>
-                        <Label Margin="15,30,15,15">TestLabel</Label>
+                <StackLayout Orientation="Horizontal" Margin="0,0,0,15" HorizontalOptions="FillAndExpand" HeightRequest="200">
+                    <StackLayout x:Name="SideStackStart" Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="Start">
+                        <Label Margin="15,30,15,0" FontSize="30" IsVisible="False" x:Name="Label1" HorizontalTextAlignment="Center"></Label>
+                        <Label Margin="15,0,15,15" FontSize="10" IsVisible="False" x:Name="Label1Description" HorizontalTextAlignment="Center">Bestes "Ja"-Resultat</Label>
+                        <Label Margin="15,15,15,0" FontSize="30" IsVisible="False" x:Name="Label2" HorizontalTextAlignment="Center"></Label>
+                        <Label Margin="15,0,15,30" FontSize="10" IsVisible="False" x:Name="Label2Description" HorizontalTextAlignment="Center">Schlechtestes "Ja"-Resultat</Label>
                     </StackLayout>
-                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" Margin="50">
-                        <Label FontSize="60" x:Name="MainLabel">40%</Label>
+                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand"  HorizontalOptions="CenterAndExpand" Margin="50">
+                        <Label FontSize="60" HorizontalTextAlignment="Center" x:Name="MainLabel">Bitte Daten auswählen</Label>
+                        <Label FontSize="10" IsVisible="False" x:Name="MainLabelDescription" HorizontalTextAlignment="Center">Anteil der angenommenen Abstimmungen</Label>
+                        <Label Margin="15,20,15,0" FontSize="10" IsVisible="False" x:Name="BasedOnLabel" HorizontalTextAlignment="Center"></Label>
                     </StackLayout>
-                    <StackLayout Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="StartAndExpand">
-                        <Label Margin="15,15,15,30">TestLabel</Label>
-                        <Label Margin="15,30,15,15">TestLabel</Label>
+                    <StackLayout x:Name="SideStackEnd" Orientation="Vertical" VerticalOptions="CenterAndExpand" HorizontalOptions="End">
+                        <Label Margin="15,30,15,0" FontSize="30" IsVisible="False" x:Name="Label3" HorizontalTextAlignment="Center"></Label>
+                        <Label Margin="15,0,15,15" FontSize="10" IsVisible="False" x:Name="Label3Description" HorizontalTextAlignment="Center">Durchschnittliche "Ja"-Stimmen</Label>
+                        <Label Margin="15,15,15,0" FontSize="30" IsVisible="False" x:Name="Label4" HorizontalTextAlignment="Center"></Label>
+                        <Label Margin="15,0,15,30" FontSize="10" IsVisible="False" x:Name="Label4Description" HorizontalTextAlignment="Center">Durchschnittliche Wähleranteile der "Ja"-Parteien</Label>
                     </StackLayout>
-            </StackLayout>
-            <ScrollView Orientation="Horizontal">
-                <StackLayout x:Name="ActivePartiesStackLayout" Orientation="Horizontal">
-                    
                 </StackLayout>
-            </ScrollView>
-            </StackLayout>
+                <ScrollView Orientation="Horizontal">
+                    <StackLayout x:Name="ActivePartiesStackLayout" Orientation="Horizontal">
 
+                    </StackLayout>
+                </ScrollView>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

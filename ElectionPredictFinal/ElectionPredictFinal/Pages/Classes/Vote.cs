@@ -35,6 +35,19 @@ namespace ElectionPredictFinal.Pages.Classes
             mynumsections = Convert.ToInt32(data[8]);
             mysections = data[9].Split(';');
         }
+        public Vote(int index, string title, int year, string domain, string adopted, double percentageyes, double partystrength, string endorsement, int numsections, string[] sections)
+        {
+            myindex = index;
+            mytitle = title;
+            myyear = year;
+            mydomain = domain;
+            myadopted = adopted;
+            mypercentageyes = percentageyes;
+            mypartystrength = partystrength;
+            myendorsement = endorsement;
+            mynumsections = numsections;
+            mysections = sections;
+        }
         public int index
         {
             get { return myindex; }
@@ -44,7 +57,7 @@ namespace ElectionPredictFinal.Pages.Classes
         public string domain { get { return mydomain; } }
         public string adopted { get { return myadopted; } }
         public double percentageyes { get { return mypercentageyes; } }
-        public double partystrength { get { return mypartystrength; } }
+        public double partystrength { get { return mypartystrength; } set { value = mypartystrength; } }
         public string endorsement { get { return myendorsement; } }
         public int numsections { get { return mynumsections; } }
         public string[] sections { get { return mysections; } }
