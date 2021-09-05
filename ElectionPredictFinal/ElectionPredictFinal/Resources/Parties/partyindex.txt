@@ -1,3 +1,8 @@
+$Institutionen
+Bundesrat
+Nationalrat
+Ständerat
+$Parteien
 Autopartei
 Bürgerlich-Demokratische Partei
 Christlichdemokratische Volkspartei
@@ -17,3 +22,29 @@ Schweizer Demokraten
 Schweizerische Republikanische Bewegung
 Schweizerische Volkspartei
 Sozialdemokratische Partei
+$Verbände
+Automobil Club der Schweiz
+Economiesuisse
+Schweizer Bauernverband
+Schweizer Bischofskonferenz
+Schweizerischer Arbeitgeberverband
+Schweizerischer Gewerbeverband
+Touring Club Schweiz
+Travail.Suisse
+Verband des Personals öffentlicher Dienste
+Verband öffentlicher Verkehr
+Vereinigung schweizerischer Angestelltenverbände
+Verkehrs-Club der Schweiz
+$Konferenzen
+Konferenz der kantonalen Justiz- und Polizeidirektoren
+Konferenz der kantonalen Landwirtschaftsdirektoren
+Konferenz der kantonalen Sozialdirektorinnen und Sozialdirektoren
+Konferenz der Kantonsregierungen
+Konferenz kantonaler Energiedirektoren
+Konferenz kantonaler Finanzdirektorinnen und Finanzdirektoren
+Konferenz kantonaler Volkswirtschaftsdirektorinnen und Volkswirtschaftsdirektoren
+Schweizerische Bau-, Planungs- und Umweltdirektorenkonferenz
+Schweizerische Gesundheitsdirektorenkonferenz
+Schweizerische Konferenz der kantonalen Erziehungsdirektoren
+Schweizerischer Gemeindeverband
+Schweizerischer Städteverband

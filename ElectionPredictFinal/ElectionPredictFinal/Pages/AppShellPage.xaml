@@ -7,7 +7,7 @@
        Shell.NavBarIsVisible="False">
 
     <TabBar>
-        <Tab Title="Wahldaten">
+        <Tab Title="Wahlresultate">
             <ShellContent Shell.TabBarBackgroundColor="#000000" Shell.TabBarTitleColor="FloralWhite">
                 <local1:DataViewer/>
             </ShellContent>

@@ -33,7 +33,12 @@ namespace ElectionPredictFinal.Pages.Classes
             mypartystrength = Convert.ToDouble(data[6], comma);
             myendorsement = data[7];
             mynumsections = Convert.ToInt32(data[8]);
-            mysections = data[9].Split(';');
+            string datasections = data[9];
+            if(datasections.Length > 0 && datasections[datasections.Length - 1] == ';')
+            {
+                datasections = datasections.Remove(datasections.Length - 1);
+            }
+            mysections = datasections.Split(';');
         }
         public Vote(int index, string title, int year, string domain, string adopted, double percentageyes, double partystrength, string endorsement, int numsections, string[] sections)
         {
@@ -60,6 +65,8 @@ namespace ElectionPredictFinal.Pages.Classes
         public double partystrength { get { return mypartystrength; } set { value = mypartystrength; } }
         public string endorsement { get { return myendorsement; } }
         public int numsections { get { return mynumsections; } }
-        public string[] sections { get { return mysections; } }
+        public string sections { get {  string returnstring = ""; 
+                                        foreach (string s in mysections) { returnstring += ", " + s; }
+                                        return returnstring.Remove(0, 2); } }
     }
 }

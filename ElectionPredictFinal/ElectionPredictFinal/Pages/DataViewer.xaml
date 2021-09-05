@@ -17,7 +17,7 @@
     <ContentPage.Content>
         <StackLayout x:Name="DataViewerStackLayout" IsVisible="True" Orientation="Horizontal">
             <StackLayout BackgroundColor="#151515" Padding="10, 10,10,10" WidthRequest="295"  MinimumWidthRequest="295" Orientation="Vertical">
-                <Label Text="Wahldaten"  HorizontalTextAlignment="Start" TextColor="FloralWhite" FontSize="36" FontAttributes="Bold"/>
+                <Label Text="Resultate"  HorizontalTextAlignment="Start" TextColor="FloralWhite" FontSize="36" FontAttributes="Bold"/>
                 <Label Text="Land"  HorizontalTextAlignment="Start" TextColor="FloralWhite"  FontSize="20" FontAttributes="Bold" />
                 <Frame BackgroundColor="#282828" CornerRadius="10" HasShadow="False" HeightRequest="35" HorizontalOptions="Start">
                     <ListView x:Name="CountryListView" SeparatorVisibility="None" RowHeight="30" ItemSelected="CountryListView_ItemSelected" BackgroundColor="#282828" SeparatorColor="#282828" MinimumWidthRequest="140" Margin="-15,-15,0,-15">

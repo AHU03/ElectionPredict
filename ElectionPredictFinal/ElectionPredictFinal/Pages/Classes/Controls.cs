@@ -51,13 +51,14 @@ namespace ElectionPredictFinal.Pages.Classes
                     if (myactivstate == ((Button)sender).Text)
                     {
                         myactivstate = "";
+                        PartyInfluence.activevotes.Remove(party);
                     }
                     else
                     {
                         myactivstate = ((Button)sender).Text;
-
                         PartyInfluence.activevotes[party] = party.RequestVotes(myactivstate);
                     }
+
                 }
                 else
                 {
@@ -68,11 +69,10 @@ namespace ElectionPredictFinal.Pages.Classes
                     else
                     {
                         myactivstate = ((Button)sender).Text;
-                    
                         PartyInfluence.activevotes.Add(party, party.RequestVotes(myactivstate));
                     }
-                }
 
+                }
                 CheckActive();
             }
         }
@@ -104,4 +104,3 @@ namespace ElectionPredictFinal.Pages.Classes
 
     }
 }
-

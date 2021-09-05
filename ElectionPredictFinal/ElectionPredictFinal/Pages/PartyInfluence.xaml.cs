@@ -19,10 +19,12 @@ namespace ElectionPredictFinal.Pages
     {
         Dictionary<Button, Party> buttonpartylink = new Dictionary<Button, Party>();
         Dictionary<Frame, Party> framepartylink = new Dictionary<Frame, Party>();
-        Dictionary<Party, ListView> listpartylink = new Dictionary<Party, ListView>();
+        Dictionary<Party, Label> listpartylink = new Dictionary<Party, Label>();
+        Dictionary<Label, List<Button>> subtitleorder = new Dictionary<Label, List<Button>>();
         public static ObservableDictionary<Party, List<Vote>> activevotes = new ObservableDictionary<Party, List<Vote>>();
         List<Party> selectableparties = new List<Party>();
         List<Party> activeparties = new List<Party>();
+        List<Party> visibleselectableparties = new List<Party>();
 
         public PartyInfluence()
         {
@@ -125,17 +127,22 @@ namespace ElectionPredictFinal.Pages
             }
             foreach (Party p in activeparties)
             {
-                try
+                Label l = listpartylink[p];
+                StringBuilder outputstring = new StringBuilder();
+                if (activevotes.ContainsKey(p))
                 {
-                    ListView lv = listpartylink[p];
-                    List<string> votenames = new List<string>();
+                    outputstring.Append("\n");
                     foreach (Vote v in activevotes[p])
                     {
-                        votenames.Add(v.title);
+                        outputstring.Append(v.year + ": " + v.title);
+                        if(v.numsections > 0)
+                        {
+                            outputstring.Append(", Abweichende Sektionen: " + v.sections);
+                        }
+                        outputstring.Append("\n\n");
                     }
-                    lv.ItemsSource = votenames.ToArray();
                 }
-                catch { Console.WriteLine(p.partyname); }
+                l.Text = outputstring.ToString();
             }
         }
         private List<Vote> CommonVotes(List<List<Vote>> mainlist)
@@ -183,22 +190,81 @@ namespace ElectionPredictFinal.Pages
             {
                 while (!reader.EndOfStream)
                 {
-                    Party p = new Party(reader.ReadLine());
-                    Button b = CreateSelectableParty(p);
-                    buttonpartylink.Add(b, p);
-                    SelectionStackLayout.Children.Add(b);
+                    string line = reader.ReadLine();
+                    if (line[0] == '$')
+                    {
+                        Label l = new Label()
+                        {
+                            Text = line.Remove(0, 1) + " ▼",
+                            FontSize = 20,
+                            FontAttributes = FontAttributes.Bold,
+                            Margin = new Thickness(0, 5, 0, 0)
+                        };
+                        TapGestureRecognizer subtitletap = new TapGestureRecognizer();
+                        subtitletap.Tapped += SubTitle_Tapped;
+                        l.GestureRecognizers.Add(subtitletap);
+                        subtitleorder.Add(l, new List<Button>());
+                        SelectionStackLayout.Children.Add(l);
+                    }
+                    else
+                    {
+                        Party p = new Party(line);
+                        Button b = CreateSelectableParty(p);
+                        buttonpartylink.Add(b, p);
+                        subtitleorder[subtitleorder.Keys.Last()].Add(b);
+                        SelectionStackLayout.Children.Add(b);
+                    }
+
+                }
+            }
+            Label copydescription = new Label()
+            {
+                Text = "Alle Daten gemäss dem Swissvotes-Datensatz",
+                FontSize = 10
+            };
+            StackLayout bottommargin = new StackLayout()
+            {
+                Margin = 10
+            };
+            bottommargin.Children.Add(copydescription);
+            SelectionStackLayout.Children.Add(bottommargin);
+        }
+        private void SubTitle_Tapped(object sender, EventArgs e)
+        {
+            Label l = (Label)sender;
+            if(l.Text[l.Text.Length - 1] == '▼')
+            {
+                l.Text = l.Text.Replace('▼', '▲');
+                foreach(Button b in subtitleorder[l])
+                {
+                    b.IsVisible = false;
+                    visibleselectableparties.Remove(buttonpartylink[b]);
+                }
+            }
+            else
+            {
+                l.Text = l.Text.Replace('▲', '▼');
+                foreach (Button b in subtitleorder[l])
+                {
+                    if (selectableparties.Contains(buttonpartylink[b]))
+                    {
+                        b.IsVisible = true;
+                        visibleselectableparties.Add(buttonpartylink[b]);
+                    }
+
                 }
             }
         }
-
         private Button CreateSelectableParty(Party p)
         {
             selectableparties.Add(p);
+            visibleselectableparties.Add(p);
             Button b = new MultilineButton()
             {
                 Text = p.partyname,
                 FontSize = 14,
                 TextColor = Color.FloralWhite,
+                HeightRequest = 50,
                 BackgroundColor = Color.FromHex("#282828"),
                 FontFamily = "Menlo"
             };
@@ -213,6 +279,24 @@ namespace ElectionPredictFinal.Pages
             Frame activeparty = ActivePartyFrame(p);
             framepartylink.Add(activeparty, p);
             ActivePartiesStackLayout.Children.Add(activeparty);
+        }
+        private void CheckSubtitles()
+        {
+            foreach(Label l in subtitleorder.Keys)
+            {
+                bool shouldbevisible = false;
+                foreach(Button b in subtitleorder[l])
+                {
+                    if (selectableparties.Contains(buttonpartylink[b]))
+                    {
+                        shouldbevisible = true;
+                    }
+                }
+                if(l.IsVisible != shouldbevisible)
+                {
+                    l.IsVisible = shouldbevisible;
+                }
+            }
         }
         private Frame ActivePartyFrame(Party p)
         {
@@ -231,7 +315,8 @@ namespace ElectionPredictFinal.Pages
                 FontAttributes = FontAttributes.Bold,
                 HorizontalTextAlignment = TextAlignment.Start,
                 VerticalTextAlignment = TextAlignment.Center,
-                HorizontalOptions = LayoutOptions.StartAndExpand,
+                VerticalOptions = LayoutOptions.CenterAndExpand,
+                HorizontalOptions = LayoutOptions.Start,
                 Margin = new Thickness(0, -10, 0, 0)
             };
             StackLayout s = new StackLayout()
@@ -260,19 +345,32 @@ namespace ElectionPredictFinal.Pages
             CloseButton.Clicked += CloseButtonClicked;
             StackLayout topstack = new StackLayout()
             {
-                Orientation = StackOrientation.Horizontal
+                Orientation = StackOrientation.Horizontal,
+                VerticalOptions = LayoutOptions.Center
             };
-            ListView lv = new ListView()
+            Stream imgstrm = new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(Assembly.GetExecutingAssembly().GetManifestResourceNames().Single(str => str.Contains(p.partyname + ".png")))).BaseStream;
+            ImageSource imgsrc = ImageSource.FromStream(() => imgstrm);
+            Image logo = new Image()
             {
-                ItemsSource = new string[] { },
-                SelectionMode = ListViewSelectionMode.None,
-                BackgroundColor = Color.FromHex("#151515"),
-                SeparatorVisibility = SeparatorVisibility.None,
-                SeparatorColor = Color.FromHex("#151515"),
-                Margin = 0
+                Source = imgsrc,
+                Aspect = Aspect.AspectFit,
+                HeightRequest = 20,
+                VerticalOptions = LayoutOptions.Center,
+                HorizontalOptions = LayoutOptions.StartAndExpand,
+                Margin = new Thickness(0,-10,0,0)
             };
-            listpartylink.Add(p, lv);
+            Label listlabel = new Label()
+            {
+                FontSize = 12
+            }
+            ;
+            ScrollView sv = new ScrollView()
+            {
+                Content = listlabel
+            };
+            listpartylink.Add(p, listlabel);
             topstack.Children.Add(shorth);
+            topstack.Children.Add(logo);
             topstack.Children.Add(CloseButton);
             s.Children.Add(topstack);
             s.Children.Add(l);
@@ -280,7 +378,7 @@ namespace ElectionPredictFinal.Pages
             Frame Options = t.Switch;
             Options.HorizontalOptions = LayoutOptions.Start;
             s.Children.Add(Options);
-            s.Children.Add(lv);
+            s.Children.Add(sv);
             f.Content = s;
             return f;
         }
@@ -293,12 +391,17 @@ namespace ElectionPredictFinal.Pages
             listpartylink.Remove(p);
             ActivePartiesStackLayout.Children.Remove((Frame)((Button)sender).Parent.Parent.Parent);
             var b = buttonpartylink.FirstOrDefault(x => x.Value == framepartylink[(Frame)((Button)sender).Parent.Parent.Parent]).Key;
-            ((Button)b).IsVisible = true;
             framepartylink.Remove((Frame)((Button)sender).Parent.Parent.Parent);
+            if (visibleselectableparties.Contains(buttonpartylink[(Button)b]))
+            {
+                ((Button)b).IsVisible = true;
+            }
+            CheckSubtitles();
         }
         private void SelectableButtonClicked(object sender, EventArgs args)
         {
             CreateActiveParty((Button)sender, buttonpartylink[(Button)sender]);
+            CheckSubtitles();
         }
     }
 }
