@@ -1,0 +1,10 @@
+$Parteien
+Bürgerlich-Demokratische Partei
+Christlichdemokratische Volkspartei
+Evangelische Volkspartei
+Freisinnig-demokratische Partei
+Grüne Partei der Schweiz
+Grünliberale Partei
+Schweizerische Volkspartei
+Sozialdemokratische Partei
+$

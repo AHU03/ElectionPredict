@@ -37,7 +37,6 @@ namespace ElectionPredictFinal.Pages
         {
             if(PartyInfluence.activevotes.Count > 0)
             {
-                MainLabelDescription.IsVisible = true;
                 List<List<Vote>> activevoteslist = new List<List<Vote>>();
                 foreach(var l in PartyInfluence.activevotes.Values)
                 {
@@ -52,6 +51,8 @@ namespace ElectionPredictFinal.Pages
                 if(commonlist.Count == 0)
                 {
                     MainLabel.Text = "Keine Daten verfügbar";
+                    MainLabelDescription.Text = "";
+                    BasedOnLabel.Text = "";
                     MainLabel.IsVisible = true;
                     MainLabelDescription.IsVisible = false;
                     BasedOnLabel.IsVisible = false;
@@ -91,12 +92,14 @@ namespace ElectionPredictFinal.Pages
                         }
                     }
                     MainLabel.Text = Convert.ToString(Math.Round(((double)adoptednum) / ((double)(commonlist.Count)) * 100.00)) + "%";
-                    BasedOnLabel.Text = "Zahlen basieren auf "+ commonlist.Count +" Abstimmungen von " + commonlist[0].year + " bis " + commonlist[commonlist.Count -1].year+".";
                     Label1.Text = Convert.ToString(Math.Round((double)highestpercentageyes)) + "%";
                     Label2.Text = Convert.ToString(Math.Round((double)lowestpercentageyes)) + "%";
                     Label3.Text = Convert.ToString(Math.Round(((double)totalpercentageyes) / ((double)(commonlist.Count)))) + "%";
                     Label4.Text = Convert.ToString(Math.Round(((double)totalpartystrengths) / ((double)(commonlist.Count)))) + "%";
-                    BasedOnLabel.IsVisible = true;
+                    BasedOnLabel.Text = "Zahlen basieren auf " + commonlist.Count + " Abstimmungen von " + commonlist[0].year + " bis " + commonlist[commonlist.Count - 1].year + ".";
+                    MainLabelDescription.Text = "Anteil der angenommenen Abstimmungen";
+                    SideStackStart.WidthRequest = 150;
+                    SideStackEnd.WidthRequest = 150;
                     Label1.IsVisible = true;
                     Label2.IsVisible = true;
                     Label3.IsVisible = true;
@@ -105,13 +108,16 @@ namespace ElectionPredictFinal.Pages
                     Label2Description.IsVisible = true;
                     Label3Description.IsVisible = true;
                     Label4Description.IsVisible = true;
-                    SideStackStart.WidthRequest = 150;
-                    SideStackEnd.WidthRequest = 150;
+                    BasedOnLabel.IsVisible = true;
+                    MainLabelDescription.IsVisible = true;
                 }
             }
             else
             {
                 MainLabel.Text = "Bitte Daten auswählen";
+                MainLabelDescription.Text = "";
+                BasedOnLabel.Text = "";
+                MainLabel.IsVisible = true;
                 MainLabelDescription.IsVisible = false;
                 BasedOnLabel.IsVisible = false;
                 Label1.IsVisible = false;
@@ -266,7 +272,8 @@ namespace ElectionPredictFinal.Pages
                 TextColor = Color.FloralWhite,
                 HeightRequest = 50,
                 BackgroundColor = Color.FromHex("#282828"),
-                FontFamily = "Menlo"
+                FontFamily = "Menlo",
+                CornerRadius = 10
             };
             b.Clicked += SelectableButtonClicked;
             return b;
@@ -374,7 +381,7 @@ namespace ElectionPredictFinal.Pages
             topstack.Children.Add(CloseButton);
             s.Children.Add(topstack);
             s.Children.Add(l);
-            ThreewaySwitch t = new ThreewaySwitch(new string[] { "Ja", "Neutral", "Nein" }, p);
+            ThreewaySwitch t = new ThreewaySwitch(new string[] { "Ja", "Neutral", "Nein" }, p, true);
             Frame Options = t.Switch;
             Options.HorizontalOptions = LayoutOptions.Start;
             s.Children.Add(Options);

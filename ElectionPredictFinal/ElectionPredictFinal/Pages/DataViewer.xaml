@@ -104,7 +104,7 @@
                     </Frame>
                 </StackLayout>
                 <Label x:Name="ErrorLabel" Text="" FontSize="12" TextColor="Maroon" VerticalOptions="EndAndExpand"/>
-                <Button Text="Berechnen" Clicked="Button_Clicked"  BackgroundColor="#282828" TextColor="FloralWhite" Margin="0,0,0,50" VerticalOptions="End"></Button>
+                <Button Text="Berechnen" Clicked="Button_Clicked"  BackgroundColor="#282828" TextColor="FloralWhite" Margin="0,0,0,50" CornerRadius="10" VerticalOptions="End"></Button>
             </StackLayout>
             <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#282828" Padding="10, 20" Orientation="Vertical">
                 <StackLayout x:Name="DisplayStackLayout">

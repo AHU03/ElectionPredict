@@ -723,6 +723,11 @@
     <None Remove="Resources\Literary Digest1928.tsv" />
     <None Remove="Resources\Literary Digest1932.tsv" />
     <None Remove="Resources\Literary Digest1936.tsv" />
+    <None Remove="Resources\modeldata\modelbasedata.tsv" />
+    <None Remove="Resources\modeldata\modelparties.txt" />
+    <None Remove="Resources\modeldata\modelpartyvotes.tsv" />
+    <None Remove="Resources\modeldata\Politikbereiche.txt" />
+    <None Remove="Resources\modeldata\Rechtsform.txt" />
     <None Remove="Resources\Parties\Automobil Club der Schweiz.png" />
     <None Remove="Resources\Parties\Automobil Club der Schweiz.tsv" />
     <None Remove="Resources\Parties\Autopartei.png" />
@@ -1585,6 +1590,11 @@
     <EmbeddedResource Include="Resources\Literary Digest1928.tsv" />
     <EmbeddedResource Include="Resources\Literary Digest1932.tsv" />
     <EmbeddedResource Include="Resources\Literary Digest1936.tsv" />
+    <EmbeddedResource Include="Resources\modeldata\modelbasedata.tsv" />
+    <EmbeddedResource Include="Resources\modeldata\modelparties.txt" />
+    <EmbeddedResource Include="Resources\modeldata\modelpartyvotes.tsv" />
+    <EmbeddedResource Include="Resources\modeldata\Politikbereiche.txt" />
+    <EmbeddedResource Include="Resources\modeldata\Rechtsform.txt" />
     <EmbeddedResource Include="Resources\Parties\Automobil Club der Schweiz.png" />
     <EmbeddedResource Include="Resources\Parties\Automobil Club der Schweiz.tsv" />
     <EmbeddedResource Include="Resources\Parties\Autopartei.png" />
@@ -1726,6 +1736,9 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Pages\PartyInfluence.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\PredictionModel.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
