@@ -723,6 +723,7 @@
     <None Remove="Resources\Literary Digest1928.tsv" />
     <None Remove="Resources\Literary Digest1932.tsv" />
     <None Remove="Resources\Literary Digest1936.tsv" />
+    <None Remove="Resources\modeldata\cantons.tsv" />
     <None Remove="Resources\modeldata\modelbasedata.tsv" />
     <None Remove="Resources\modeldata\modelparties.txt" />
     <None Remove="Resources\modeldata\modelpartyvotes.tsv" />
@@ -1590,6 +1591,7 @@
     <EmbeddedResource Include="Resources\Literary Digest1928.tsv" />
     <EmbeddedResource Include="Resources\Literary Digest1932.tsv" />
     <EmbeddedResource Include="Resources\Literary Digest1936.tsv" />
+    <EmbeddedResource Include="Resources\modeldata\cantons.tsv" />
     <EmbeddedResource Include="Resources\modeldata\modelbasedata.tsv" />
     <EmbeddedResource Include="Resources\modeldata\modelparties.txt" />
     <EmbeddedResource Include="Resources\modeldata\modelpartyvotes.tsv" />
@@ -1720,11 +1722,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
     <PackageReference Include="NSwag.Core" Version="13.13.2" />
-    <PackageReference Include="SkiaSharp" Version="2.80.2" />
-    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.2" />
-    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+    <PackageReference Include="SkiaSharp" Version="2.80.3" />
+    <PackageReference Include="SkiaSharp.Views.Forms" Version="2.80.3" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2125" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="Xamarin.Forms.Svg" Version="1.0.3" />
   </ItemGroup>
 

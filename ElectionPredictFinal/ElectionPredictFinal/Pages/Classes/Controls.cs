@@ -1,14 +1,138 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Xamarin.Forms;
-using ElectionPredictFinal.Pages.Classes;
 using System.IO;
 using System.Reflection;
 using System.Linq;
+using MathNet.Numerics.Distributions;
 
 namespace ElectionPredictFinal.Pages.Classes
 {
+    public class Graph
+    {
+        private Normal mydist = new Normal();
+        private Dictionary<double, double> mymaindict = new Dictionary<double, double>();
+        private double mystep = 0.0;
+        private Color nocolor = Color.FromHex("#f19a9c");
+        private Color yescolor = Color.FromHex("#6bcffe");
+        private string mytitle = "";
+        public Graph(Normal dist, double steps, string title)
+        {
+            mydist = dist;
+            mystep = steps;
+            mytitle = title;
+            for(double i = steps; i< 1+steps; i += steps)
+            {
+                mymaindict.Add(i, dist.CumulativeDistribution(i) - dist.CumulativeDistribution(i-steps));
+            }
+        }
+        public StackLayout Stack
+        {
+            get
+            {
+                StackLayout returnstack = new StackLayout()
+                {
+                    Orientation = StackOrientation.Horizontal
+                };
+                double biggestval = mymaindict.Values.ToList().Max();
+                StackLayout legendstack = new StackLayout();
+                Label title = new Label()
+                {
+                    Text = mytitle,
+                    FontAttributes = FontAttributes.Bold,
+                    FontSize = 20
+                };
+                Label spacer = new Label()
+                {
+                    Text = "\n\n",
+                    FontSize = 10,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    VerticalOptions = LayoutOptions.End,
+                    TextColor = Color.FromHex("#151515")
+                };
+                Label topl = new Label()
+                {
+                    Text = Convert.ToString(Convert.ToInt32(biggestval * 2500.0)),
+                    FontSize = 10,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    VerticalOptions = LayoutOptions.Start
+                };
+                Label midl = new Label()
+                {
+                    Text = Convert.ToString(Convert.ToInt32(biggestval * 2500.0/2.0)),
+                    FontSize = 10,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    VerticalOptions = LayoutOptions.CenterAndExpand
+                };
+                Label zerol = new Label()
+                {
+                    Text = "0",
+                    FontSize = 10,
+                    HorizontalTextAlignment = TextAlignment.Center,
+                    VerticalTextAlignment = TextAlignment.Center,
+                    VerticalOptions = LayoutOptions.End
+                };
+                legendstack.Children.Add(topl);
+                legendstack.Children.Add(midl);
+                legendstack.Children.Add(zerol);
+                legendstack.Children.Add(spacer);
+                returnstack.Children.Add(legendstack);
+                foreach (double i in mymaindict.Keys)
+                {
+                    Color bgcolor = yescolor;
+                    if(i < 0.5)
+                    {
+                        bgcolor = nocolor;
+                    }
+                    double height = 0;
+                    if(mymaindict[i] > biggestval / 200)
+                    {
+                        Console.WriteLine(mymaindict[i] / biggestval * 200);
+                        height = mymaindict[i] / biggestval * 200.0;
+                    }
+                    StackLayout linestack = new StackLayout();
+                    Frame f = new Frame()
+                    {
+                        HasShadow = false,
+                        Padding = new Thickness (0),
+                        WidthRequest = 20,
+                        HeightRequest = Convert.ToInt32(height),
+                        VerticalOptions = LayoutOptions.EndAndExpand,
+                        HorizontalOptions = LayoutOptions.Center,
+                        BackgroundColor = bgcolor
+                    };
+                    Label l = new Label()
+                    {
+                        Text = 100*(i - mystep) + "%\n-\n" + 100*i +"%",
+                        FontSize = 10,
+                        HorizontalTextAlignment = TextAlignment.Center,
+                        VerticalTextAlignment = TextAlignment.Center,
+                        VerticalOptions = LayoutOptions.End
+                    };
+                    linestack.Children.Add(f);
+                    linestack.Children.Add(l);
+                    returnstack.Children.Add(linestack);
+                }
+                StackLayout wrapStack = new StackLayout();
+                StackLayout ContentStack = new StackLayout();
+                ContentStack.Children.Add(title);
+                ContentStack.Children.Add(returnstack);
+                Frame wrapFrame = new Frame()
+                {
+                    BackgroundColor = Color.FromHex("#151515"),
+                    Content = ContentStack,
+                    HasShadow = false,
+                    CornerRadius = 20,
+                    WidthRequest = 600
+                };
+                wrapStack.Children.Add(wrapFrame);
+                return wrapStack;
+            }
+        }
+    }
     public class Selection
     {
         private string myactivestring = "";
@@ -28,6 +152,49 @@ namespace ElectionPredictFinal.Pages.Classes
         {
             Padding = new Thickness(0, 5)
         };
+        public Selection(List<string> source)
+        {
+            myMainStack.Children.Add(myFrame);
+            myScrollView.Content = myStackLayout;
+            myFrame.Content = myScrollView;
+            List<string> ss = new List<string>();
+            foreach(string s in source)
+            {
+                Label text = new Label()
+                {
+                    Text = s,
+                    FontSize = 15,
+                    HorizontalOptions = LayoutOptions.Start,
+                    HorizontalTextAlignment = TextAlignment.Start
+                };
+                Frame TextStack = new Frame()
+                {
+                    BackgroundColor = Color.FromHex("#282828"),
+                    Padding = new Thickness(5),
+                    HasShadow = false
+                };
+                myFrameList.Add(TextStack);
+                TextStack.Content = text;
+                var LabelTapRecognizer = new TapGestureRecognizer();
+                LabelTapRecognizer.Tapped += LabelTap;
+                TextStack.GestureRecognizers.Add(LabelTapRecognizer);
+                myStackLayout.Children.Add(TextStack);
+            }
+            myoptions = source.ToArray();
+            void LabelTap(object sender, EventArgs e)
+            {
+                if (myactivestring != ((Label)((Frame)sender).Content).Text)
+                {
+                    foreach (Frame f in myFrameList)
+                    {
+                        f.BackgroundColor = Color.FromHex("#282828");
+                    }
+                    ((Frame)sender).BackgroundColor = Color.Gray;
+                    myactivestring = ((Label)((Frame)sender).Content).Text;
+                }
+
+            }
+        }
         public Selection(string source)
         {
             myMainStack.Children.Add(myFrame);
@@ -83,11 +250,18 @@ namespace ElectionPredictFinal.Pages.Classes
                 return myMainStack;
             }
         }
-        public string selected
+        public string selectedindex
         {
             get
             {
                 return Convert.ToString(Array.IndexOf(myoptions, myactivestring) + 1);
+            }
+        }
+        public string selectedstring
+        {
+            get
+            {
+                return myactivestring;
             }
         }
     }

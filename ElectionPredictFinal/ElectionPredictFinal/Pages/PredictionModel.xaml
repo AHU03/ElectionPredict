@@ -19,13 +19,26 @@
                 <Label Text="Modell"  HorizontalTextAlignment="Start" TextColor="FloralWhite" FontSize="36" FontAttributes="Bold"/>
                 <ScrollView VerticalOptions="StartAndExpand">
                     <StackLayout x:Name="SelectionStackLayout">
-                        
+
                     </StackLayout>
                 </ScrollView>
-                <Button Text="Berechnen" Clicked="Button_Clicked"  BackgroundColor="#282828" TextColor="FloralWhite" CornerRadius="10" Margin="0,0,0,50" VerticalOptions="End"></Button>
+                <Button Text="Berechnen" Clicked="Button_Clicked" x:Name="MainButton" BackgroundColor="#282828" TextColor="FloralWhite" CornerRadius="10" Margin="0,0,0,50" VerticalOptions="End"></Button>
             </StackLayout>
-            <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand">
-            </StackLayout>
+            <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#282828" Padding="10, 20" Orientation="Vertical">
+                <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" x:Name="MainStack">
+                    <StackLayout x:Name="LoadingStack" HorizontalOptions="Center" Margin="10" WidthRequest="200" VerticalOptions="CenterAndExpand" IsVisible="false">
+                        <Label x:Name="LoadingLabel" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" TextColor="FloralWhite">
+
+                        </Label>
+                        <Frame x:Name="LoadingFrame" HorizontalOptions="Start" Margin="0" Padding="0" BackgroundColor="FloralWhite" HeightRequest="20">
+
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout x:Name="ResultsStack" HorizontalOptions="StartAndExpand" VerticalOptions="StartAndExpand" IsVisible="false">
+
+                    </StackLayout>
+                </StackLayout>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
