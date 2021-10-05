@@ -89,7 +89,7 @@ namespace ElectionPredictFinal.Pages
         {
             Label l = new Label()
             {
-                Text = "Rechtsform ▲",
+                Text = "Rechtsform ▼",
                 FontSize = 20,
                 FontAttributes = FontAttributes.Bold,
                 Margin = new Thickness(0, 5, 0, 0)
@@ -99,7 +99,6 @@ namespace ElectionPredictFinal.Pages
             l.GestureRecognizers.Add(subtitletap);
             SelectionStackLayout.Children.Add(l);
             type = new Selection("Rechtsform.txt");
-            type.Stack.IsVisible = false;
             LabelStackLink.Add(l, type.Stack);
             SelectionStackLayout.Children.Add(type.Stack);
         }
@@ -112,7 +111,7 @@ namespace ElectionPredictFinal.Pages
             }
             Label l = new Label()
             {
-                Text = "Jahr ▲",
+                Text = "Jahr ▼",
                 FontSize = 20,
                 FontAttributes = FontAttributes.Bold,
                 Margin = new Thickness(0, 5, 0, 0)
@@ -122,7 +121,6 @@ namespace ElectionPredictFinal.Pages
             l.GestureRecognizers.Add(subtitletap);
             SelectionStackLayout.Children.Add(l);
             year = new Selection(years);
-            year.Stack.IsVisible = false;
             LabelStackLink.Add(l, year.Stack);
             SelectionStackLayout.Children.Add(year.Stack);
         }
@@ -130,7 +128,7 @@ namespace ElectionPredictFinal.Pages
         {
             Label l = new Label()
             {
-                Text = "Politikbereich ▲",
+                Text = "Politikbereich ▼",
                 FontSize = 20,
                 FontAttributes = FontAttributes.Bold,
                 Margin = new Thickness(0, 5, 0, 0)
@@ -140,7 +138,6 @@ namespace ElectionPredictFinal.Pages
             l.GestureRecognizers.Add(subtitletap);
             SelectionStackLayout.Children.Add(l);
             areas = new ThreeLevelSelection("Politikbereiche.txt");
-            areas.Stack.IsVisible = false;
             LabelStackLink.Add(l, areas.Stack);
             SelectionStackLayout.Children.Add(areas.Stack);
         }
@@ -155,7 +152,7 @@ namespace ElectionPredictFinal.Pages
                     {
                         Label l = new Label()
                         {
-                            Text = "Parolen ▲",
+                            Text = "Parolen ▼",
                             FontSize = 20,
                             FontAttributes = FontAttributes.Bold,
                             Margin = new Thickness(0, 5, 0, 0)
@@ -164,10 +161,7 @@ namespace ElectionPredictFinal.Pages
                         subtitletap.Tapped += SubTitle_Tapped;
                         l.GestureRecognizers.Add(subtitletap);
                         SelectionStackLayout.Children.Add(l);
-                        StackLayout s = new StackLayout()
-                        {
-                            IsVisible = false
-                        };
+                        StackLayout s = new StackLayout();
                         while (true)
                         {
                             line = reader.ReadLine();
@@ -250,56 +244,93 @@ namespace ElectionPredictFinal.Pages
         }
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            MainButton.IsEnabled = false;
-            ResultsStack.IsVisible = false;
-            Dictionary<string, int> partyselections = new Dictionary<string, int>();
-            foreach(Party p in PartySwitchStateLink.Keys)
+            if(year.selectedstring != "")
             {
-                if(PartySwitchStateLink[p].activestate == "Ja")
+                if(type.selectedstring != "")
                 {
-                    partyselections.Add(p.partyshorthand, 1);
+                    if(areas.selectedarea != "0")
+                    {
+                        bool atleastoneselected = false;
+                        foreach (Party p in PartySwitchStateLink.Keys)
+                        {
+                            if (PartySwitchStateLink[p].activestate == "Ja" || PartySwitchStateLink[p].activestate == "Nein")
+                            {
+                                atleastoneselected = true;
+                            }
+                        }
+                        if (atleastoneselected)
+                        {
+                            ErrorLabel.Text = "";
+                            Dictionary<string, int> partyselections = new Dictionary<string, int>();
+                            foreach (Party p in PartySwitchStateLink.Keys)
+                            {
+                                if (PartySwitchStateLink[p].activestate == "Ja")
+                                {
+                                    partyselections.Add(p.partyshorthand, 1);
+                                }
+                                if (PartySwitchStateLink[p].activestate == "Nein")
+                                {
+                                    partyselections.Add(p.partyshorthand, 2);
+                                }
+                            }
+                            foreach (Referendum r in Referendums)
+                            {
+                                r.CalculateSimilarties(Convert.ToInt32(type.selectedindex), areas.selectedarea, year.selectedstring, partyselections);
+                            }
+                            foreach (Canton c in Cantons)
+                            {
+                                c.ReferendumDistribution(Referendums);
+                            }
+                            await MonteCarloSimulation();
+                        }
+                        else
+                        {
+                            ErrorLabel.Text = "Bitte mindestens eine Parole angeben.";
+                        }
+                    }
+                    else
+                    {
+                        ErrorLabel.Text = "Bitte Politikbereich auswählen.";
+                    }
                 }
-                if (PartySwitchStateLink[p].activestate == "Nein")
+                else
                 {
-                    partyselections.Add(p.partyshorthand, 2);
+                    ErrorLabel.Text = "Bitte Rechtsform auswählen.";
                 }
             }
-            foreach (Referendum r in Referendums)
+            else
             {
-                r.CalculateSimilarties(Convert.ToInt32(type.selectedindex), areas.selectedarea, year.selectedstring, partyselections);
+                ErrorLabel.Text = "Bitte Jahr auswählen.";
             }
-            foreach (Canton c in Cantons)
-            {
-                c.ReferendumDistribution(Referendums);
-            }
-            await MonteCarloSimulation();
         }
         private async Task MonteCarloSimulation()
         {
+            MainButton.IsEnabled = false;
+            ResultsStack.IsVisible = false;
+            LoadingFrame.WidthRequest = 0;
             LoadingStack.IsVisible = true;
+            List<View> enumlist = ResultsStack.Children.ToList<View>();
+            foreach (View v in enumlist)
+            {
+                v.IsVisible = false;
+                ResultsStack.Children.Remove(v);
+            }
             SimResults Sim = new SimResults(Cantons, type.selectedindex == "1" || type.selectedindex == "3" || type.selectedindex == "4");
             for(int i = 0; i < 2500; i++)
             {
                 double p = Convert.ToDouble(i) / 2500.0;
                 LoadingLabel.Text = String.Format("{0:0.00}%",p * 100);
-                LoadingFrame.WidthRequest = p * (LoadingStack.Width);
+                LoadingFrame.WidthRequest = p * LoadingStack.Width;
                 await Task.Run(()=>Sim.RunSim(1));
             }
             MainButton.IsEnabled = true;
             LoadingStack.IsVisible = false;
-            LoadingFrame.WidthRequest = 0;
             ResultsStack.IsVisible = true;
             Simulation = Sim;
             CreateResultsStack();
         }
         private void CreateResultsStack()
         {
-            List<View> enumlist = ResultsStack.Children.ToList<View>();
-            foreach(View v in enumlist)
-            {
-                v.IsVisible = false;
-                ResultsStack.Children.Remove(v);
-            }
             Label title = new Label()
             {
                 Text = "Resultate",
@@ -338,7 +369,7 @@ namespace ElectionPredictFinal.Pages
             Referendum[] rs = TopRefs();
             for(int i = 1; i < 6; i++)
             {
-                infostring.Append("\n\t" + i + ". " + rs[i - 1].title + ", " + rs[i - 1].year);
+                infostring.Append("\n\t" + i + ". " + rs[4-(i - 1)].title + ", " + rs[4 - (i - 1)].year);
             }
             Label numsbody = new Label()
             {
@@ -349,6 +380,57 @@ namespace ElectionPredictFinal.Pages
             numsStack.Children.Add(numsbody);
             numsFrame.Content = numsStack;
             ResultsStack.Children.Add(numsFrame);
+            StackLayout CantonsStack = new StackLayout();
+            Label cantonstitle = new Label()
+            {
+                Text = "Kantone",
+                FontAttributes = FontAttributes.Bold,
+                FontSize = 20, 
+                Margin = new Thickness(0,20,0,30)
+            };
+            CantonsStack.Children.Add(cantonstitle);
+            foreach (Canton c in Cantons)
+            {
+                StackLayout CantonMainStack = new StackLayout()
+                {
+                    Orientation = StackOrientation.Horizontal,
+                    Margin = new Thickness(0),
+                    VerticalOptions = LayoutOptions.Center
+
+                };
+                CantonRender cr = new CantonRender(c);
+                CantonMainStack.Children.Add(cr.map);
+                StackLayout InfoStack = new StackLayout()
+                {
+                    VerticalOptions = LayoutOptions.Center,
+                    Margin = new Thickness(-70,-100,0,0)
+                };
+                Label cantonsnametitle = new Label()
+                {
+                    Text = c.name,
+                    FontAttributes = FontAttributes.Bold,
+                    FontSize = 15
+                };
+                Label cantonstext = new Label()
+                {
+                    Text = "Kürzel: "+c.shorthand.ToUpper()+"\nStändestimmen: "+c.weight+"\nStimmenmittelwert: "+ String.Format("{0:0.00}",c.distribution.Mean*100.0)+"%\nAnteil Simulationen mit über 50%-Ja: "+ String.Format("{0:0.00}",(1-c.distribution.CumulativeDistribution(0.5))*100)+"%",
+                    FontAttributes = FontAttributes.Bold,
+                    FontSize = 13
+                };
+                InfoStack.Children.Add(cantonsnametitle);
+                InfoStack.Children.Add(cantonstext);
+                CantonMainStack.Children.Add(InfoStack);
+                CantonsStack.Children.Add(CantonMainStack);
+            }
+            Frame cantonsFrame = new Frame()
+            {
+                BackgroundColor = Color.FromHex("#151515"),
+                Content = CantonsStack,
+                HasShadow = false,
+                CornerRadius = 20,
+                WidthRequest = 600
+            };
+            ResultsStack.Children.Add(cantonsFrame);
         }
         private Referendum[] TopRefs()
         {
@@ -357,11 +439,11 @@ namespace ElectionPredictFinal.Pages
             {
                 for (int i = 0; i < rs.Length; i++)
                 {
-                    if (r.similarity * r.direction > rs[i].similarity * rs[i].direction)
+                    if (r.similarity * r.direction * r.yeardifference> rs[i].similarity * rs[i].direction * rs[i].yeardifference)
                     {
                         if (i != 4)
                         {
-                            if (!(r.similarity * r.direction > rs[i + 1].similarity * rs[i + 1].direction))
+                            if (!(r.similarity * r.direction * r.yeardifference > rs[i + 1].similarity * rs[i + 1].direction * rs[i + 1].yeardifference))
                             {
                                 rs[i] = r;
                                 break;

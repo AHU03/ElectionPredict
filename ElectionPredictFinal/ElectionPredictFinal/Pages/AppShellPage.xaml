@@ -7,14 +7,14 @@
        Shell.NavBarIsVisible="False">
 
     <TabBar>
-        <Tab Title="Wahldaten" Icon="Wahlresultate_icon.png">
-            <ShellContent x:Name="DataViewerTab" Shell.TabBarBackgroundColor="#000000" Shell.TabBarTitleColor="FloralWhite"/>
+        <Tab Title="Modell" Icon="Vorhersagemodell_icon.png">
+            <ShellContent x:Name="PredicitonModelTab" Shell.TabBarBackgroundColor="#000000" Shell.TabBarTitleColor="FloralWhite"/>
         </Tab>
         <Tab Title="Partei-Parolen" Icon="Partei-Parolen_icon.png">
             <ShellContent x:Name="PartyInfluenceTab" Shell.TabBarBackgroundColor="#000000" Shell.TabBarTitleColor="FloralWhite"/>
         </Tab>
-        <Tab Title="Modell" Icon="Vorhersagemodell_icon.png">
-            <ShellContent x:Name="PredicitonModelTab" Shell.TabBarBackgroundColor="#000000" Shell.TabBarTitleColor="FloralWhite"/>
+        <Tab Title="Wahldaten" Icon="Wahlresultate_icon.png">
+            <ShellContent x:Name="DataViewerTab" Shell.TabBarBackgroundColor="#000000" Shell.TabBarTitleColor="FloralWhite"/>
         </Tab>
     </TabBar>
 </Shell>

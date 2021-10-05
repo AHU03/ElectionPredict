@@ -130,5 +130,17 @@ namespace ElectionPredictFinal.Pages.Classes
                 }
             }
         }
+        public string shorthand
+        {
+            get { return myshorthand; }
+        }
+        public string name
+        {
+            get { return myname; }
+        }
+        public Normal distribution
+        {
+            get { return new Normal(mymean, mystdev); }
+        }
     }
 }
