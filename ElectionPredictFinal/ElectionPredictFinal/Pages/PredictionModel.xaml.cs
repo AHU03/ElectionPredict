@@ -374,7 +374,7 @@ namespace ElectionPredictFinal.Pages
             Label numsbody = new Label()
             {
                 Text = infostring.ToString(),
-                FontSize = 13
+                FontSize = 12.5
             };
             numsStack.Children.Add(numstitle);
             numsStack.Children.Add(numsbody);
@@ -414,8 +414,7 @@ namespace ElectionPredictFinal.Pages
                 Label cantonstext = new Label()
                 {
                     Text = "Kürzel: "+c.shorthand.ToUpper()+"\nStändestimmen: "+c.weight+"\nStimmenmittelwert: "+ String.Format("{0:0.00}",c.distribution.Mean*100.0)+"%\nAnteil Simulationen mit über 50%-Ja: "+ String.Format("{0:0.00}",(1-c.distribution.CumulativeDistribution(0.5))*100)+"%",
-                    FontAttributes = FontAttributes.Bold,
-                    FontSize = 13
+                    FontSize = 12.5
                 };
                 InfoStack.Children.Add(cantonsnametitle);
                 InfoStack.Children.Add(cantonstext);
