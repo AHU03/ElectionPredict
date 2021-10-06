@@ -90,7 +90,6 @@ namespace ElectionPredictFinal.Pages.Classes
                     double height = 0;
                     if(mymaindict[i] > biggestval / 200)
                     {
-                        Console.WriteLine(mymaindict[i] / biggestval * 200);
                         height = mymaindict[i] / biggestval * 200.0;
                     }
                     StackLayout linestack = new StackLayout();

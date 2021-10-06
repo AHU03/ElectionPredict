@@ -380,13 +380,16 @@ namespace ElectionPredictFinal.Pages
             numsStack.Children.Add(numsbody);
             numsFrame.Content = numsStack;
             ResultsStack.Children.Add(numsFrame);
-            StackLayout CantonsStack = new StackLayout();
+            StackLayout CantonsStack = new StackLayout()
+            {
+                Margin = new Thickness(0, 0, 0, -50)
+            };
             Label cantonstitle = new Label()
             {
                 Text = "Kantone",
                 FontAttributes = FontAttributes.Bold,
                 FontSize = 20, 
-                Margin = new Thickness(0,20,0,30)
+                Margin = new Thickness(0,0,0,50)
             };
             CantonsStack.Children.Add(cantonstitle);
             foreach (Canton c in Cantons)
@@ -394,7 +397,7 @@ namespace ElectionPredictFinal.Pages
                 StackLayout CantonMainStack = new StackLayout()
                 {
                     Orientation = StackOrientation.Horizontal,
-                    Margin = new Thickness(0),
+                    Margin = new Thickness(0,-40),
                     VerticalOptions = LayoutOptions.Center
 
                 };

@@ -51,10 +51,9 @@ namespace ElectionPredictFinal.Pages.Classes
                 }
             }
             mymean = probs / n;
-            mystdev = Math.Sqrt(probssquare/n - Math.Pow(mymean, 2.0)) * 3/n;
+            mystdev = Math.Sqrt(probssquare / n - Math.Pow(mymean, 2.0)) * 3 / Math.Max(n, 0.5);
             mymeanvotes = Convert.ToInt32(totvotes / n);
             myn = n;
-            Console.WriteLine(myname + ": " + mymean + ", " + mystdev +", "+mymeanvotes +", "+n);
             GetRandResult(0.0);
         }
         public void CantonsCorrelations(List<Canton> cantons)
@@ -106,7 +105,7 @@ namespace ElectionPredictFinal.Pages.Classes
         public void GetRandResult(double weight)
         {
             Normal dist = new Normal(mymean + weight, mystdev);
-            mylastval = dist.Sample();
+            mylastval = Math.Min(1.0, Math.Max(0.0, dist.Sample()));
         }
         public int meanvotes
         {

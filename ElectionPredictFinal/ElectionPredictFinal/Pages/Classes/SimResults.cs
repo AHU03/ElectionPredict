@@ -33,7 +33,6 @@ namespace ElectionPredictFinal.Pages.Classes
                     tot += st.nationalresult;
                 }
                 tot /= myresultlist.Count;
-                Console.WriteLine(tot);
                 return tot;
             }
         }
