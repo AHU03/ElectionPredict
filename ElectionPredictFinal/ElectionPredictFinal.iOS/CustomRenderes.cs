@@ -13,9 +13,24 @@ using Xamarin.Forms.Platform.iOS;
 
 [assembly: ExportRenderer(typeof(MultilineButton), typeof(MultilineButtonRenderer))]
 [assembly: ExportRenderer(typeof(CustomShell), typeof(CustomShellRenderer))]
+[assembly: ExportRenderer(typeof(ListView), typeof(CustomListViewRenderer))]
 namespace ElectionPredictFinal.iOS
 {
-
+    //All of these were copied from StackOverflow while searching for bugfixes
+    public class CustomListViewRenderer : ListViewRenderer
+    {
+        public CustomListViewRenderer()
+        {
+        }
+        protected override void OnElementChanged(ElementChangedEventArgs<ListView> e)
+        {
+            base.OnElementChanged(e);
+            if (Control != null)
+            {
+                Control.SectionHeaderTopPadding = new nfloat(0);
+            }
+        }
+    }
     public class MultilineButtonRenderer : ButtonRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)

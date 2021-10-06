@@ -23,11 +23,11 @@
 	<key>CFBundleIdentifier</key>
 	<string>codes.andri.electionpredict</string>
 	<key>CFBundleVersion</key>
-	<string>1.3.2</string>
+	<string>1.3.5</string>
 	<key>CFBundleName</key>
 	<string>ElectionPredictFinal</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.3.2</string>
+	<string>1.3.5</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
 	<key>XSAppIconAssets</key>
