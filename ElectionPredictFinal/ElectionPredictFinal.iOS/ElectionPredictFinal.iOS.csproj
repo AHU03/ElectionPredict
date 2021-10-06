@@ -63,8 +63,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution: Andri Hubalek (A2KP7SR757)</CodesignKey>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>Full</MtouchLink>
+    <CodesignProvision>Election Predict Ad Hoc</CodesignProvision>
+    <BuildIpa>true</BuildIpa>
+    <MtouchSdkVersion>15.0</MtouchSdkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'Default' ">
     <AppExtensionDebugBundleId />
@@ -104,7 +108,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\ElectionPredictFinal\ElectionPredictFinal.csproj">
-      <Project>{917EB8BF-D053-49CA-88A3-B13EA967B25F}</Project>
+      <Project>{7B60F5C8-08B5-4D37-969A-56C1294EC063}</Project>
       <Name>ElectionPredictFinal</Name>
     </ProjectReference>
   </ItemGroup>

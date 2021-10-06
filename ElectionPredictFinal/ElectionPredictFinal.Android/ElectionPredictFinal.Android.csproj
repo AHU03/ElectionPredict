@@ -16,7 +16,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v11.0</TargetFrameworkVersion>
     <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
     <AndroidUseAapt2>true</AndroidUseAapt2>
@@ -97,7 +96,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ElectionPredictFinal\ElectionPredictFinal.csproj">
-      <Project>{917EB8BF-D053-49CA-88A3-B13EA967B25F}</Project>
+      <Project>{7B60F5C8-08B5-4D37-969A-56C1294EC063}</Project>
       <Name>ElectionPredictFinal</Name>
     </ProjectReference>
   </ItemGroup>

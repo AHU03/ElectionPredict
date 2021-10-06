@@ -583,4 +583,8 @@ namespace ElectionPredictFinal.Pages.Classes
     {
 
     }
+    public class CustomShell : Shell
+    {
+
+    }
 }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Shell xmlns="http://xamarin.com/schemas/2014/forms"
+<classes:CustomShell  xmlns:classes="clr-namespace:ElectionPredictFinal.Pages.Classes"
+                      xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:ElectionPredictFinal"
        xmlns:local1="clr-namespace:ElectionPredictFinal.Pages"
@@ -17,4 +18,4 @@
             <ShellContent x:Name="DataViewerTab" Shell.TabBarBackgroundColor="#000000" Shell.TabBarTitleColor="FloralWhite"/>
         </Tab>
     </TabBar>
-</Shell>
+</classes:CustomShell>

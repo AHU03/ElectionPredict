@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using ElectionPredictFinal.Pages.Classes;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace ElectionPredictFinal.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class AppShellPage : Shell
+    public partial class AppShellPage : CustomShell
     {
         public AppShellPage()
         {
