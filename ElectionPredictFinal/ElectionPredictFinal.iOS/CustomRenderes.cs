@@ -1,4 +1,5 @@
-﻿using ElectionPredictFinal.iOS;
+﻿using CoreGraphics;
+using ElectionPredictFinal.iOS;
 using ElectionPredictFinal.Pages.Classes;
 using Foundation;
 using System;
@@ -11,7 +12,7 @@ using Xamarin.Forms.Platform.iOS;
 
 
 [assembly: ExportRenderer(typeof(MultilineButton), typeof(MultilineButtonRenderer))]
-[assembly: ExportRenderer(typeof(CustomShellR), typeof(CustomShellRenderer))]
+[assembly: ExportRenderer(typeof(CustomShell), typeof(CustomShellRenderer))]
 namespace ElectionPredictFinal.iOS
 {
 
@@ -40,7 +41,7 @@ namespace ElectionPredictFinal.iOS
 
                     var appearance = new UINavigationBarAppearance();
                     appearance.ConfigureWithOpaqueBackground();
-                    appearance.BackgroundColor = new UIColor(red: 0.86f, green: 0.24f, blue: 0.00f, alpha: 1.00f);
+                    appearance.BackgroundColor = new UIColor(0.08235294117647058823529411764706f, 0.08235294117647058823529411764706f, 0.08235294117647058823529411764706f, 1f);
 
                     appearance.TitleTextAttributes = new UIStringAttributes() { ForegroundColor = UIColor.White };
 
@@ -66,7 +67,7 @@ namespace ElectionPredictFinal.iOS
                     var appearance = new UITabBarAppearance();
 
                     appearance.ConfigureWithOpaqueBackground();
-
+                    appearance.BackgroundColor = new UIColor(0.08235294117647058823529411764706f, 0.08235294117647058823529411764706f, 0.08235294117647058823529411764706f, 1f);
                     shellItemRenderer.TabBar.Translucent = false;
                     shellItemRenderer.TabBar.StandardAppearance = appearance;
 

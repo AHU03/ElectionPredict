@@ -23,7 +23,7 @@
                     </StackLayout>
                 </ScrollView>
                 <Label x:Name="ErrorLabel" Text="" FontSize="12" TextColor="Maroon" VerticalOptions="End"/>
-                <Button Text="Berechnen" Clicked="Button_Clicked" x:Name="MainButton" BackgroundColor="#282828" TextColor="FloralWhite" CornerRadius="10" Margin="0,0,0,50" VerticalOptions="End"></Button>
+                <Button Text="Berechnen" Clicked="Button_Clicked" x:Name="MainButton" BackgroundColor="#282828" TextColor="FloralWhite" CornerRadius="10" Margin="0" VerticalOptions="End"></Button>
             </StackLayout>
             <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#282828" Padding="10, 20" Orientation="Vertical">
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" x:Name="MainStack">
