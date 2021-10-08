@@ -16,7 +16,7 @@ using Xamarin.Forms.Platform.iOS;
 [assembly: ExportRenderer(typeof(ListView), typeof(CustomListViewRenderer))]
 namespace ElectionPredictFinal.iOS
 {
-    //All of these were copied from StackOverflow while searching for bugfixes
+    //All of these were copied from StackOverflow while searching for bugfixes with only minimal adjustments
     public class CustomListViewRenderer : ListViewRenderer
     {
         public CustomListViewRenderer()
@@ -25,10 +25,20 @@ namespace ElectionPredictFinal.iOS
         protected override void OnElementChanged(ElementChangedEventArgs<ListView> e)
         {
             base.OnElementChanged(e);
-            if (Control != null)
+            if(Convert.ToInt32(UIDevice.CurrentDevice.SystemVersion.Split('.')[0]) >= 15)
             {
-                Control.SectionHeaderTopPadding = new nfloat(0);
+                if (Control != null)
+                {
+                    DoTheDumbShit();
+                }
             }
+        }
+        //The Statement contained in this method is necessary for this not to break on iOS 15.
+        //The Method being separate is necessary for this not to break on iOS 14 and below.
+        //FML
+        private void DoTheDumbShit()
+        {
+            Control.SectionHeaderTopPadding = new nfloat(0);
         }
     }
     public class MultilineButtonRenderer : ButtonRenderer
@@ -36,7 +46,6 @@ namespace ElectionPredictFinal.iOS
         protected override void OnElementChanged(ElementChangedEventArgs<Button> e)
         {
             base.OnElementChanged(e);
-
             Control.TitleEdgeInsets = new UIEdgeInsets(4, 4, 4, 4);
             Control.TitleLabel.LineBreakMode = UILineBreakMode.WordWrap;
             Control.TitleLabel.TextAlignment = UITextAlignment.Center;

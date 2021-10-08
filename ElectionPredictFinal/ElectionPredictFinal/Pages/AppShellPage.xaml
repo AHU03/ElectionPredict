@@ -2,8 +2,6 @@
 <classes:CustomShell  xmlns:classes="clr-namespace:ElectionPredictFinal.Pages.Classes"
                       xmlns="http://xamarin.com/schemas/2014/forms"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:ElectionPredictFinal"
-       xmlns:local1="clr-namespace:ElectionPredictFinal.Pages"
        x:Class="ElectionPredictFinal.Pages.AppShellPage"
        Shell.NavBarIsVisible="False">
 
