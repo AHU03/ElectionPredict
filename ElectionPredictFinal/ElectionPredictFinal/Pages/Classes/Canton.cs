@@ -44,9 +44,10 @@ namespace ElectionPredictFinal.Pages.Classes
                 if (myyesvotes.Keys.ToList().Contains(r.index) && r.direction >= 0)
                 {
                     double weight = Math.Pow(r.similarity * r.direction * r.yeardifference, 3.0);
+                    double votes = Convert.ToDouble(myyesvotes[r.index]) / Convert.ToDouble(myyesvotes[r.index] + mynovotes[r.index]);
                     n += weight;
-                    probs += weight * (Convert.ToDouble(myyesvotes[r.index]) / Convert.ToDouble(myyesvotes[r.index] + mynovotes[r.index]));
-                    probssquare += weight * Math.Pow(Convert.ToDouble(myyesvotes[r.index]) / Convert.ToDouble(myyesvotes[r.index] + mynovotes[r.index]),2.0);
+                    probs += weight * votes;
+                    probssquare += weight * Math.Pow(votes,2.0);
                     totvotes += weight * Convert.ToDouble(myyesvotes[r.index] + mynovotes[r.index]);
                 }
             }

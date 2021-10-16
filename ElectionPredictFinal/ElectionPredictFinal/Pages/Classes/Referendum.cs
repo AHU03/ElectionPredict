@@ -87,7 +87,7 @@ namespace ElectionPredictFinal.Pages.Classes
             {
                 if (mypartydecisions.Keys.ToList().Contains(s.ToLower()))
                 {
-                    if(mypartydecisions[s.ToLower()] == partydecision[s])
+                    if (mypartydecisions[s.ToLower()] == partydecision[s])
                     {
                         mydirection += mypartyvotes[s.ToLower()];
                     }

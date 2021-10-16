@@ -369,7 +369,7 @@ namespace ElectionPredictFinal.Pages
             Referendum[] rs = TopRefs();
             for(int i = 1; i < 6; i++)
             {
-                infostring.Append("\n\t" + i + ". " + rs[4-(i - 1)].title + ", " + rs[4 - (i - 1)].year);
+                infostring.Append("\n\t" + i + ". " + rs[(i - 1)].title + ", " + rs[(i - 1)].year);
             }
             Label numsbody = new Label()
             {
@@ -437,27 +437,25 @@ namespace ElectionPredictFinal.Pages
         private Referendum[] TopRefs()
         {
             Referendum[] rs = new Referendum[5] { Referendums[0], Referendums[0], Referendums[0], Referendums[0], Referendums[0] };
+            Dictionary<Referendum, double> dict = new Dictionary<Referendum, double>();
             foreach (Referendum r in Referendums)
             {
-                for (int i = 0; i < rs.Length; i++)
+                dict.Add(r, r.similarity * r.direction * r.yeardifference);
+            }
+            for(int i = 0; i < rs.Length; i++)
+            {
+                double largest = 0;
+                Referendum lastr = Referendums[0];
+                foreach(Referendum r in dict.Keys)
                 {
-                    if (r.similarity * r.direction * r.yeardifference> rs[i].similarity * rs[i].direction * rs[i].yeardifference)
+                    if(dict[r] > largest)
                     {
-                        if (i != 4)
-                        {
-                            if (!(r.similarity * r.direction * r.yeardifference > rs[i + 1].similarity * rs[i + 1].direction * rs[i + 1].yeardifference))
-                            {
-                                rs[i] = r;
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            rs[i] = r;
-                            break;
-                        }
+                        largest = dict[r];
+                        rs[i] = r;
+                        lastr = r;
                     }
                 }
+                dict.Remove(lastr);
             }
             return rs;
         }
