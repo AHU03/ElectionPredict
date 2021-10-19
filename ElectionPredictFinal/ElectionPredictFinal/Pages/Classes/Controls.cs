@@ -40,7 +40,8 @@ namespace ElectionPredictFinal.Pages.Classes
                 {
                     Text = mytitle,
                     FontAttributes = FontAttributes.Bold,
-                    FontSize = 20
+                    FontSize = 20,
+                    TextColor = Color.FloralWhite
                 };
                 Label spacer = new Label()
                 {
@@ -57,7 +58,8 @@ namespace ElectionPredictFinal.Pages.Classes
                     FontSize = 10,
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
-                    VerticalOptions = LayoutOptions.Start
+                    VerticalOptions = LayoutOptions.Start,
+                    TextColor = Color.FloralWhite
                 };
                 Label midl = new Label()
                 {
@@ -65,7 +67,8 @@ namespace ElectionPredictFinal.Pages.Classes
                     FontSize = 10,
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
-                    VerticalOptions = LayoutOptions.CenterAndExpand
+                    VerticalOptions = LayoutOptions.CenterAndExpand,
+                    TextColor = Color.FloralWhite
                 };
                 Label zerol = new Label()
                 {
@@ -73,7 +76,8 @@ namespace ElectionPredictFinal.Pages.Classes
                     FontSize = 10,
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
-                    VerticalOptions = LayoutOptions.End
+                    VerticalOptions = LayoutOptions.End,
+                    TextColor = Color.FloralWhite
                 };
                 legendstack.Children.Add(topl);
                 legendstack.Children.Add(midl);
@@ -109,7 +113,8 @@ namespace ElectionPredictFinal.Pages.Classes
                         FontSize = 10,
                         HorizontalTextAlignment = TextAlignment.Center,
                         VerticalTextAlignment = TextAlignment.Center,
-                        VerticalOptions = LayoutOptions.End
+                        VerticalOptions = LayoutOptions.End,
+                        TextColor = Color.FloralWhite
                     };
                     linestack.Children.Add(f);
                     linestack.Children.Add(l);
@@ -164,7 +169,8 @@ namespace ElectionPredictFinal.Pages.Classes
                     Text = s,
                     FontSize = 15,
                     HorizontalOptions = LayoutOptions.Start,
-                    HorizontalTextAlignment = TextAlignment.Start
+                    HorizontalTextAlignment = TextAlignment.Start,
+                    TextColor = Color.FloralWhite
                 };
                 Frame TextStack = new Frame()
                 {
@@ -211,7 +217,8 @@ namespace ElectionPredictFinal.Pages.Classes
                         Text = s,
                         FontSize = 15,
                         HorizontalOptions = LayoutOptions.Start,
-                        HorizontalTextAlignment = TextAlignment.Start
+                        HorizontalTextAlignment = TextAlignment.Start,
+                        TextColor = Color.FloralWhite
                     };
                     Frame TextStack = new Frame()
                     {
@@ -333,7 +340,8 @@ namespace ElectionPredictFinal.Pages.Classes
                         Text = line,
                         FontSize = 15,
                         HorizontalOptions = LayoutOptions.Start,
-                        HorizontalTextAlignment = TextAlignment.Start
+                        HorizontalTextAlignment = TextAlignment.Start,
+                        TextColor = Color.FloralWhite
                     };
                     Frame TextStack = new Frame()
                     {

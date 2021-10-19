@@ -1021,7 +1021,8 @@ namespace ElectionPredictFinal.Pages
         {
             try
             {
-                float scale = (float)mappanel.Width * (float)1.75 / (float)sksvg.Picture.CullRect.Width;
+                float scale = (float)mappanel.Width * (float)0.0015;
+                mappanel.HeightRequest = mappanel.Width*0.75;
                 var matrix = SKMatrix.CreateScale(scale, scale);
                 e.Surface.Canvas.DrawPicture(sksvg.Picture, ref matrix);
             }

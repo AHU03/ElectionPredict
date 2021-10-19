@@ -76,7 +76,8 @@ namespace ElectionPredictFinal.Pages
             Label copydescription = new Label()
             {
                 Text = "Alle Daten gemäss dem Swissvotes-Datensatz",
-                FontSize = 10
+                FontSize = 10,
+                TextColor = Color.FloralWhite
             };
             StackLayout bottommargin = new StackLayout()
             {
@@ -92,7 +93,8 @@ namespace ElectionPredictFinal.Pages
                 Text = "Rechtsform ▼",
                 FontSize = 20,
                 FontAttributes = FontAttributes.Bold,
-                Margin = new Thickness(0, 5, 0, 0)
+                Margin = new Thickness(0, 5, 0, 0),
+                TextColor = Color.FloralWhite
             };
             TapGestureRecognizer subtitletap = new TapGestureRecognizer();
             subtitletap.Tapped += SubTitle_Tapped;
@@ -114,7 +116,8 @@ namespace ElectionPredictFinal.Pages
                 Text = "Jahr ▼",
                 FontSize = 20,
                 FontAttributes = FontAttributes.Bold,
-                Margin = new Thickness(0, 5, 0, 0)
+                Margin = new Thickness(0, 5, 0, 0),
+                TextColor = Color.FloralWhite
             };
             TapGestureRecognizer subtitletap = new TapGestureRecognizer();
             subtitletap.Tapped += SubTitle_Tapped;
@@ -131,7 +134,8 @@ namespace ElectionPredictFinal.Pages
                 Text = "Politikbereich ▼",
                 FontSize = 20,
                 FontAttributes = FontAttributes.Bold,
-                Margin = new Thickness(0, 5, 0, 0)
+                Margin = new Thickness(0, 5, 0, 0),
+                TextColor = Color.FloralWhite
             };
             TapGestureRecognizer subtitletap = new TapGestureRecognizer();
             subtitletap.Tapped += SubTitle_Tapped;
@@ -155,7 +159,8 @@ namespace ElectionPredictFinal.Pages
                             Text = "Parolen ▼",
                             FontSize = 20,
                             FontAttributes = FontAttributes.Bold,
-                            Margin = new Thickness(0, 5, 0, 0)
+                            Margin = new Thickness(0, 5, 0, 0),
+                            TextColor = Color.FloralWhite
                         };
                         TapGestureRecognizer subtitletap = new TapGestureRecognizer();
                         subtitletap.Tapped += SubTitle_Tapped;
@@ -177,12 +182,14 @@ namespace ElectionPredictFinal.Pages
                                 };
                                 Label title = new Label()
                                 {
-                                    Text = p.partyshorthand
+                                    Text = p.partyshorthand,
+                                    TextColor = Color.FloralWhite
                                 };
                                 Label subtitle = new Label()
                                 {
                                     Text = p.partyname,
-                                    FontSize = 14
+                                    FontSize = 14,
+                                    TextColor = Color.FloralWhite
                                 };
                                 StackLayout titlelayout = new StackLayout()
                                 {
@@ -337,7 +344,8 @@ namespace ElectionPredictFinal.Pages
                 FontAttributes = FontAttributes.Bold,
                 FontSize = 36,
                 HorizontalOptions = LayoutOptions.Start,
-                VerticalOptions = LayoutOptions.Start
+                VerticalOptions = LayoutOptions.Start,
+                TextColor = Color.FloralWhite
             };
             ResultsStack.Children.Add(title);
             StackLayout numsStack = new StackLayout();
@@ -353,7 +361,8 @@ namespace ElectionPredictFinal.Pages
             {
                 Text = "Kenndaten",
                 FontAttributes = FontAttributes.Bold,
-                FontSize = 20
+                FontSize = 20,
+                TextColor = Color.FloralWhite
             };
             Graph g = new Graph(Simulation.distribution, 0.05, "Verteilung der Volksmehrheiten");
             ResultsStack.Children.Add(g.Stack);
@@ -374,7 +383,8 @@ namespace ElectionPredictFinal.Pages
             Label numsbody = new Label()
             {
                 Text = infostring.ToString(),
-                FontSize = 12.5
+                FontSize = 12.5,
+                TextColor = Color.FloralWhite
             };
             numsStack.Children.Add(numstitle);
             numsStack.Children.Add(numsbody);
@@ -389,7 +399,8 @@ namespace ElectionPredictFinal.Pages
                 Text = "Kantone",
                 FontAttributes = FontAttributes.Bold,
                 FontSize = 20, 
-                Margin = new Thickness(0,0,0,50)
+                Margin = new Thickness(0,0,0,50),
+                TextColor = Color.FloralWhite
             };
             CantonsStack.Children.Add(cantonstitle);
             foreach (Canton c in Cantons)
@@ -412,12 +423,14 @@ namespace ElectionPredictFinal.Pages
                 {
                     Text = c.name,
                     FontAttributes = FontAttributes.Bold,
-                    FontSize = 15
+                    FontSize = 15,
+                    TextColor = Color.FloralWhite
                 };
                 Label cantonstext = new Label()
                 {
                     Text = "Kürzel: "+c.shorthand.ToUpper()+"\nStändestimmen: "+c.weight+"\nStimmenmittelwert: "+ String.Format("{0:0.00}",c.distribution.Mean*100.0)+"%\nAnteil Simulationen mit über 50%-Ja: "+ String.Format("{0:0.00}",(1-c.distribution.CumulativeDistribution(0.5))*100)+"%",
-                    FontSize = 12.5
+                    FontSize = 12.5,
+                    TextColor = Color.FloralWhite
                 };
                 InfoStack.Children.Add(cantonsnametitle);
                 InfoStack.Children.Add(cantonstext);

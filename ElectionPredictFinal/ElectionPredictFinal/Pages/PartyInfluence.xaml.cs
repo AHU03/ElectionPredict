@@ -204,7 +204,8 @@ namespace ElectionPredictFinal.Pages
                             Text = line.Remove(0, 1) + " ▼",
                             FontSize = 20,
                             FontAttributes = FontAttributes.Bold,
-                            Margin = new Thickness(0, 5, 0, 0)
+                            Margin = new Thickness(0, 5, 0, 0),
+                            TextColor = Color.FloralWhite
                         };
                         TapGestureRecognizer subtitletap = new TapGestureRecognizer();
                         subtitletap.Tapped += SubTitle_Tapped;
@@ -226,7 +227,8 @@ namespace ElectionPredictFinal.Pages
             Label copydescription = new Label()
             {
                 Text = "Alle Daten gemäss dem Swissvotes-Datensatz",
-                FontSize = 10
+                FontSize = 10,
+                TextColor = Color.FloralWhite
             };
             StackLayout bottommargin = new StackLayout()
             {
@@ -324,7 +326,8 @@ namespace ElectionPredictFinal.Pages
                 VerticalTextAlignment = TextAlignment.Center,
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 HorizontalOptions = LayoutOptions.Start,
-                Margin = new Thickness(0, -10, 0, 0)
+                Margin = new Thickness(0, -10, 0, 0),
+                TextColor = Color.FloralWhite
             };
             StackLayout s = new StackLayout()
             {
@@ -335,7 +338,8 @@ namespace ElectionPredictFinal.Pages
                 Text = p.partyname,
                 FontSize = 14,
                 HorizontalTextAlignment = TextAlignment.Start,
-                HorizontalOptions = LayoutOptions.Start
+                HorizontalOptions = LayoutOptions.Start,
+                TextColor = Color.FloralWhite
             };
             Button CloseButton = new Button()
             {
@@ -368,7 +372,8 @@ namespace ElectionPredictFinal.Pages
             };
             Label listlabel = new Label()
             {
-                FontSize = 12
+                FontSize = 12,
+                TextColor = Color.FloralWhite
             }
             ;
             ScrollView sv = new ScrollView()

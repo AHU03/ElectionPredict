@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ElectionPredictFinal.Pages;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,7 +10,6 @@ namespace ElectionPredictFinal
         public App()
         {
             InitializeComponent();
-
             MainPage = new Pages.AppShellPage();
         }
 
