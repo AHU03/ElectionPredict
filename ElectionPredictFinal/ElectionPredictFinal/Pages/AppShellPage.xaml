@@ -5,15 +5,15 @@
        x:Class="ElectionPredictFinal.Pages.AppShellPage"
        Shell.NavBarIsVisible="False">
 
-    <TabBar>
+    <TabBar x:Name="MainTab">
         <Tab Title="Modell" Icon="Vorhersagemodell_icon.png">
-            <ShellContent x:Name="PredicitonModelTab" Shell.TabBarBackgroundColor="#151515" Shell.TabBarTitleColor="FloralWhite"/>
+            <ShellContent x:Name="PredicitonModelTab" Shell.TabBarBackgroundColor="#151515" Shell.TabBarTitleColor="FloralWhite" Shell.TabBarUnselectedColor="Gray"/>
         </Tab>
         <Tab Title="Partei-Parolen" Icon="Partei-Parolen_icon.png">
-            <ShellContent x:Name="PartyInfluenceTab" Shell.TabBarBackgroundColor="#151515" Shell.TabBarTitleColor="FloralWhite"/>
+            <ShellContent x:Name="PartyInfluenceTab" Shell.TabBarBackgroundColor="#151515" Shell.TabBarTitleColor="FloralWhite" Shell.TabBarUnselectedColor="Gray"/>
         </Tab>
         <Tab Title="Wahldaten" Icon="Wahlresultate_icon.png">
-            <ShellContent x:Name="DataViewerTab" Shell.TabBarBackgroundColor="#151515" Shell.TabBarTitleColor="FloralWhite"/>
+            <ShellContent x:Name="DataViewerTab" Shell.TabBarBackgroundColor="#151515" Shell.TabBarTitleColor="FloralWhite" Shell.TabBarUnselectedColor="Gray"/>
         </Tab>
     </TabBar>
 </classes:CustomShell>

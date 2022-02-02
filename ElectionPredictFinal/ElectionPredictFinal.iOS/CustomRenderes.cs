@@ -12,7 +12,7 @@ using Xamarin.Forms.Platform.iOS;
 
 
 [assembly: ExportRenderer(typeof(MultilineButton), typeof(MultilineButtonRenderer))]
-[assembly: ExportRenderer(typeof(CustomShell), typeof(CustomShellRenderer))]
+[assembly: ExportRenderer(typeof(Shell), typeof(CustomShellRenderer))]
 [assembly: ExportRenderer(typeof(ListView), typeof(CustomListViewRenderer))]
 namespace ElectionPredictFinal.iOS
 {
@@ -68,11 +68,9 @@ namespace ElectionPredictFinal.iOS
                     appearance.BackgroundColor = new UIColor(0.08235294117647058823529411764706f, 0.08235294117647058823529411764706f, 0.08235294117647058823529411764706f, 1f);
 
                     appearance.TitleTextAttributes = new UIStringAttributes() { ForegroundColor = UIColor.White };
-
-
                     shellRenderer.NavigationBar.Translucent = false;
                     shellRenderer.NavigationBar.StandardAppearance = appearance;
-                    shellRenderer.NavigationBar.ScrollEdgeAppearance = shellRenderer.NavigationBar.StandardAppearance;
+                    shellRenderer.NavigationBar.ScrollEdgeAppearance = appearance;
 
                 }
             }
@@ -88,13 +86,8 @@ namespace ElectionPredictFinal.iOS
             {
                 if (renderer is ShellItemRenderer shellItemRenderer)
                 {
-                    var appearance = new UITabBarAppearance();
-
-                    appearance.ConfigureWithOpaqueBackground();
-                    appearance.BackgroundColor = new UIColor(0.08235294117647058823529411764706f, 0.08235294117647058823529411764706f, 0.08235294117647058823529411764706f, 1f);
+                    shellItemRenderer.TabBar.StandardAppearance.ConfigureWithOpaqueBackground();
                     shellItemRenderer.TabBar.Translucent = false;
-                    shellItemRenderer.TabBar.StandardAppearance = appearance;
-
                 }
 
 
