@@ -28,7 +28,7 @@
             <ScrollView HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" BackgroundColor="#282828" Padding="10, 20" Orientation="Vertical">
                 <StackLayout Orientation="Vertical" HorizontalOptions="FillAndExpand" x:Name="MainStack">
                     <StackLayout x:Name="LoadingStack" HorizontalOptions="Center" Margin="10" WidthRequest="200" VerticalOptions="CenterAndExpand" IsVisible="false">
-                        <Label x:Name="LoadingLabel" FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" FontSize="20" TextColor="FloralWhite">
+                        <Label x:Name="LoadingLabel" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" VerticalOptions="Center" FontSize="20" TextColor="FloralWhite">
 
                         </Label>
                         <Frame x:Name="LoadingFrame" HorizontalOptions="Start" Margin="0" Padding="0" BackgroundColor="FloralWhite" HeightRequest="20">

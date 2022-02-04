@@ -903,6 +903,7 @@
     <None Remove="Resources\Wahlresultate2012.tsv" />
     <None Remove="Resources\Wahlresultate2016.tsv" />
     <None Remove="Resources\Wahlresultate2020.tsv" />
+    <None Remove="Accord.Statistics" />
   </ItemGroup>
 
   <ItemGroup>
@@ -1783,6 +1784,7 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2244" />
     <PackageReference Include="Xamarin.Forms.Svg" Version="1.0.3" />
+    <PackageReference Include="Accord.Statistics" Version="3.8.2-alpha" />
   </ItemGroup>
 
   <ItemGroup>

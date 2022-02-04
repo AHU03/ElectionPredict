@@ -1,148 +1,133 @@
 ﻿using MathNet.Numerics.Distributions;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using Accord.Statistics.Distributions.Multivariate;
+using System;
+using System.Linq;
 
 namespace ElectionPredictFinal.Pages.Classes
 {
     class SimResults
     {
         private List<Canton> mybaselist = new List<Canton>();
-        private List<SingleResult> myresultlist = new List<SingleResult>();
+        private double[] meanvector;
+        private double[,] covariancematrix;
         private bool myStändemehr = false;
+        private double mytotnationalvotes = 0.0;
+        private MultivariateNormalDistribution mydist;
+        private List<double[]> mysamples = new List<double[]>();
+        private double mymeanpopvotes = 0.0;
+        private double mymeanstände = 0.0;
+        private double mypercentageyes = 0.0;
+        private double mytotcantonweights = 0.0;
+        private double myvariance = 0.0;
+        private List<double> mypercentages = new List<double>();
         public SimResults(List<Canton> Cantons, bool stm)
         {
             mybaselist = Cantons;
             myStändemehr = stm;
+            meanvector = new double[mybaselist.Count];
+            covariancematrix = new double[mybaselist.Count, mybaselist.Count];
         }
-        public void RunSim(int numruns)
+        public void GenerateStructure()
         {
-            for(int i = 0; i < numruns; i++)
+            Console.WriteLine("Generating Matrices");
+            try
             {
-                SingleResult st = new SingleResult(mybaselist);
-                myresultlist.Add(st);
+                for (int i = 0; i < mybaselist.Count; i++)
+                {
+                    meanvector[i] = mybaselist[i].meanvotes * mybaselist[i].distribution.Mean;
+                    mytotnationalvotes += mybaselist[i].meanvotes;
+                    mytotcantonweights += mybaselist[i].weight;
+                    for (int j = 0; j < mybaselist.Count; j++)
+                    {
+                        covariancematrix[i, j] = mybaselist[i].CantonCovariance(mybaselist[j]);
+                    }
+                }
+                mydist = new MultivariateNormalDistribution(meanvector, covariancematrix);
             }
+            catch
+            {
+                mytotnationalvotes = 0;
+                mytotcantonweights = 0;
+                for (int i = 0; i < mybaselist.Count; i++)
+                {
+                    meanvector[i] = mybaselist[i].meanvotes * mybaselist[i].distribution.Mean;
+                    mytotnationalvotes += mybaselist[i].meanvotes;
+                    mytotcantonweights += mybaselist[i].weight;
+                    for (int j = 0; j < mybaselist.Count; j++)
+                    {
+                        covariancematrix[i, j] = mybaselist[i].CantonCovarianceNonWeighted(mybaselist[j]);
+                    }
+                }
+                mydist = new MultivariateNormalDistribution(meanvector, covariancematrix);
+            }
+        }
+        public void AddSims(int i) {
+            Console.WriteLine("Generating Samples");
+            mysamples.AddRange(mydist.Generate(i).ToList<double[]>());
+        }
+        public void LoopAndCalc() {
+            Console.WriteLine("Looping Samples");
+            foreach(double[] d in mysamples)
+            {
+                double yesvotes = 0.0;
+                double cantonyes = 0.0;
+                for(int i = 0; i < d.Length; i++)
+                {
+                    yesvotes += d[i];
+                    if(d[i] > mybaselist[i].meanvotes * 0.5)
+                    {
+                        cantonyes += mybaselist[i].weight;
+                    }
+                }
+                mymeanpopvotes += yesvotes / mytotnationalvotes;
+                mypercentages.Add(yesvotes / mytotnationalvotes);
+                mymeanstände += cantonyes;
+                if((!myStändemehr && yesvotes / mytotnationalvotes >= 0.5)||(yesvotes / mytotnationalvotes >= 0.5 && cantonyes >= mytotcantonweights * 0.5))
+                {
+                    mypercentageyes += 1;
+                }
+            }
+            double variancetotal = 0.0;
+            mymeanpopvotes /= (double)mysamples.Count;
+            mymeanstände /= (double)mysamples.Count;
+            mypercentageyes /= (double)mysamples.Count;
+            foreach (double d in mypercentages)
+            {
+                variancetotal += Math.Pow(d - mymeanpopvotes, 2.0);
+
+            }
+            variancetotal /= (double)mypercentages.Count;
+            myvariance = Math.Sqrt(variancetotal);
+            Console.WriteLine("Finished Calc");
         }
         public double meanpopvote
         {
             get
             {
-                double tot = 0.0;
-                foreach(SingleResult st in myresultlist)
-                {
-                    tot += st.nationalresult;
-                }
-                tot /= myresultlist.Count;
-                return tot;
+                return mymeanpopvotes;
             }
         }
         public double percentageyes
         {
             get
             {
-                double yesvotes = 0.0;
-                foreach(SingleResult st in myresultlist)
-                {
-                    if((myStändemehr && st.Ständem && st.nationalresult >= 0.5)||(!myStändemehr && st.nationalresult >= 0.5))
-                    {
-                        yesvotes += 1.0;
-                    }
-                }
-                yesvotes /= myresultlist.Count;
-                return yesvotes;
+                return mypercentageyes;
             }
         }
         public double meanstände
         {
             get
             {
-                List<double> allsts = new List<double>();
-                foreach(SingleResult st in myresultlist)
-                {
-                    allsts.Add(st.Ständey);
-                }
-                allsts.Sort();
-                return allsts[Convert.ToInt32(allsts.Count/2.0)];
+                return mymeanstände;
             }
         }
         public Normal distribution
         {
             get
             {
-                double tot = 0.0;
-                double sqtot = 0.0;
-                foreach (SingleResult st in myresultlist)
-                {
-                    tot += st.nationalresult;
-                    sqtot += Math.Pow(st.nationalresult, 2.0);
-                }
-                tot /= myresultlist.Count;
-                sqtot /= myresultlist.Count;
-                return new Normal(tot, Math.Sqrt(sqtot - Math.Pow(tot, 2.0)));
+                return new Normal(mymeanpopvotes, myvariance);
             }
-        }
-    }
-    class SingleResult
-    {
-        private Dictionary<Canton, double> mycantonsweight = new Dictionary<Canton, double>();
-        private Dictionary<Canton, double> mycantonresults = new Dictionary<Canton, double>();
-        private Random myr = new Random();
-        private int myyesvotes = 0;
-        private int mynovotes = 0;
-        private double Styes = 0;
-        private double Stno = 0;
-        public SingleResult(List<Canton> Cantons)
-        {
-            foreach(Canton c in Cantons)
-            {
-                mycantonsweight.Add(c, 0.0);
-            }
-            GenerateResult(Cantons);
-        }
-        private void GenerateResult(List<Canton> Cantons)
-        {
-            List<Canton> CantonCopy = new List<Canton>();
-            foreach(Canton c in Cantons)
-            {
-                CantonCopy.Add(c);
-            }
-            for(double i = 0; CantonCopy.Count > 0;i++)
-            {
-                Canton selcanton = CantonCopy[myr.Next(0, CantonCopy.Count - 1)];
-                selcanton.GetRandResult(mycantonsweight[selcanton]);
-                mycantonresults.Add(selcanton, selcanton.randval);
-                myyesvotes += Convert.ToInt32(Convert.ToDouble(selcanton.meanvotes) * selcanton.randval);
-                mynovotes += Convert.ToInt32(Convert.ToDouble(selcanton.meanvotes) * (1.0 - selcanton.randval));
-                foreach(Canton c in CantonCopy)
-                {
-                    mycantonsweight[c] = (mycantonsweight[c] * Convert.ToDouble(i) + selcanton.correlations[c]) / Convert.ToDouble(i + 1);
-                }
-                if(selcanton.randval >= 0.5)
-                {
-                    Styes += selcanton.weight;
-                }
-                else
-                {
-                    Stno += selcanton.weight;
-                }
-                CantonCopy.Remove(selcanton);
-            }
-        }
-        public double nationalresult
-        {
-            get { return Convert.ToDouble(myyesvotes) / Convert.ToDouble(myyesvotes + mynovotes); }
-        }
-        public double Ständey
-        {
-            get { return Styes; }
-        }
-        public bool Ständem
-        {
-            get { return Styes > Stno; }
-        }
-        public Dictionary<Canton, double> cantonresults
-        {
-            get { return mycantonresults; }
         }
     }
 }

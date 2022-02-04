@@ -20,6 +20,7 @@ namespace ElectionPredictFinal.Pages.Classes
         private double mysimilarity = 0.0;
         private double mydirection = 0.0;
         private double myyearcloseness = 0.0;
+        private double myweight = 0.0;
         public Referendum(string source)
         {
             var data = source.Split('\t');
@@ -63,17 +64,17 @@ namespace ElectionPredictFinal.Pages.Classes
                 double sim = 0.0;
                 if (mytype == type)
                 {
-                    sim += 0.3;
+                    sim += 0.270205794783177;
                 }
                 if (area.Split('.')[0] == s.Split('.')[0])
                 {
-                    sim += 0.1;
+                    sim += 0;
                     if (area.Split('.')[1] == s.Split('.')[1])
                     {
-                        sim += 0.2;
+                        sim += 0;
                         if (area == s)
                         {
-                            sim += 0.4;
+                            sim += 0.58853287442871;
                         }
                     }
                 }
@@ -97,12 +98,17 @@ namespace ElectionPredictFinal.Pages.Classes
                     }
                 }
             }
+            mydirection *= 2.59321812206597;
             myyearcloseness = 0.0;
             myyearcloseness = 1.0 - (Convert.ToDouble(Math.Abs(myyear - Convert.ToInt32(year))) / Convert.ToDouble(Math.Abs(DateTime.Now.Year - 1866)));
+            myyearcloseness *= 2.18031429886914;
+            double k = 6.11344946885748;
+            double x0 = 8.22524548243595;
+            myweight = 1 / (1 + Math.Pow(Math.E, -k * (mysimilarity + mydirection + myyearcloseness - x0)));
         }
         public double similarity
         {
-            get { return mysimilarity; }
+            get { return myweight; }
         }
         public Dictionary<string, int[]> cantonvotes
         {
@@ -119,14 +125,6 @@ namespace ElectionPredictFinal.Pages.Classes
         public int year
         {
             get { return myyear; }
-        }
-        public double direction
-        {
-            get { return mydirection; }
-        }
-        public double yeardifference
-        {
-            get { return myyearcloseness; }
         }
     }
 }

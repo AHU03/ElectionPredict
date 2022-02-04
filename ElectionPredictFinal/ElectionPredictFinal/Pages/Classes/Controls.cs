@@ -54,7 +54,7 @@ namespace ElectionPredictFinal.Pages.Classes
                 };
                 Label topl = new Label()
                 {
-                    Text = Convert.ToString(Convert.ToInt32(biggestval * 2500.0)),
+                    Text = Convert.ToString(Convert.ToInt32(biggestval * 100)+"%"),
                     FontSize = 10,
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
@@ -63,7 +63,7 @@ namespace ElectionPredictFinal.Pages.Classes
                 };
                 Label midl = new Label()
                 {
-                    Text = Convert.ToString(Convert.ToInt32(biggestval * 2500.0/2.0)),
+                    Text = Convert.ToString(Convert.ToInt32(biggestval / 2.0*100)+"%"),
                     FontSize = 10,
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
@@ -72,7 +72,7 @@ namespace ElectionPredictFinal.Pages.Classes
                 };
                 Label zerol = new Label()
                 {
-                    Text = "0",
+                    Text = "0%",
                     FontSize = 10,
                     HorizontalTextAlignment = TextAlignment.Center,
                     VerticalTextAlignment = TextAlignment.Center,
@@ -84,7 +84,10 @@ namespace ElectionPredictFinal.Pages.Classes
                 legendstack.Children.Add(zerol);
                 legendstack.Children.Add(spacer);
                 returnstack.Children.Add(legendstack);
-                foreach (double i in mymaindict.Keys)
+                double max = 0.0;
+                double indexofmax = 0.0;
+                List<double> keylist = new List<double>();
+                foreach(double i in mymaindict.Keys)
                 {
                     Color bgcolor = yescolor;
                     if(i < 0.5)

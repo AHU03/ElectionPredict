@@ -12,12 +12,11 @@ namespace ElectionPredictFinal.Pages.Classes
         private string myname = "";
         private double mymean = 0.0;
         private double mystdev = 0.0;
-        private double mylastval = 0.0;
         private int mymeanvotes = 0;
         private double myn = 0;
         private Dictionary<int, int> myyesvotes = new Dictionary<int,int>();
         private Dictionary<int, int> mynovotes = new Dictionary<int, int>();
-        private Dictionary<Canton, double> mycantoncorrelations = new Dictionary<Canton, double>();
+        private Dictionary<int, double> myweights = new Dictionary<int, double>();
         private double myweight = 0.0;
         public Canton(string shorthand, string name, double weight)
         {
@@ -39,74 +38,60 @@ namespace ElectionPredictFinal.Pages.Classes
             double probs = 0.0;
             double probssquare = 0.0;
             double totvotes = 0.0;
+            myweights.Clear();
             foreach(Referendum r in refs)
             {
-                if (myyesvotes.Keys.ToList().Contains(r.index) && r.direction >= 0)
+                if (myyesvotes.Keys.ToList().Contains(r.index))
                 {
-                    double weight = Math.Pow(r.similarity * r.direction * r.yeardifference, 3.0);
+                    double weight = r.similarity;
+                    myweights.Add(r.index, weight);
                     double votes = Convert.ToDouble(myyesvotes[r.index]) / Convert.ToDouble(myyesvotes[r.index] + mynovotes[r.index]);
                     n += weight;
                     probs += weight * votes;
-                    probssquare += weight * Math.Pow(votes,2.0);
                     totvotes += weight * Convert.ToDouble(myyesvotes[r.index] + mynovotes[r.index]);
                 }
             }
             mymean = probs / n;
-            mystdev = Math.Sqrt(probssquare / n - Math.Pow(mymean, 2.0)) * 3 / Math.Max(n, 0.5);
+            foreach (Referendum r in refs)
+            {
+                if (myyesvotes.Keys.ToList().Contains(r.index))
+                {
+                    double weight = r.similarity;
+                    double votes = Convert.ToDouble(myyesvotes[r.index]) / Convert.ToDouble(myyesvotes[r.index] + mynovotes[r.index]);
+                    probssquare += weight * Math.Pow(votes - mymean, 2.0);
+                }
+            }
+            mystdev = Math.Sqrt(probssquare / n /(refs.Count - 1)*refs.Count);
             mymeanvotes = Convert.ToInt32(totvotes / n);
             myn = n;
-            GetRandResult(0.0);
         }
-        public void CantonsCorrelations(List<Canton> cantons)
+        public double CantonCovariance(Canton otherc)
         {
-            double x = 0.0;
-            double y = 0.0;
-            foreach(Canton c in cantons)
+            double xmean = mymean;
+            double ymean = otherc.distribution.Mean;
+            double runningsum = 0.0;
+            double sumofweights = 0.0;
+            foreach (int i in myyesvotes.Keys.ToList().Intersect(otherc.yesvotes.Keys.ToList()))
             {
-                foreach (int i in myyesvotes.Keys.ToList().Intersect(c.myyesvotes.Keys.ToList()))
-                {
-                    x += myyesvotes[i] / (myyesvotes[i] + mynovotes[i]);
-                    y += c.myyesvotes[i] / (c.myyesvotes[i] + c.mynovotes[i]);
-                };
-                x /= Convert.ToDouble(myyesvotes.Keys.Count);
-                y /= Convert.ToDouble(myyesvotes.Keys.Count);
-                double top = 0.0;
-                double bot1 = 0.0;
-                double bot2 = 0.0;
-                foreach (int i in myyesvotes.Keys.ToList().Intersect(c.myyesvotes.Keys.ToList()))
-                {
-                    top += (myyesvotes[i] - x) * (c.myyesvotes[i] - y);
-                    bot1 += (myyesvotes[i] - x) * (myyesvotes[i] - x);
-                    bot2 += (c.myyesvotes[i] - y) * (c.myyesvotes[i] - y);
-                }
-                double r = top / Math.Sqrt(bot1 * bot2);
-                mycantoncorrelations.Add(c, r);
+                sumofweights += myweights[i];
+                runningsum += myweights[i]*mymeanvotes*(((double)myyesvotes[i])/((double)(myyesvotes[i]+mynovotes[i])) - xmean) *otherc.meanvotes*(((double)otherc.yesvotes[i])/((double)(otherc.yesvotes[i]+otherc.novotes[i])) - ymean);
             }
+            return runningsum / sumofweights;
+        }
+        public double CantonCovarianceNonWeighted(Canton otherc)
+        {
+            double runningsum = 0.0;
+            double sumofweights = 0.0;
+            foreach (int i in myyesvotes.Keys.ToList().Intersect(otherc.yesvotes.Keys.ToList()))
+            {
+                sumofweights += 1.0;
+                runningsum += mymeanvotes * (((double)myyesvotes[i]) / ((double)(myyesvotes[i] + mynovotes[i])) - 0.5) * otherc.meanvotes * (((double)otherc.yesvotes[i]) / ((double)(otherc.yesvotes[i] + otherc.novotes[i])) - 0.5);
+            }
+            return runningsum / sumofweights;
         }
         public double weight
         {
             get { return myweight; }
-        }
-        public double randval
-        {
-            get { return mylastval; }
-        }
-        public Dictionary<Canton, double> correlations
-        {
-            get
-            {
-                Dictionary<Canton, double> returndict = new Dictionary<Canton, double>();
-                foreach (Canton c in mycantoncorrelations.Keys.ToList())
-                {
-                    returndict.Add(c, (mycantoncorrelations[c] - 0.9) *(mylastval - mymean));
-                }
-                return returndict;
-            }
-        }
-        public void GetRandResult(double weight)
-        {
-            Normal dist = new Normal(mymean + weight, mystdev);
-            mylastval = Math.Min(1.0, Math.Max(0.0, dist.Sample()));
         }
         public int meanvotes
         {
@@ -140,7 +125,22 @@ namespace ElectionPredictFinal.Pages.Classes
         }
         public Normal distribution
         {
-            get { return new Normal(mymean, mystdev); }
+            get {return new Normal(mymean, mystdev); }
         }
+        public Dictionary<int, int> yesvotes
+        {
+            get
+            {
+                return myyesvotes;
+            }
+        }
+        public Dictionary<int, int> novotes
+        {
+            get
+            {
+                return mynovotes;
+            }
+        }
+
     }
 }

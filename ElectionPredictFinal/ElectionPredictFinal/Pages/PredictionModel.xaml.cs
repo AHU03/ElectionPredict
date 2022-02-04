@@ -1,11 +1,11 @@
 ﻿using ElectionPredictFinal.Pages.Classes;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 
 using Xamarin.Forms;
@@ -51,8 +51,10 @@ namespace ElectionPredictFinal.Pages
             {
                 while (!reader.EndOfStream)
                 {
+                    NumberFormatInfo dot = new NumberFormatInfo();
+                    dot.NumberDecimalSeparator = ".";
                     var line = reader.ReadLine().Split('\t');
-                    Cantons.Add(new Canton(line[0], line[1], Convert.ToDouble(line[2])));
+                    Cantons.Add(new Canton(line[0], line[1], Convert.ToDouble(line[2], dot)));
                 }
             }
             foreach(Canton c in Cantons)
@@ -61,10 +63,6 @@ namespace ElectionPredictFinal.Pages
                 {
                     c.AddReferendum(r);
                 }
-            }
-            foreach (Canton c in Cantons)
-            {
-                c.CantonsCorrelations(Cantons);
             }
         }
         private void LoadSideBar()
@@ -323,17 +321,22 @@ namespace ElectionPredictFinal.Pages
                 ResultsStack.Children.Remove(v);
             }
             SimResults Sim = new SimResults(Cantons, type.selectedindex == "1" || type.selectedindex == "3" || type.selectedindex == "4");
-            for(int i = 0; i < 2500; i++)
+            LoadingLabel.Text = "Generiere Matrizen...";
+            await Task.Run(() => Sim.GenerateStructure());
+            for (int i = 0; i < 10000; i++)
             {
-                double p = Convert.ToDouble(i) / 2500.0;
-                LoadingLabel.Text = String.Format("{0:0.00}%",p * 100);
-                LoadingFrame.WidthRequest = p * LoadingStack.Width;
-                await Task.Run(()=>Sim.RunSim(1));
+                double p = Convert.ToDouble(i) / 1.0;
+                LoadingLabel.Text = String.Format("Erstellt Simulationen: {0:0.00}%",p * 100/10000);
+                LoadingFrame.WidthRequest = p/10000.00 * LoadingStack.Width;
+                await Task.Run(()=>Sim.AddSims(100));
             }
+            LoadingLabel.Text = "Wertet aus...";
+            await Task.Run(() => Sim.LoopAndCalc());
             MainButton.IsEnabled = true;
             LoadingStack.IsVisible = false;
             ResultsStack.IsVisible = true;
             Simulation = Sim;
+            LoadingFrame.WidthRequest = 0;
             CreateResultsStack();
         }
         private void CreateResultsStack()
@@ -373,7 +376,7 @@ namespace ElectionPredictFinal.Pages
                 infostring.Append(String.Format("\nMittelwert der Ja-Stände: {0:0.0}", Simulation.meanstände));
             }
             infostring.Append(String.Format("\nAnteil der Simulationen mit angenommener Vorlage: {0:0.00}%", Simulation.percentageyes*100));
-            infostring.Append("\nVertrauen in die Vorhersage: " +Cantons[0].confidence);
+            //infostring.Append("\nVertrauen in die Vorhersage: " +Cantons[0].confidence);
             infostring.Append("\nÄhnlichste gefundene Vorlagen:");
             Referendum[] rs = TopRefs();
             for(int i = 1; i < 6; i++)
@@ -453,7 +456,7 @@ namespace ElectionPredictFinal.Pages
             Dictionary<Referendum, double> dict = new Dictionary<Referendum, double>();
             foreach (Referendum r in Referendums)
             {
-                dict.Add(r, r.similarity * r.direction * r.yeardifference);
+                dict.Add(r, r.similarity);
             }
             for(int i = 0; i < rs.Length; i++)
             {
