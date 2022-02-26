@@ -53,10 +53,7 @@ namespace ElectionPredictFinal.Pages.Classes
             mynumsections = numsections;
             mysections = sections;
         }
-        public int index
-        {
-            get { return myindex; }
-        }
+        public int index { get { return myindex; } }
         public string title { get { return mytitle; } }
         public int year { get { return myyear; } }
         public string domain { get { return mydomain; } }

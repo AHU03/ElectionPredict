@@ -18,7 +18,6 @@ namespace ElectionPredictFinal.Pages
             ContentPage DV = new DataViewer();
             ContentPage PI = new PartyInfluence();
             PredictionModel PM = new PredictionModel();
-            PM.LoadAll();
             DataViewerTab.Content = DV;
             PartyInfluenceTab.Content = PI;
             PredicitonModelTab.Content = PM;

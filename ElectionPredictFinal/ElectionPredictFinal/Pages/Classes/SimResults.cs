@@ -9,8 +9,8 @@ namespace ElectionPredictFinal.Pages.Classes
     class SimResults
     {
         private List<Canton> mybaselist = new List<Canton>();
-        private double[] meanvector;
-        private double[,] covariancematrix;
+        private double[] mymeanvector;
+        private double[,] mycovariancematrix;
         private bool myStändemehr = false;
         private double mytotnationalvotes = 0.0;
         private MultivariateNormalDistribution mydist;
@@ -25,42 +25,23 @@ namespace ElectionPredictFinal.Pages.Classes
         {
             mybaselist = Cantons;
             myStändemehr = stm;
-            meanvector = new double[mybaselist.Count];
-            covariancematrix = new double[mybaselist.Count, mybaselist.Count];
+            mymeanvector = new double[mybaselist.Count];
+            mycovariancematrix = new double[mybaselist.Count, mybaselist.Count];
         }
         public void GenerateStructure()
         {
             Console.WriteLine("Generating Matrices");
-            try
+            for (int i = 0; i < mybaselist.Count; i++)
             {
-                for (int i = 0; i < mybaselist.Count; i++)
+                mymeanvector[i] = mybaselist[i].meanvotes * mybaselist[i].distribution.Mean;
+                mytotnationalvotes += mybaselist[i].meanvotes;
+                mytotcantonweights += mybaselist[i].weight;
+                for (int j = 0; j < mybaselist.Count; j++)
                 {
-                    meanvector[i] = mybaselist[i].meanvotes * mybaselist[i].distribution.Mean;
-                    mytotnationalvotes += mybaselist[i].meanvotes;
-                    mytotcantonweights += mybaselist[i].weight;
-                    for (int j = 0; j < mybaselist.Count; j++)
-                    {
-                        covariancematrix[i, j] = mybaselist[i].CantonCovariance(mybaselist[j]);
-                    }
+                    mycovariancematrix[i, j] = mybaselist[i].CantonCovariance(mybaselist[j]);
                 }
-                mydist = new MultivariateNormalDistribution(meanvector, covariancematrix);
             }
-            catch
-            {
-                mytotnationalvotes = 0;
-                mytotcantonweights = 0;
-                for (int i = 0; i < mybaselist.Count; i++)
-                {
-                    meanvector[i] = mybaselist[i].meanvotes * mybaselist[i].distribution.Mean;
-                    mytotnationalvotes += mybaselist[i].meanvotes;
-                    mytotcantonweights += mybaselist[i].weight;
-                    for (int j = 0; j < mybaselist.Count; j++)
-                    {
-                        covariancematrix[i, j] = mybaselist[i].CantonCovarianceNonWeighted(mybaselist[j]);
-                    }
-                }
-                mydist = new MultivariateNormalDistribution(meanvector, covariancematrix);
-            }
+            mydist = new MultivariateNormalDistribution(mymeanvector, mycovariancematrix);
         }
         public void AddSims(int i) {
             Console.WriteLine("Generating Samples");

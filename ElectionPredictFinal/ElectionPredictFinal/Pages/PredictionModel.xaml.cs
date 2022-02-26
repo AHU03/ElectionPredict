@@ -27,6 +27,7 @@ namespace ElectionPredictFinal.Pages
         public PredictionModel()
         {
             InitializeComponent();
+            LoadAll();
         }
         public void LoadAll()
         {
@@ -331,12 +332,12 @@ namespace ElectionPredictFinal.Pages
                 await Task.Run(()=>Sim.AddSims(100));
             }
             LoadingLabel.Text = "Wertet aus...";
+            LoadingFrame.WidthRequest = 0;
             await Task.Run(() => Sim.LoopAndCalc());
             MainButton.IsEnabled = true;
             LoadingStack.IsVisible = false;
             ResultsStack.IsVisible = true;
             Simulation = Sim;
-            LoadingFrame.WidthRequest = 0;
             CreateResultsStack();
         }
         private void CreateResultsStack()

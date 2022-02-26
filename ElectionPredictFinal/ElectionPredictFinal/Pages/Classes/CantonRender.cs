@@ -44,7 +44,7 @@ namespace ElectionPredictFinal.Pages.Classes
             Stream output = new MemoryStream(byteArray);
             sksvg.Load(output);
             mypanel.PaintSurface += mappanel_PaintSurface;
-            mypanel.InvalidateSurface();
+            mypanel.InvalidateSurface(); //Calls PaintSurface-Function
         }
         private void mappanel_PaintSurface(object sender, SKPaintSurfaceEventArgs e)
         {

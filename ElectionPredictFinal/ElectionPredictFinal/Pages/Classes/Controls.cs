@@ -84,9 +84,6 @@ namespace ElectionPredictFinal.Pages.Classes
                 legendstack.Children.Add(zerol);
                 legendstack.Children.Add(spacer);
                 returnstack.Children.Add(legendstack);
-                double max = 0.0;
-                double indexofmax = 0.0;
-                List<double> keylist = new List<double>();
                 foreach(double i in mymaindict.Keys)
                 {
                     Color bgcolor = yescolor;
@@ -397,7 +394,7 @@ namespace ElectionPredictFinal.Pages.Classes
                         selarea += s;
                         AreaLabelLink[selarea].BackgroundColor = Color.Gray;
                     }
-                    //Implementierung der Rekursivität wird einer anderen Person als Aufgabe überlassen.
+                    //Implementierung der Rekursion wird einer anderen Person als Aufgabe überlassen.
                     if (TappedIndex.Split('.').Length >= 1)
                     {
                         mySecondLevelStack.Children.Clear();
@@ -455,7 +452,7 @@ namespace ElectionPredictFinal.Pages.Classes
     }
     public class ThreewaySwitch
     {
-        private string myactivstate = "";
+        private string myactivestate = "";
         private bool myreport = false;
         private Color mybgcolor = Color.FromHex("#282828");
         private Color myactivecolor = Color.Gray;
@@ -499,29 +496,29 @@ namespace ElectionPredictFinal.Pages.Classes
             {
                 if (PartyInfluence.activevotes.ContainsKey(party) && myreport)
                 {
-                    if (myactivstate == ((Button)sender).Text)
+                    if (myactivestate == ((Button)sender).Text)
                     {
-                        myactivstate = "";
+                        myactivestate = "";
                         PartyInfluence.activevotes.Remove(party);
                     }
                     else
                     {
-                        myactivstate = ((Button)sender).Text;
-                        PartyInfluence.activevotes[party] = party.RequestVotes(myactivstate);
+                        myactivestate = ((Button)sender).Text;
+                        PartyInfluence.activevotes[party] = party.RequestVotes(myactivestate);
                     }
                 }
                 else
                 {
-                    if (myactivstate == ((Button)sender).Text)
+                    if (myactivestate == ((Button)sender).Text)
                     {
-                        myactivstate = "";
+                        myactivestate = "";
                     }
                     else
                     {
-                        myactivstate = ((Button)sender).Text;
+                        myactivestate = ((Button)sender).Text;
                         if (report)
                         {
-                            PartyInfluence.activevotes.Add(party, party.RequestVotes(myactivstate));
+                            PartyInfluence.activevotes.Add(party, party.RequestVotes(myactivestate));
                         }
 
                     }
@@ -567,18 +564,18 @@ namespace ElectionPredictFinal.Pages.Classes
         }
         public string activestate
         {
-            get { return myactivstate; }
+            get { return myactivestate; }
             set
             {
-                myactivstate = value;
+                myactivestate = value;
                 CheckActive();
             }
         }
-        void CheckActive()
+        private void CheckActive()
         {
             foreach (object o in s.Children)
             {
-                if (((Button)o).Text == myactivstate)
+                if (((Button)o).Text == myactivestate)
                 {
                     ((Button)o).BackgroundColor = myactivecolor;
                 }
