@@ -57,7 +57,7 @@ namespace ElectionPredictFinal.Pages
             try
             {
                 ErrorLabel.Text = "";
-                if (CompareGroup.IsVisible && SourceFormatType(source).Contains("MapVis"))
+                if (CompareGroup.IsVisible && SourceFormatType(source).Contains("MapVis")) //MapVis with Comparison
                 {
                     string voteslabel = MetaExtract(sourcecompare)[0] + " verglichen mit " + MetaExtract(source)[0];
                     bool popvote = false;
@@ -76,7 +76,7 @@ namespace ElectionPredictFinal.Pages
                         MetaLabeling(TitleShiftModifier(MetaExtract(sourcecompare)[2] + ", " + MetaExtract(sourcecompare)[1], sourcecompare, shiftcompare) + " -> " + TitleShiftModifier(MetaExtract(source)[2] + ", " + MetaExtract(source)[1], source, shift), "Vergleich, Balken oben zeigt Anzahl der Staaten in jeder Kategorie");
                     }
                 }
-                else if (SourceFormatType(source).Contains("MapVis"))
+                else if (SourceFormatType(source).Contains("MapVis")) //MapVis without Comparison
                 {
                     string voteslabel = MetaExtract(source)[0];
                     bool popvote = false;
@@ -99,7 +99,7 @@ namespace ElectionPredictFinal.Pages
                         DrawKeyBox(dict, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
                     }
                 }
-                else if (SourceFormatType(source).Contains("StatVis"))
+                else if (SourceFormatType(source).Contains("StatVis")) //Survey-Results, mostly Gallup
                 {
                     CreateMultipleBars(CreateStatDictionary(source), ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source));
                     MetaLabeling(MetaExtract(source)[2] + ", " + MetaExtract(source)[1] + ", " + MetaExtract(source)[0], MetaExtract(source)[5]);
@@ -110,7 +110,7 @@ namespace ElectionPredictFinal.Pages
                     }
                     DrawKeyBox(data, ColorCategories(source), GetGradient(MetaExtract(source)[4]));
                 }
-                else if (SourceFormatType(source).Contains("TableVis"))
+                else if (SourceFormatType(source).Contains("TableVis")) // Table-Vis, used for 13 Keys
                 {
                     Dictionary<string, string[]> dict = CreateTableDicitonary(source);
                     DrawElectoralVotes(false, false, true, new double[] { }, new SortedDictionary<string, string[]>(dict), ColorCategories(source), GetGradient(MetaExtract(source)[4]), MainParties(source), IncumbentModifier(MetaExtract(source)[0], MainParties(source)), " Schlüssel wahr", " Schlüssel falsch");
@@ -823,7 +823,7 @@ namespace ElectionPredictFinal.Pages
                     }
                     else
                     {
-                        dict.Add(key, new string[] { (dict2[key][0] + " -> " + dict1[key][0]), dict1[key][1] });
+                        dict.Add(key, new string[] { dict2[key][0] + " -> " + dict1[key][0], dict1[key][1] });
                     }
                 }
             }
@@ -906,7 +906,7 @@ namespace ElectionPredictFinal.Pages
         //Sets Text for Given Elements
         private void MetaLabeling(string title, string remarks)
         {
-            TitleLabel.Text = (title);
+            TitleLabel.Text = title;
             RemarkLabel.Text = remarks;
         }
         //Modifies Svg to contain correct Data and then renders it
